@@ -3,6 +3,22 @@ import authHeader from "../helpers/AuthHeader";
 import axios from "axios";
 
 export const loginUser = (username, password) => dispatch => {
-  //TODO: Action for login
-  axios.post("http://localhost:5000/users");
+  dispatch(request({ username }));
+  axios.post("http://localhost:5000/login", { username, password }).then(
+    user => {
+      dispatch(success(user));
+    },
+    error => {
+      dispatch(failure(error.toString()));
+    }
+  );
+  function request(user) {
+    return { type: LOGIN_REQUEST, user };
+  }
+  function success(user) {
+    return { type: LOGIN_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: LOGIN_FAILURE, error };
+  }
 };

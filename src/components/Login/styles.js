@@ -4,6 +4,9 @@ const styles = theme => ({
       backgroundColor: theme.palette.common.white
     }
   },
+  main: {
+    paddingBottom: theme.spacing(8)
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",

@@ -10,6 +10,9 @@ const styles = theme => ({
       marginRight: "auto"
     }
   },
+  newEmployee: {
+    paddingBottom: theme.spacing(8)
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",

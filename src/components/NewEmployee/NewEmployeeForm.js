@@ -78,7 +78,7 @@ function NewEmployeeForm(props) {
   } = props;
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main"className={classes.newEmployee} maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">

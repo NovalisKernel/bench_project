@@ -43,6 +43,9 @@
     ]
   },
   "devDependencies": {
-    "json-server": "^0.15.0"
+    "body-parser": "^1.19.0",
+    "fs": "0.0.1-security",
+    "json-server": "^0.15.0",
+    "jsonwebtoken": "^8.5.1"
   }
 }

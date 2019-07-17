@@ -9,6 +9,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import styles from "./styles";
 import {
   CardActions,
@@ -19,7 +20,7 @@ import {
 } from "@material-ui/core";
 
 function EmployeeCard(props) {
-  const { classes, image, firstname, lastname, skills } = props;
+  const { classes, image, firstname, lastname, skills, email, phone } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   function handleExpandClick() {
@@ -33,6 +34,12 @@ function EmployeeCard(props) {
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {firstname + " " + lastname}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            Email: {email}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            Phone: {phone}
           </Typography>
         </CardContent>
         <CardActions>
@@ -54,7 +61,15 @@ function EmployeeCard(props) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <List component="nav" aria-label="Skill list">
+            <List
+              component="nav"
+              aria-labelledby="skill-list"
+              subheader={
+                <ListSubheader component="div" id="skill-list">
+                  Skill list
+                </ListSubheader>
+              }
+            >
               {skills.map(skill => (
                 <ListItem button>
                   <ListItemText primary={skill.name} />

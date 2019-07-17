@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header() {
   const classes = useStyles();
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   return (
     <div className={classes.root}>
       <AppBar position="static">

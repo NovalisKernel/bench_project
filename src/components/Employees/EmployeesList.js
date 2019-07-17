@@ -10,13 +10,14 @@ import styles from "./styles";
 function EmployeesList(props) {
   const { results, classes } = props;
   return (
-    <Container component="main" className={classes.employeesList}>
+    <Container component="div" className={classes.employeesList}>
       <CssBaseline />
       <Grid
         container
         direction="row"
         justify="space-between"
         alignItems="flex-start"
+        spacing={6}
       >
         {employees.map(employee => (
           <EmployeeCard key={employee.id} {...employee} />

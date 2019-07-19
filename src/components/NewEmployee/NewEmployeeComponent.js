@@ -11,7 +11,7 @@ function NewEmployeeComponent(props) {
         techSkills: [
           {
             name: "",
-            description: ""
+            isPrimary: false
           }
         ]
       }}

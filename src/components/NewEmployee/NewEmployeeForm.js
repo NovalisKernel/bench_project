@@ -4,6 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import Checkbox from '@material-ui/core/Checkbox';
 import { FieldArray } from "formik";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -43,6 +44,11 @@ const TechSkillsList = props => {
                 }
                 label="Tech skill name"
                 InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Checkbox name={`techSkills[${index}].isPrimary`} value={`techSkills[${index}].isPrimary`} onChange={handleChange}/>
+                    </InputAdornment>
+                  ),
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton onClick={() => arrayHelpers.remove(index)}>
@@ -57,7 +63,7 @@ const TechSkillsList = props => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => arrayHelpers.push({ name: "", description: "" })}
+            onClick={() => arrayHelpers.push({ name: "", isPrimary: false })}
           >
             <AddCircle />
           </Button>

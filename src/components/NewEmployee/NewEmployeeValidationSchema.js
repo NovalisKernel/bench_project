@@ -1,4 +1,4 @@
-import { string, object, array } from "yup";
+import { string, object, array, boolean } from "yup";
 
 const NewEmployeeValidationSchema =  object().shape({
   firstName: string().required("Enter first name"),
@@ -8,9 +8,9 @@ const NewEmployeeValidationSchema =  object().shape({
   techSkills: array().of(
     object().shape({
       name: string().required("Enter name of tech skill"),
-      description: string().required("Enter description of tech skill")
+      isPrimary: boolean()
     })
-  )
+  ).min(1)
 });
 
 export default NewEmployeeValidationSchema;

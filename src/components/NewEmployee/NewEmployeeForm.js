@@ -4,7 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from "@material-ui/core/Checkbox";
 import { FieldArray } from "formik";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -46,12 +46,16 @@ const TechSkillsList = props => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Checkbox name={`techSkills[${index}].isPrimary`} value={`techSkills[${index}].isPrimary`} onChange={handleChange}/>
+                      <Checkbox
+                        name={`techSkills[${index}].isPrimary`}
+                        value={`techSkills[${index}].isPrimary`}
+                        onChange={handleChange}
+                      />
                     </InputAdornment>
                   ),
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton onClick={() => arrayHelpers.remove(index)}>
+                      <IconButton onClick={() => techSkills.length!==1?arrayHelpers.remove(index):null}>
                         <Delete />
                       </IconButton>
                     </InputAdornment>
@@ -80,11 +84,11 @@ function NewEmployeeForm(props) {
     touched,
     handleChange,
     handleBlur,
-    handleSubmit
+    handleSubmit,
+    values
   } = props;
-
   return (
-    <Container component="main"className={classes.newEmployee} maxWidth="xs">
+    <Container component="main" className={classes.newEmployee} maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
@@ -144,6 +148,37 @@ function NewEmployeeForm(props) {
             error={touched.education && Boolean(errors.education)}
             helperText={touched.education ? errors.education : ""}
             label="Education"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="group"
+            name="group"
+            autoComplete="group"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.group && Boolean(errors.group)}
+            helperText={touched.group ? errors.group : ""}
+            label="Group"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            type="date"
+            fullWidth
+            id="availabilityDate"
+            name="availabilityDate"
+            defaultValue={values.availabilityDate}
+            autoComplete="availabilityDate"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.availabilityDate && Boolean(errors.availabilityDate)}
+            helperText={touched.availabilityDate ? errors.availabilityDate : ""}
+            label="Availability date"
           />
           <TechSkillsList {...props} />
         </form>

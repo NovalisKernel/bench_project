@@ -1,5 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
+import moment from "moment";
+import dateFormat from "../../helpers/DateFormats";
 import NewEmployeeForm from "./NewEmployeeForm";
 import NewEmployeeValidationSchema from "./NewEmployeeValidationSchema";
 
@@ -8,6 +10,9 @@ function NewEmployeeComponent(props) {
     <Formik
       initialValues={{
         firstName: "",
+        lastName: "",
+        group: "",
+        availabilityDate: moment(Date.now()).format(dateFormat),
         techSkills: [
           {
             name: "",

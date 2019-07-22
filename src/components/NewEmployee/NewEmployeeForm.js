@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { FieldArray } from "formik";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -55,7 +56,13 @@ const TechSkillsList = props => {
                   ),
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton onClick={() => techSkills.length!==1?arrayHelpers.remove(index):null}>
+                      <IconButton
+                        onClick={() =>
+                          techSkills.length !== 1
+                            ? arrayHelpers.remove(index)
+                            : null
+                        }
+                      >
                         <Delete />
                       </IconButton>
                     </InputAdornment>
@@ -172,7 +179,18 @@ function NewEmployeeForm(props) {
             defaultValue={values.availabilityDate}
             autoComplete="availabilityDate"
             InputLabelProps={{
-              shrink: true,
+              shrink: true
+            }}
+            InputProps={{
+              disabled: values.fromNow,
+              endAdornment: (
+                <FormControlLabel
+                  value="start"
+                  control={<Checkbox name="fromNow" value="fromNow" onChange={handleChange} color="primary" />}
+                  label="From now"
+                  labelPlacement="start"
+                />
+              )
             }}
             onChange={handleChange}
             onBlur={handleBlur}

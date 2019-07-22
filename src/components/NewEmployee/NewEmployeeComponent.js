@@ -13,6 +13,7 @@ function NewEmployeeComponent(props) {
         lastName: "",
         group: "",
         availabilityDate: moment(Date.now()).format(dateFormat),
+        fromNow: false,
         techSkills: [
           {
             name: "",

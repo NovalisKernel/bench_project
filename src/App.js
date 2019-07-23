@@ -6,6 +6,7 @@ import store from "./redux/store";
 import LoginComponent from "./containers/login/LoginContainer";
 import EmployeesList from "./components/Employees/EmployeesList";
 import NewEmployeeComponent from "./components/NewEmployee/NewEmployeeComponent";
+import EditEmployeeComponent from "./components/EditEmployee/EditEmployeeComponent";
 
 function App() {
   return (
@@ -14,7 +15,11 @@ function App() {
         <Switch>
           <Route exact path="/" component={withLayout(EmployeesList)} />
           <Route path="/login" component={withLayout(LoginComponent)} />
-          <Route path="/new-employee" component={withLayout(NewEmployeeComponent)} />
+          <Route
+            path="/new-employee"
+            component={withLayout(NewEmployeeComponent)}
+          />
+          <Route path="/edit" component={withLayout(EditEmployeeComponent)} />
         </Switch>
       </Router>
     </Provider>

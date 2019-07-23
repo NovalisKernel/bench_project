@@ -28,6 +28,10 @@ const styles = theme => ({
   },
   expandOpen: {
     transform: "rotate(180deg)"
+  },
+  a: {
+    textDecoration: "none",
+    color: "inherit"
   }
 });
 

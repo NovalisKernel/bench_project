@@ -84,7 +84,7 @@ const TechSkillsList = props => {
   );
 };
 
-function NewEmployeeForm(props) {
+function EditEmployeeForm(props) {
   const {
     classes,
     errors,
@@ -206,4 +206,4 @@ function NewEmployeeForm(props) {
   );
 }
 
-export default withStyles(styles)(NewEmployeeForm);
+export default withStyles(styles)(EditEmployeeForm);

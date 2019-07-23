@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import { Link } from "react-router-dom";
 import styles from "./styles";
 import {
   CardActions,
@@ -20,13 +21,13 @@ import {
 } from "@material-ui/core";
 
 function EmployeeCard(props) {
-  const { classes, image, firstname, lastname, skills, email, phone } = props;
+  const { classes, image, firstname, lastname, skills, group } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   function handleExpandClick() {
     setExpanded(!expanded);
   }
-
+  const primarySkills = skills.filter(skill => skill.isPrimary === true);
   return (
     <Grid item>
       <Card className={classes.card}>
@@ -36,16 +37,30 @@ function EmployeeCard(props) {
             {firstname + " " + lastname}
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            Email: {email}
+            Group: {group}
           </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            Phone: {phone}
-          </Typography>
+          {primarySkills.length ? <List
+              component="nav"
+              aria-labelledby="primary-skills"
+              subheader={
+                <ListSubheader component="div" id="primary-skills">
+                  Primary skills
+                </ListSubheader>
+              }
+            >
+              {primarySkills.map(primarySkill => (
+                <ListItem button>
+                  <ListItemText primary={primarySkill.name} />
+                </ListItem>
+              ))}
+            </List>: null}
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary">
-            Edit user
-          </Button>
+          <Link className={classes.a} to="/edit">
+            <Button size="small" color="primary">
+              Edit user
+            </Button>
+          </Link>
           <Button size="small" color="primary">
             Delete user
           </Button>
@@ -70,7 +85,7 @@ function EmployeeCard(props) {
                 </ListSubheader>
               }
             >
-              {skills.map(skill => (
+              {skills.filter(skill=>skill.isPrimary!==true).map(skill => (
                 <ListItem button>
                   <ListItemText primary={skill.name} />
                 </ListItem>

@@ -6,11 +6,14 @@ const Employees = [
     "image": "https://i.pravatar.cc/300",
     "email": "brigitte.gregory@.net",
     "phone": "+375 (910) 451-3581",
+    "group": "D2.G3",
     "skills": [
       {
+        "isPrimary": true,
         "name": "Python"
       },
       {
+        "isPrimary": true,
         "name": "JS"
       },
       {
@@ -25,8 +28,10 @@ const Employees = [
     "image": "https://i.pravatar.cc/300",
     "email": "hawkins.hood@.us",
     "phone": "+375 (846) 501-2010",
+    "group": "D2.G3",
     "skills": [
       {
+        "isPrimary": true,
         "name": "Python"
       },
       {
@@ -44,6 +49,7 @@ const Employees = [
     "image": "https://i.pravatar.cc/300",
     "email": "landry.finley@.info",
     "phone": "+375 (879) 406-2457",
+    "group": "D2.G3",
     "skills": [
       {
         "name": "Python"
@@ -63,6 +69,7 @@ const Employees = [
     "image": "https://i.pravatar.cc/300",
     "email": "bond.skinner@.biz",
     "phone": "+375 (822) 572-3945",
+    "group": "D2.G3",
     "skills": [
       {
         "name": "Python"
@@ -82,6 +89,7 @@ const Employees = [
     "image": "https://i.pravatar.cc/300",
     "email": "aileen.blevins@.biz",
     "phone": "+375 (876) 415-2324",
+    "group": "D2.G3",
     "skills": [
       {
         "name": "Python"
@@ -101,6 +109,7 @@ const Employees = [
     "image": "https://i.pravatar.cc/300",
     "email": "duran.gray@.name",
     "phone": "+375 (925) 511-2738",
+    "group": "D2.G3",
     "skills": [
       {
         "name": "Python"
@@ -120,6 +129,7 @@ const Employees = [
     "image": "https://i.pravatar.cc/300",
     "email": "toni.jordan@.tv",
     "phone": "+375 (861) 434-3848",
+    "group": "D2.G3",
     "skills": [
       {
         "name": "Python"
@@ -139,6 +149,7 @@ const Employees = [
     "image": "https://i.pravatar.cc/300",
     "email": "malinda.horton@.ca",
     "phone": "+375 (939) 504-3891",
+    "group": "D2.G3",
     "skills": [
       {
         "name": "Python"

@@ -39,6 +39,7 @@ const TechSkillsList = props => {
                 name={`techSkills[${index}].name`}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                value={skill.name}
                 error={isError(index, "name")}
                 helperText={
                   isError(index, "name") ? errors.techSkills[index].name : null
@@ -50,6 +51,7 @@ const TechSkillsList = props => {
                       <Checkbox
                         name={`techSkills[${index}].isPrimary`}
                         value={`techSkills[${index}].isPrimary`}
+                        checked={skill.isPrimary}
                         onChange={handleChange}
                       />
                     </InputAdornment>
@@ -84,7 +86,7 @@ const TechSkillsList = props => {
   );
 };
 
-function NewEmployeeForm(props) {
+function EditEmployeeForm(props) {
   const {
     classes,
     errors,
@@ -109,6 +111,7 @@ function NewEmployeeForm(props) {
             id="firstName"
             name="firstName"
             autoComplete="firstName"
+            value={values.firstName}
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.firstName && Boolean(errors.firstName)}
@@ -122,6 +125,7 @@ function NewEmployeeForm(props) {
             fullWidth
             id="lastName"
             name="lastName"
+            value={values.lastName}
             autoComplete="lastName"
             onChange={handleChange}
             onBlur={handleBlur}
@@ -137,6 +141,7 @@ function NewEmployeeForm(props) {
             id="summary"
             name="summary"
             autoComplete="summary"
+            value={values.summary}
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.summary && Boolean(errors.summary)}
@@ -150,6 +155,7 @@ function NewEmployeeForm(props) {
             id="education"
             name="education"
             autoComplete="education"
+            value={values.education}
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.education && Boolean(errors.education)}
@@ -163,6 +169,7 @@ function NewEmployeeForm(props) {
             id="group"
             name="group"
             autoComplete="group"
+            value={values.group}
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.group && Boolean(errors.group)}
@@ -186,7 +193,14 @@ function NewEmployeeForm(props) {
               endAdornment: (
                 <FormControlLabel
                   value="start"
-                  control={<Checkbox name="fromNow" value="fromNow" onChange={handleChange} color="primary" />}
+                  control={
+                    <Checkbox
+                      name="fromNow"
+                      value="fromNow"
+                      onChange={handleChange}
+                      color="primary"
+                    />
+                  }
                   label="From now"
                   labelPlacement="start"
                 />
@@ -198,12 +212,34 @@ function NewEmployeeForm(props) {
             helperText={touched.availabilityDate ? errors.availabilityDate : ""}
             label="Availability date"
           />
+          <FormControlLabel
+            value="start"
+            control={
+              <Checkbox
+                name="onProject"
+                value="onProject"
+                checked={values.onProject}
+                onChange={handleChange}
+                color="primary"
+              />
+            }
+            label="On project"
+            labelPlacement="start"
+          />
           <TechSkillsList {...props} />
-          <Button className={classes.submit} variant="contained" color="primary" type="submit" fullWidth >Submit</Button>
+          <Button
+            className={classes.submit}
+            variant="contained"
+            color="primary"
+            type="submit"
+            fullWidth
+          >
+            Submit
+          </Button>
         </form>
       </div>
     </Container>
   );
 }
 
-export default withStyles(styles)(NewEmployeeForm);
+export default withStyles(styles)(EditEmployeeForm);

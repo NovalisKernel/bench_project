@@ -9,7 +9,6 @@ import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -25,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header() {
   const classes = useStyles();
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   return (
     <div className={classes.root}>
       <AppBar position="static">

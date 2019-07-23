@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Vadim.Shevkunov",
+      "firstname": "Vadim",
+      "lastname": "Shevkunov",
+      "password": 12345678,
+      "techSkills": []
+    },
+    {
+      "id": 2,
+      "username": "Ivan.Ivanov",
+      "firstname": "Ivan ",
+      "lastname": "Ivanov",
+      "password": 12345678,
+      "techSkills": []
+    }
+  ]
+}

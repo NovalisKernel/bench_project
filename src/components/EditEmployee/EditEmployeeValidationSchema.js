@@ -1,12 +1,13 @@
 import { string, object, array, boolean, date } from "yup";
 
-const NewEmployeeValidationSchema =  object().shape({
+const EditEmployeeValidationSchema =  object().shape({
   firstName: string().required("Enter first name"),
   lastName: string().required("Enter last name"),
   summary: string().required("Enter summary information"),
   group: string().required("Add group"),
   availabilityDate: date().required("Add availability date"),
   fromNow: boolean(),
+  onProject: boolean(),
   education: string().required("Enter education"),
   techSkills: array().of(
     object().shape({
@@ -16,4 +17,4 @@ const NewEmployeeValidationSchema =  object().shape({
   ).min(1)
 });
 
-export default NewEmployeeValidationSchema;
+export default EditEmployeeValidationSchema;

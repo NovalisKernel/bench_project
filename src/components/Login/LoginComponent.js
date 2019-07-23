@@ -9,8 +9,8 @@ const LoginComponent = props => {
       initialValues={{ username: "", password: "" }}
       validationSchema={LoginValidationSchema}
       onSubmit={values => {
-        const user = values;
-        props.loginUser(user);
+        const {username, password} = values;
+        props.loginUser(username, password);
       }}
       render={props => <LoginForm {...props} />}
     />

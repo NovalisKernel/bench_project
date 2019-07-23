@@ -19,7 +19,7 @@ function App() {
             path="/new-employee"
             component={withLayout(NewEmployeeComponent)}
           />
-          <Route path="/edit" component={withLayout(EditEmployeeComponent)} />
+          <Route path="/edit/:id" component={withLayout(EditEmployeeComponent)} />
         </Switch>
       </Router>
     </Provider>

@@ -21,7 +21,7 @@ import {
 } from "@material-ui/core";
 
 function EmployeeCard(props) {
-  const { classes, image, firstname, lastname, skills, group } = props;
+  const { classes, image, firstname, lastname, skills, group, id } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   function handleExpandClick() {
@@ -56,7 +56,7 @@ function EmployeeCard(props) {
             </List>: null}
         </CardContent>
         <CardActions>
-          <Link className={classes.a} to="/edit">
+          <Link className={classes.a} to={`/edit/${id}`}>
             <Button size="small" color="primary">
               Edit user
             </Button>

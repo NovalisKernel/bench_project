@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import styles from "./styles";
 import {
@@ -21,7 +23,17 @@ import {
 } from "@material-ui/core";
 
 function EmployeeCard(props) {
-  const { classes, image, firstname, lastname, skills, group, id } = props;
+  const {
+    classes,
+    image,
+    firstname,
+    lastname,
+    skills,
+    group,
+    id,
+    onproject,
+    availabilitydate
+  } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   function handleExpandClick() {
@@ -39,7 +51,24 @@ function EmployeeCard(props) {
           <Typography variant="subtitle1" gutterBottom>
             Group: {group}
           </Typography>
-          {primarySkills.length ? <List
+          <FormControlLabel
+            value="end"
+            control={
+              <Checkbox
+                name="onproject"
+                value="onproject"
+                checked={onproject}
+                color="primary"
+              />
+            }
+            label="On project"
+            labelPlacement="end"
+          />
+          <Typography variant="subtitle1" gutterBottom>
+            Availability date: {availabilitydate}
+          </Typography>
+          {primarySkills.length ? (
+            <List
               component="nav"
               aria-labelledby="primary-skills"
               subheader={
@@ -53,7 +82,8 @@ function EmployeeCard(props) {
                   <ListItemText primary={primarySkill.name} />
                 </ListItem>
               ))}
-            </List>: null}
+            </List>
+          ) : null}
         </CardContent>
         <CardActions>
           <Link className={classes.a} to={`/edit/${id}`}>
@@ -85,11 +115,13 @@ function EmployeeCard(props) {
                 </ListSubheader>
               }
             >
-              {skills.filter(skill=>skill.isPrimary!==true).map(skill => (
-                <ListItem button>
-                  <ListItemText primary={skill.name} />
-                </ListItem>
-              ))}
+              {skills
+                .filter(skill => skill.isPrimary !== true)
+                .map(skill => (
+                  <ListItem button>
+                    <ListItemText primary={skill.name} />
+                  </ListItem>
+                ))}
             </List>
           </CardContent>
         </Collapse>

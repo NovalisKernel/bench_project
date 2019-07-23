@@ -14,7 +14,7 @@ function EditEmployeeComponent(props) {
         lastName: employee.lastname,
         group: employee.group,
         availabilityDate: employee.availabilitydate,
-        onProject: false,
+        onProject: employee.onproject,
         fromNow: employee.fromnow,
         techSkills: employee.skills
       }}

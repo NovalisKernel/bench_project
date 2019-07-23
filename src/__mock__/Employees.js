@@ -1,12 +1,35 @@
 const Employees = [
   {
-    "id": "5d2ef4a2529193c759e65428",
-    "firstname": "Brigitte",
-    "lastname": "Gregory",
-    "image": "https://i.pravatar.cc/300",
-    "email": "brigitte.gregory@.net",
-    "phone": "+375 (910) 451-3581",
+    "id": "5d36ff94ee3b78ee945c998c",
+    "firstname": "Garrett",
+    "lastname": "Valdez",
+    "onproject": true,
+    "availabilitydate": "2014-06-19",
     "group": "D2.G3",
+    "image": "https://i.pravatar.cc/300",
+    "skills": [
+      {
+        "isPrimary": false,
+        "name": "Python"
+      },
+      {
+        "isPrimary": false,
+        "name": "JS"
+      },
+      {
+        "isPrimary": false,
+        "name": "Typescript"
+      }
+    ]
+  },
+  {
+    "id": "5d36ff944e69571c6fad87bd",
+    "firstname": "Marguerite",
+    "lastname": "Kim",
+    "onproject": true,
+    "availabilitydate": "2018-12-29",
+    "group": "D2.G3",
+    "image": "https://i.pravatar.cc/300",
     "skills": [
       {
         "isPrimary": true,
@@ -17,147 +40,168 @@ const Employees = [
         "name": "JS"
       },
       {
+        "isPrimary": false,
         "name": "Typescript"
       }
     ]
   },
   {
-    "id": "5d2ef4a2e57361d95aabb6de",
-    "firstname": "Hawkins",
-    "lastname": "Hood",
-    "image": "https://i.pravatar.cc/300",
-    "email": "hawkins.hood@.us",
-    "phone": "+375 (846) 501-2010",
+    "id": "5d36ff9488bddb2b1f59f266",
+    "firstname": "Montgomery",
+    "lastname": "Nielsen",
+    "onproject": true,
+    "availabilitydate": "2014-09-27",
     "group": "D2.G3",
+    "image": "https://i.pravatar.cc/300",
     "skills": [
+      {
+        "isPrimary": false,
+        "name": "Python"
+      },
+      {
+        "isPrimary": false,
+        "name": "JS"
+      },
       {
         "isPrimary": true,
-        "name": "Python"
-      },
-      {
-        "name": "JS"
-      },
-      {
         "name": "Typescript"
       }
     ]
   },
   {
-    "id": "5d2ef4a281adbf65c05e0621",
-    "firstname": "Landry",
-    "lastname": "Finley",
-    "image": "https://i.pravatar.cc/300",
-    "email": "landry.finley@.info",
-    "phone": "+375 (879) 406-2457",
+    "id": "5d36ff9480222633d3f5df14",
+    "firstname": "Carney",
+    "lastname": "Harmon",
+    "onproject": false,
+    "availabilitydate": "2019-04-03",
     "group": "D2.G3",
+    "image": "https://i.pravatar.cc/300",
     "skills": [
       {
+        "isPrimary": false,
         "name": "Python"
       },
       {
+        "isPrimary": true,
         "name": "JS"
       },
       {
+        "isPrimary": true,
         "name": "Typescript"
       }
     ]
   },
   {
-    "id": "5d2ef4a2719d37340e008248",
-    "firstname": "Bond",
+    "id": "5d36ff942d14829c8543cfb7",
+    "firstname": "Minnie",
+    "lastname": "Cross",
+    "onproject": true,
+    "availabilitydate": "2015-01-28",
+    "group": "D2.G3",
+    "image": "https://i.pravatar.cc/300",
+    "skills": [
+      {
+        "isPrimary": false,
+        "name": "Python"
+      },
+      {
+        "isPrimary": false,
+        "name": "JS"
+      },
+      {
+        "isPrimary": true,
+        "name": "Typescript"
+      }
+    ]
+  },
+  {
+    "id": "5d36ff94e677e3e7304cc131",
+    "firstname": "Patty",
+    "lastname": "Sampson",
+    "onproject": true,
+    "availabilitydate": "2014-04-30",
+    "group": "D2.G3",
+    "image": "https://i.pravatar.cc/300",
+    "skills": [
+      {
+        "isPrimary": false,
+        "name": "Python"
+      },
+      {
+        "isPrimary": false,
+        "name": "JS"
+      },
+      {
+        "isPrimary": false,
+        "name": "Typescript"
+      }
+    ]
+  },
+  {
+    "id": "5d36ff943c5538c58a1f3566",
+    "firstname": "Ashlee",
+    "lastname": "Saunders",
+    "onproject": false,
+    "availabilitydate": "2015-11-22",
+    "group": "D2.G3",
+    "image": "https://i.pravatar.cc/300",
+    "skills": [
+      {
+        "isPrimary": false,
+        "name": "Python"
+      },
+      {
+        "isPrimary": false,
+        "name": "JS"
+      },
+      {
+        "isPrimary": true,
+        "name": "Typescript"
+      }
+    ]
+  },
+  {
+    "id": "5d36ff94f85e88a55246830a",
+    "firstname": "Elma",
+    "lastname": "Mcleod",
+    "onproject": true,
+    "availabilitydate": "2015-12-24",
+    "group": "D2.G3",
+    "image": "https://i.pravatar.cc/300",
+    "skills": [
+      {
+        "isPrimary": false,
+        "name": "Python"
+      },
+      {
+        "isPrimary": true,
+        "name": "JS"
+      },
+      {
+        "isPrimary": false,
+        "name": "Typescript"
+      }
+    ]
+  },
+  {
+    "id": "5d36ff9458b0cb7edab3549f",
+    "firstname": "Freda",
     "lastname": "Skinner",
-    "image": "https://i.pravatar.cc/300",
-    "email": "bond.skinner@.biz",
-    "phone": "+375 (822) 572-3945",
+    "onproject": false,
+    "availabilitydate": "2015-09-21",
     "group": "D2.G3",
+    "image": "https://i.pravatar.cc/300",
     "skills": [
       {
+        "isPrimary": false,
         "name": "Python"
       },
       {
+        "isPrimary": true,
         "name": "JS"
       },
       {
-        "name": "Typescript"
-      }
-    ]
-  },
-  {
-    "id": "5d2ef4a2d7fb2fdf4d7432dc",
-    "firstname": "Aileen",
-    "lastname": "Blevins",
-    "image": "https://i.pravatar.cc/300",
-    "email": "aileen.blevins@.biz",
-    "phone": "+375 (876) 415-2324",
-    "group": "D2.G3",
-    "skills": [
-      {
-        "name": "Python"
-      },
-      {
-        "name": "JS"
-      },
-      {
-        "name": "Typescript"
-      }
-    ]
-  },
-  {
-    "id": "5d2ef4a279e452850b6398f1",
-    "firstname": "Duran",
-    "lastname": "Gray",
-    "image": "https://i.pravatar.cc/300",
-    "email": "duran.gray@.name",
-    "phone": "+375 (925) 511-2738",
-    "group": "D2.G3",
-    "skills": [
-      {
-        "name": "Python"
-      },
-      {
-        "name": "JS"
-      },
-      {
-        "name": "Typescript"
-      }
-    ]
-  },
-  {
-    "id": "5d2ef4a2805e30cb40b82f2e",
-    "firstname": "Toni",
-    "lastname": "Jordan",
-    "image": "https://i.pravatar.cc/300",
-    "email": "toni.jordan@.tv",
-    "phone": "+375 (861) 434-3848",
-    "group": "D2.G3",
-    "skills": [
-      {
-        "name": "Python"
-      },
-      {
-        "name": "JS"
-      },
-      {
-        "name": "Typescript"
-      }
-    ]
-  },
-  {
-    "id": "5d2ef4a24e9297447e105c69",
-    "firstname": "Malinda",
-    "lastname": "Horton",
-    "image": "https://i.pravatar.cc/300",
-    "email": "malinda.horton@.ca",
-    "phone": "+375 (939) 504-3891",
-    "group": "D2.G3",
-    "skills": [
-      {
-        "name": "Python"
-      },
-      {
-        "name": "JS"
-      },
-      {
+        "isPrimary": false,
         "name": "Typescript"
       }
     ]

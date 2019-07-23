@@ -218,6 +218,7 @@ function EditEmployeeForm(props) {
               <Checkbox
                 name="onProject"
                 value="onProject"
+                checked={values.onProject}
                 onChange={handleChange}
                 color="primary"
               />

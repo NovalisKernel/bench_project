@@ -7,6 +7,7 @@ const EditEmployeeValidationSchema =  object().shape({
   group: string().required("Add group"),
   availabilityDate: date().required("Add availability date"),
   fromNow: boolean(),
+  onProject: boolean(),
   education: string().required("Enter education"),
   techSkills: array().of(
     object().shape({

@@ -193,7 +193,14 @@ function EditEmployeeForm(props) {
               endAdornment: (
                 <FormControlLabel
                   value="start"
-                  control={<Checkbox name="fromNow" value="fromNow" onChange={handleChange} color="primary" />}
+                  control={
+                    <Checkbox
+                      name="fromNow"
+                      value="fromNow"
+                      onChange={handleChange}
+                      color="primary"
+                    />
+                  }
                   label="From now"
                   labelPlacement="start"
                 />
@@ -205,8 +212,29 @@ function EditEmployeeForm(props) {
             helperText={touched.availabilityDate ? errors.availabilityDate : ""}
             label="Availability date"
           />
+          <FormControlLabel
+            value="start"
+            control={
+              <Checkbox
+                name="onProject"
+                value="onProject"
+                onChange={handleChange}
+                color="primary"
+              />
+            }
+            label="On project"
+            labelPlacement="start"
+          />
           <TechSkillsList {...props} />
-          <Button className={classes.submit} variant="contained" color="primary" type="submit" fullWidth >Submit</Button>
+          <Button
+            className={classes.submit}
+            variant="contained"
+            color="primary"
+            type="submit"
+            fullWidth
+          >
+            Submit
+          </Button>
         </form>
       </div>
     </Container>

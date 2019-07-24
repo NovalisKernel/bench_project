@@ -13,6 +13,7 @@ function EditEmployeeComponent(props) {
         firstName: employee.firstname,
         lastName: employee.lastname,
         group: employee.group,
+        age: employee.age,
         availabilityDate: employee.availabilitydate,
         onProject: employee.onproject,
         fromNow: employee.fromnow,

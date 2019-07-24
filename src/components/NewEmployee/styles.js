@@ -35,6 +35,13 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing(3)
   },
+  input: {
+    display: "none"
+  },
+  button: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1)
+  },
   techSkills: {
     display: "flex",
     flexDirection: "row",

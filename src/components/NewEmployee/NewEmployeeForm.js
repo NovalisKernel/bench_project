@@ -172,6 +172,19 @@ function NewEmployeeForm(props) {
           <TextField
             variant="outlined"
             margin="normal"
+            fullWidth
+            id="age"
+            name="age"
+            autoComplete="age"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.age && Boolean(errors.age)}
+            helperText={touched.age ? errors.age : ""}
+            label="Age"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
             type="date"
             fullWidth
             id="availabilityDate"
@@ -186,7 +199,14 @@ function NewEmployeeForm(props) {
               endAdornment: (
                 <FormControlLabel
                   value="start"
-                  control={<Checkbox name="fromNow" value="fromNow" onChange={handleChange} color="primary" />}
+                  control={
+                    <Checkbox
+                      name="fromNow"
+                      value="fromNow"
+                      onChange={handleChange}
+                      color="primary"
+                    />
+                  }
                   label="From now"
                   labelPlacement="start"
                 />
@@ -198,8 +218,34 @@ function NewEmployeeForm(props) {
             helperText={touched.availabilityDate ? errors.availabilityDate : ""}
             label="Availability date"
           />
+          <input
+            accept="image/*"
+            className={classes.input}
+            id="contained-button-file"
+            multiple
+            type="file"
+          />
+          <label htmlFor="contained-button-file">
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              component="span"
+              className={classes.button}
+            >
+              Upload
+            </Button>
+          </label>
           <TechSkillsList {...props} />
-          <Button className={classes.submit} variant="contained" color="primary" type="submit" fullWidth >Submit</Button>
+          <Button
+            className={classes.submit}
+            variant="contained"
+            color="primary"
+            type="submit"
+            fullWidth
+          >
+            Submit
+          </Button>
         </form>
       </div>
     </Container>

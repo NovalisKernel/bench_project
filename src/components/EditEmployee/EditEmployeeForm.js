@@ -179,6 +179,20 @@ function EditEmployeeForm(props) {
           <TextField
             variant="outlined"
             margin="normal"
+            fullWidth
+            id="age"
+            name="age"
+            autoComplete="age"
+            value={values.age}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.age && Boolean(errors.age)}
+            helperText={touched.age ? errors.age : ""}
+            label="Age"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
             type="date"
             fullWidth
             id="availabilityDate"
@@ -227,6 +241,14 @@ function EditEmployeeForm(props) {
             labelPlacement="start"
           />
           <TechSkillsList {...props} />
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            fullWidth
+          >
+            Delete
+          </Button>
           <Button
             className={classes.submit}
             variant="contained"

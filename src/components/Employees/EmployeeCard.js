@@ -59,6 +59,7 @@ function EmployeeCard(props) {
                 value="onproject"
                 checked={onproject}
                 color="primary"
+                disabled={true}
               />
             }
             label="On project"

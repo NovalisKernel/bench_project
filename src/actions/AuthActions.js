@@ -1,10 +1,11 @@
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from "./constants";
 import authHeader from "../helpers/AuthHeader";
 import axios from "axios";
+import customAxios from "../helpers/AxiosRefreshToken";
 
 export const loginUser = (username, password) => dispatch => {
   dispatch(request({ username }));
-  axios.post("http://localhost:5000/login", { username, password }).then(
+  customAxios.post("http://localhost:5000/login", { username, password }).then(
     user => {
       dispatch(success(user));
     },

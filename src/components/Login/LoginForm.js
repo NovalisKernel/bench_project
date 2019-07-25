@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
+import customAxios from "../../helpers/AxiosRefreshToken";
 
 function LoginForm(props) {
   const {
@@ -16,6 +17,16 @@ function LoginForm(props) {
     handleBlur,
     handleSubmit
   } = props;
+  function testClick() {
+    const access_token = localStorage.getItem("access_token");
+    customAxios({
+      method: "POST",
+      url: "http://localhost:5000/test",
+      headers: {"Authorization": "Bearer " + access_token}
+    }).then(
+      console.log("TEST_REFRESH")
+    )
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -60,6 +71,15 @@ function LoginForm(props) {
             className={classes.submit}
           >
             Sign In
+          </Button>
+          <Button
+            onClick={testClick}
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Test
           </Button>
         </form>
       </div>

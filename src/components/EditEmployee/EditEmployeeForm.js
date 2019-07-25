@@ -9,6 +9,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { FieldArray } from "formik";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
+import AlertDialog from "../common/AlertDialog";
 import styles from "./styles";
 import { IconButton, InputAdornment } from "@material-ui/core";
 
@@ -96,6 +97,13 @@ function EditEmployeeForm(props) {
     handleSubmit,
     values
   } = props;
+  const [open, setOpen] = React.useState(false);
+  const openAlert = () => {
+    setOpen(true);
+  };
+  const closeAlert = () => {
+    setOpen(false);
+  };
   return (
     <Container component="main" className={classes.newEmployee} maxWidth="xs">
       <CssBaseline />
@@ -243,12 +251,14 @@ function EditEmployeeForm(props) {
           <TechSkillsList {...props} />
           <Button
             className={classes.button}
+            onClick={openAlert}
             variant="contained"
             color="primary"
             fullWidth
           >
             Delete
           </Button>
+          <AlertDialog open={open} closeAlert={closeAlert} values={values} />
           <Button
             className={classes.submit}
             variant="contained"

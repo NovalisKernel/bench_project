@@ -8,12 +8,14 @@ import LoginComponent from "./containers/login/LoginContainer";
 import EmployeesList from "./components/Employees/EmployeesList";
 import NewEmployeeComponent from "./components/NewEmployee/NewEmployeeComponent";
 import EditEmployeeComponent from "./components/EditEmployee/EditEmployeeComponent";
+import AppContainer from "./containers/App";
 
 function App() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Switch>
+        <AppContainer/>
+        {/* <Switch>
           <Route exact path="/" component={withLayout(EmployeesList)} />
           <Route path="/login" component={withLayout(LoginComponent)} />
           <Route
@@ -24,7 +26,7 @@ function App() {
             path="/edit/:id"
             component={withLayout(EditEmployeeComponent)}
           />
-        </Switch>
+        </Switch> */}
       </ConnectedRouter>
     </Provider>
   );

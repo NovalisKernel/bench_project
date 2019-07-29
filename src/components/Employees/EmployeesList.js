@@ -8,7 +8,7 @@ import employees from "../../__mock__/Employees";
 import styles from "./styles";
 
 function EmployeesList(props) {
-  const { results, classes } = props;
+  const { classes } = props;
   return (
     <Container component="div" className={classes.employeesList}>
       <CssBaseline />

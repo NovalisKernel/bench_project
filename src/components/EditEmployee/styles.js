@@ -33,7 +33,10 @@ const styles = theme => ({
     width: "100%"
   },
   submit: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(2)
+  },
+  button: {
+    marginTop: theme.spacing(2)
   },
   techSkills: {
     display: "flex",

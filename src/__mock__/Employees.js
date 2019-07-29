@@ -1,80 +1,36 @@
 const Employees = [
   {
-    "id": "5d36ff94ee3b78ee945c998c",
-    "firstname": "Garrett",
-    "lastname": "Valdez",
-    "onproject": true,
-    "availabilitydate": "2014-06-19",
-    "group": "D2.G3",
-    "image": "https://i.pravatar.cc/300",
-    "skills": [
-      {
-        "isPrimary": false,
-        "name": "Python"
-      },
-      {
-        "isPrimary": false,
-        "name": "JS"
-      },
-      {
-        "isPrimary": false,
-        "name": "Typescript"
-      }
-    ]
-  },
-  {
-    "id": "5d36ff944e69571c6fad87bd",
-    "firstname": "Marguerite",
-    "lastname": "Kim",
-    "onproject": true,
-    "availabilitydate": "2018-12-29",
-    "group": "D2.G3",
-    "image": "https://i.pravatar.cc/300",
-    "skills": [
-      {
-        "isPrimary": true,
-        "name": "Python"
-      },
-      {
-        "isPrimary": true,
-        "name": "JS"
-      },
-      {
-        "isPrimary": false,
-        "name": "Typescript"
-      }
-    ]
-  },
-  {
-    "id": "5d36ff9488bddb2b1f59f266",
-    "firstname": "Montgomery",
-    "lastname": "Nielsen",
-    "onproject": true,
-    "availabilitydate": "2014-09-27",
-    "group": "D2.G3",
-    "image": "https://i.pravatar.cc/300",
-    "skills": [
-      {
-        "isPrimary": false,
-        "name": "Python"
-      },
-      {
-        "isPrimary": false,
-        "name": "JS"
-      },
-      {
-        "isPrimary": true,
-        "name": "Typescript"
-      }
-    ]
-  },
-  {
-    "id": "5d36ff9480222633d3f5df14",
-    "firstname": "Carney",
-    "lastname": "Harmon",
+    "id": "5d386ef0141de28e3888851f",
+    "firstname": "Dionne",
+    "lastname": "Hubbard",
     "onproject": false,
-    "availabilitydate": "2019-04-03",
+    "availabilitydate": "2015-04-05",
     "group": "D2.G3",
+    "age": 34,
+    "image": "https://i.pravatar.cc/300",
+    "skills": [
+      {
+        "isPrimary": true,
+        "name": "Python"
+      },
+      {
+        "isPrimary": true,
+        "name": "JS"
+      },
+      {
+        "isPrimary": false,
+        "name": "Typescript"
+      }
+    ]
+  },
+  {
+    "id": "5d386ef05b69d8288658d970",
+    "firstname": "Parks",
+    "lastname": "Garza",
+    "onproject": false,
+    "availabilitydate": "2017-03-02",
+    "group": "D2.G3",
+    "age": 32,
     "image": "https://i.pravatar.cc/300",
     "skills": [
       {
@@ -86,22 +42,47 @@ const Employees = [
         "name": "JS"
       },
       {
+        "isPrimary": false,
+        "name": "Typescript"
+      }
+    ]
+  },
+  {
+    "id": "5d386ef0efab9cb678d7e04d",
+    "firstname": "Deann",
+    "lastname": "Small",
+    "onproject": false,
+    "availabilitydate": "2019-07-12",
+    "group": "D2.G3",
+    "age": 40,
+    "image": "https://i.pravatar.cc/300",
+    "skills": [
+      {
+        "isPrimary": false,
+        "name": "Python"
+      },
+      {
+        "isPrimary": false,
+        "name": "JS"
+      },
+      {
         "isPrimary": true,
         "name": "Typescript"
       }
     ]
   },
   {
-    "id": "5d36ff942d14829c8543cfb7",
-    "firstname": "Minnie",
-    "lastname": "Cross",
+    "id": "5d386ef0d526339aca3022a7",
+    "firstname": "Pace",
+    "lastname": "Bullock",
     "onproject": true,
-    "availabilitydate": "2015-01-28",
+    "availabilitydate": "2017-06-27",
     "group": "D2.G3",
+    "age": 27,
     "image": "https://i.pravatar.cc/300",
     "skills": [
       {
-        "isPrimary": false,
+        "isPrimary": true,
         "name": "Python"
       },
       {
@@ -115,16 +96,41 @@ const Employees = [
     ]
   },
   {
-    "id": "5d36ff94e677e3e7304cc131",
-    "firstname": "Patty",
-    "lastname": "Sampson",
-    "onproject": true,
-    "availabilitydate": "2014-04-30",
+    "id": "5d386ef01fb2e81555ca7e9c",
+    "firstname": "Cobb",
+    "lastname": "Burris",
+    "onproject": false,
+    "availabilitydate": "2015-04-21",
     "group": "D2.G3",
+    "age": 26,
     "image": "https://i.pravatar.cc/300",
     "skills": [
       {
-        "isPrimary": false,
+        "isPrimary": true,
+        "name": "Python"
+      },
+      {
+        "isPrimary": true,
+        "name": "JS"
+      },
+      {
+        "isPrimary": true,
+        "name": "Typescript"
+      }
+    ]
+  },
+  {
+    "id": "5d386ef0a182f508cec738c4",
+    "firstname": "Susie",
+    "lastname": "Yang",
+    "onproject": true,
+    "availabilitydate": "2019-03-25",
+    "group": "D2.G3",
+    "age": 33,
+    "image": "https://i.pravatar.cc/300",
+    "skills": [
+      {
+        "isPrimary": true,
         "name": "Python"
       },
       {
@@ -138,62 +144,17 @@ const Employees = [
     ]
   },
   {
-    "id": "5d36ff943c5538c58a1f3566",
-    "firstname": "Ashlee",
+    "id": "5d386ef00d63314301281b4b",
+    "firstname": "Helene",
     "lastname": "Saunders",
     "onproject": false,
-    "availabilitydate": "2015-11-22",
+    "availabilitydate": "2017-10-10",
     "group": "D2.G3",
+    "age": 34,
     "image": "https://i.pravatar.cc/300",
     "skills": [
-      {
-        "isPrimary": false,
-        "name": "Python"
-      },
-      {
-        "isPrimary": false,
-        "name": "JS"
-      },
       {
         "isPrimary": true,
-        "name": "Typescript"
-      }
-    ]
-  },
-  {
-    "id": "5d36ff94f85e88a55246830a",
-    "firstname": "Elma",
-    "lastname": "Mcleod",
-    "onproject": true,
-    "availabilitydate": "2015-12-24",
-    "group": "D2.G3",
-    "image": "https://i.pravatar.cc/300",
-    "skills": [
-      {
-        "isPrimary": false,
-        "name": "Python"
-      },
-      {
-        "isPrimary": true,
-        "name": "JS"
-      },
-      {
-        "isPrimary": false,
-        "name": "Typescript"
-      }
-    ]
-  },
-  {
-    "id": "5d36ff9458b0cb7edab3549f",
-    "firstname": "Freda",
-    "lastname": "Skinner",
-    "onproject": false,
-    "availabilitydate": "2015-09-21",
-    "group": "D2.G3",
-    "image": "https://i.pravatar.cc/300",
-    "skills": [
-      {
-        "isPrimary": false,
         "name": "Python"
       },
       {

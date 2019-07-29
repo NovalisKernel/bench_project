@@ -5,7 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,9 +21,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Header() {
+export default function Header(props) {
   const classes = useStyles();
-  const isAuthenticated = false;
+  const {isAuthenticate} = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -39,7 +38,7 @@ export default function Header() {
               <Button color="inherit">Add new</Button>
             </Link>
           </Typography>
-          {isAuthenticated ? (
+          {isAuthenticate ? (
             <Button color="inherit">Logout</Button>
           ) : (
             <Typography variant="h6">

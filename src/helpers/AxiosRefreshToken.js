@@ -1,12 +1,7 @@
 import axios from "axios";
 
 const customAxios = axios.create();
-const token = localStorage.getItem("access_token");
-if (token) {
-  customAxios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-} else {
-  delete axios.defaults.headers.common["Authorization"];
-}
+customAxios.defaults.baseURL = "https://morning-brushlands-61529.herokuapp.com";
 customAxios.interceptors.response.use(
   function(response) {
     return response;
@@ -60,8 +55,8 @@ async function resetTokenAndReattemptRequest(error) {
       }
       const newRefreshToken = response.data.refresh_token;
       const newAccessToken = response.data.access_token;
-      localStorage.setItem("refreshToken", newRefreshToken);
-      localStorage.setItem("accessToken", newAccessToken);
+      localStorage.setItem("refresh_token", newRefreshToken);
+      localStorage.setItem("access_token", newAccessToken);
       isAlreadyFetchingAccessToken = false;
       onAccessTokenFetched(newAccessToken);
     }

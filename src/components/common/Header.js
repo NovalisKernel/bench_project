@@ -7,8 +7,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-  },
+  root: {},
   menuButton: {
     marginRight: theme.spacing(2)
   },
@@ -23,7 +22,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const {isAuthenticate} = props;
+  const { isAuthenticate, user } = props;
+  function handlerLogout(e) {
+    e.preventDefault();
+    props.logout();
+  }
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -33,13 +36,22 @@ export default function Header(props) {
               iTechArt bench info
             </Link>
           </Typography>
-          <Typography variant="h6">
-            <Link className={classes.a} to="/new-employee">
-              <Button color="inherit">Add new</Button>
-            </Link>
-          </Typography>
+          {user && user.position === "Group Manager" ? (
+            <Typography variant="h6">
+              <Link className={classes.a} to="/new-employee">
+                <Button color="inherit">Add new</Button>
+              </Link>
+            </Typography>
+          ) : null}
           {isAuthenticate ? (
-            <Button color="inherit">Logout</Button>
+            <Button color="inherit">
+              {user.firstName} {user.lastName}
+            </Button>
+          ) : null}
+          {isAuthenticate ? (
+            <Button color="inherit" onClick={handlerLogout}>
+              Logout
+            </Button>
           ) : (
             <Typography variant="h6">
               <Link className={classes.a} to="/login">

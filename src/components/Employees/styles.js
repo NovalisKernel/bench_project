@@ -5,7 +5,9 @@ const styles = theme => ({
   card: {
     minWidth: 275,
     marginTop: theme.spacing(8),
-    minHeight: 300
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
   },
   media: {
     height: 300

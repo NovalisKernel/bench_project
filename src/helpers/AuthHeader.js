@@ -1,9 +1,7 @@
-export default function authHeader() {
-  let user = JSON.parse(localStorage.getItem("user"));
-
-  if (user && user.token) {
-    return { Authorization: "Bearer " + user.token };
+export default function setAuthHeader(axios_instance, token) {
+  if (token) {
+    axios_instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {
-    return {};
+    delete axios_instance.defaults.headers.common["Authorization"];
   }
 }

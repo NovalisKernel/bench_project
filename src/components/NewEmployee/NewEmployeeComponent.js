@@ -12,6 +12,7 @@ function NewEmployeeComponent(props) {
         firstName: "",
         lastName: "",
         group: "",
+        level: "",
         age: null,
         availabilityDate: moment(Date.now()).format(dateFormat),
         fromNow: false,

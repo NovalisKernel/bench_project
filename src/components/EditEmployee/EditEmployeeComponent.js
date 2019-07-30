@@ -6,7 +6,7 @@ import Employess from "../../__mock__/Employees";
 
 function EditEmployeeComponent(props) {
   const userId = props.match.params.id;
-  const employee = Employess.filter(emp => (emp.id === userId))[0];
+  const employee = Employess.filter(emp => emp.id === userId)[0];
   return (
     <Formik
       initialValues={{
@@ -14,6 +14,7 @@ function EditEmployeeComponent(props) {
         lastName: employee.lastname,
         group: employee.group,
         age: employee.age,
+        level: employee.level,
         availabilityDate: employee.availabilitydate,
         onProject: employee.onproject,
         fromNow: employee.fromnow,

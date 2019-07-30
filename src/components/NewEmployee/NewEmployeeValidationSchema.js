@@ -7,6 +7,7 @@ const NewEmployeeValidationSchema =  object().shape({
   group: string().required("Add group"),
   availabilityDate: date(),
   fromNow: boolean().required("Enter age"),
+  level: string().required("Enter english level"),
   age: number(),
   education: string().required("Enter education"),
   techSkills: array().of(

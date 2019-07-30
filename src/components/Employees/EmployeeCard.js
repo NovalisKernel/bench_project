@@ -31,6 +31,8 @@ function EmployeeCard(props) {
     group,
     id,
     age,
+    level,
+    manager,
     onproject,
     availabilitydate
   } = props;
@@ -52,6 +54,12 @@ function EmployeeCard(props) {
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
                 {group}
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                Manager: {manager}
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                English level: {level}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
                 Age: {age}

@@ -1,13 +1,17 @@
 import {
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
-  LOGIN_REQUEST
+  LOGIN_REQUEST,
+  LOGOUT
 } from "../actions/constants";
 
-const initialState = {
-  user: {},
-  isAuthenticate: false
-};
+let user = JSON.parse(localStorage.getItem("user"));
+const initialState = user
+  ? {
+      user: user,
+      isAuthenticate: true
+    }
+  : { user: {}, isAuthenticate: false };
 
 export default function authentication(state = initialState, action) {
   switch (action.type) {
@@ -23,6 +27,11 @@ export default function authentication(state = initialState, action) {
       };
     case LOGIN_FAILURE:
       return {};
+    case LOGOUT:
+      return {
+        isAuthenticate: false,
+        user: {}
+      };
     default:
       return state;
   }

@@ -16,7 +16,7 @@ function EmployeesList(props) {
         container
         direction="row"
         justify="space-between"
-        alignItems="flex-start"
+        alignItems="stretch"
         spacing={6}
       >
         {employees.map(employee => (

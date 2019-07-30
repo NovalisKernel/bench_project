@@ -160,6 +160,19 @@ function NewEmployeeForm(props) {
             variant="outlined"
             margin="normal"
             fullWidth
+            id="level"
+            name="level"
+            autoComplete="level"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.level && Boolean(errors.level)}
+            helperText={touched.level ? errors.level : ""}
+            label="Level"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
             id="group"
             name="group"
             autoComplete="group"

@@ -10,7 +10,8 @@ import { FieldArray } from "formik";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import { IconButton, InputAdornment } from "@material-ui/core";
+import EnglishLevels from "../../utils/EnglishLevels";
+import { IconButton, InputAdornment, FormControl, InputLabel, Select, MenuItem, OutlinedInput } from "@material-ui/core";
 
 const TechSkillsList = props => {
   const { values, handleBlur, handleChange, touched, errors, classes } = props;
@@ -85,6 +86,11 @@ const TechSkillsList = props => {
 };
 
 function NewEmployeeForm(props) {
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
   const {
     classes,
     errors,
@@ -156,19 +162,19 @@ function NewEmployeeForm(props) {
             helperText={touched.education ? errors.education : ""}
             label="Education"
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="level"
-            name="level"
-            autoComplete="level"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.level && Boolean(errors.level)}
-            helperText={touched.level ? errors.level : ""}
-            label="Level"
-          />
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel ref={inputLabel}>English level</InputLabel>
+            <Select
+              onChange={handleChange}
+              value={values.level}
+              input={<OutlinedInput labelWidth={labelWidth} name="level" id="level"/>}>
+                {EnglishLevels.map(item => (
+                  <MenuItem key={item._id} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+          </FormControl>
           <TextField
             variant="outlined"
             margin="normal"
@@ -185,10 +191,14 @@ function NewEmployeeForm(props) {
           <TextField
             variant="outlined"
             margin="normal"
+            type="date"
             fullWidth
             id="age"
             name="age"
             autoComplete="age"
+            InputLabelProps={{
+              shrink: true
+            }}
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.age && Boolean(errors.age)}

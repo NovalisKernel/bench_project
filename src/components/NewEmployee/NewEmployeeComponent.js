@@ -13,7 +13,7 @@ function NewEmployeeComponent(props) {
         lastName: "",
         group: "",
         level: "",
-        age: null,
+        age: moment(Date.now()).format(dateFormat),
         availabilityDate: moment(Date.now()).format(dateFormat),
         fromNow: false,
         techSkills: [

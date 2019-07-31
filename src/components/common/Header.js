@@ -44,11 +44,6 @@ export default function Header(props) {
             </Typography>
           ) : null}
           {isAuthenticate ? (
-            <Button color="inherit">
-              {user.firstName} {user.lastName}
-            </Button>
-          ) : null}
-          {isAuthenticate ? (
             <Button color="inherit" onClick={handlerLogout}>
               Logout
             </Button>

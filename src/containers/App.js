@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { withLayout } from "../hoc/WithLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import LoginComponent from "../containers/login/LoginContainer";
-import EmployeesList from "../components/Employees/EmployeesList";
+import EmployeesList from "../containers/employeesList/EmployeesListContainer";
 import NewEmployeeComponent from "../components/NewEmployee/NewEmployeeComponent";
 import EditEmployeeComponent from "../components/EditEmployee/EditEmployeeComponent";
 

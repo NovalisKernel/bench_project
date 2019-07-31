@@ -4,10 +4,20 @@ const styles = theme => ({
   },
   card: {
     minWidth: 275,
+    maxWidth: 275,
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between"
+  },
+  loader: {
+    position: "fixed",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    margin: "auto",
+    zIndex: 9999
   },
   media: {
     height: 300

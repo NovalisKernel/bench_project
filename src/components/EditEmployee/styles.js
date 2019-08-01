@@ -38,6 +38,15 @@ const styles = theme => ({
   button: {
     marginTop: theme.spacing(2)
   },
+  loader: {
+    position: "fixed",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    margin: "auto",
+    zIndex: 9999
+  },
   techSkills: {
     display: "flex",
     flexDirection: "row",
@@ -49,8 +58,8 @@ const styles = theme => ({
     flexDirection: "column"
   },
   formControl: {
-    width: "180px",
-    marginRight: "20px"
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1)
   },
   formTitle: {
     marginBottom: 0,

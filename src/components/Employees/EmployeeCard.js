@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import moment from "moment";
+import DateFormats from "../../helpers/DateFormats"
 // import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 // import List from "@material-ui/core/List";
@@ -31,7 +32,7 @@ function EmployeeCard(props) {
     skills,
     group,
     employerId,
-    age,
+    birthday,
     englishLevel,
     onProject,
     availabilityDate
@@ -66,7 +67,7 @@ function EmployeeCard(props) {
                 English level: {englishLevel}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                Age: {moment().diff(age, "years")}
+                Age: {moment().diff(moment(birthday, "DD/MM/YYYY").format(DateFormats), "years")}
               </Typography>
               {onProject ? (
                 <Typography variant="subtitle1" gutterBottom>

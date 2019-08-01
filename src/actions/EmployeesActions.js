@@ -42,6 +42,7 @@ export const getEmployeeDetails = id => async dispatch => {
     setAuthHeader(customAxios, token);
     const response = await customAxios.get(`/employees/${id}`);
     const employeeDetails = response.data;
+    console.log(employeeDetails);
     dispatch(success(employeeDetails));
   } catch (error) {
     dispatch(failure(error));
@@ -50,8 +51,8 @@ export const getEmployeeDetails = id => async dispatch => {
   function request() {
     return { type: EMPLOYEE_DETAILS_REQUEST };
   }
-  function success(employees) {
-    return { type: EMPLOYEE_DETAILS_SUCCESS, employees };
+  function success(employeeDetails) {
+    return { type: EMPLOYEE_DETAILS_SUCCESS, employeeDetails };
   }
   function failure(error) {
     return { type: EMPLOYEE_DETAILS_FAILURE, error };

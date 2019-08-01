@@ -4,13 +4,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 
 function LoginForm(props) {
   const {
-    isLoading,
     classes,
     errors,
     touched,
@@ -54,9 +52,6 @@ function LoginForm(props) {
             label="Password"
             type="password"
           />
-          {isLoading ? (
-            <CircularProgress className={classes.loader} />
-          ) : (
             <Button
               type="submit"
               fullWidth
@@ -66,7 +61,6 @@ function LoginForm(props) {
             >
               Sign In
             </Button>
-          )}
         </form>
       </div>
     </Container>

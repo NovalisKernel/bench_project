@@ -102,7 +102,9 @@ function EditEmployeeForm(props) {
     handleChange,
     handleBlur,
     handleSubmit,
-    values
+    values,
+    deleteEmployee,
+    match
   } = props;
   const [open, setOpen] = React.useState(false);
   const openAlert = () => {
@@ -280,7 +282,7 @@ function EditEmployeeForm(props) {
           >
             Delete
           </Button>
-          <AlertDialog open={open} closeAlert={closeAlert} values={values} />
+          <AlertDialog open={open} closeAlert={closeAlert} values={values} deleteEmployee={deleteEmployee} id={match.params.id} />
           <Button
             className={classes.submit}
             variant="contained"

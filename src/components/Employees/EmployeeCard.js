@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import moment from "moment";
-import DateFormats from "../../helpers/DateFormats"
+import DateFormats from "../../helpers/DateFormats";
 // import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 // import List from "@material-ui/core/List";
@@ -43,6 +43,8 @@ function EmployeeCard(props) {
   //   setExpanded(!expanded);
   // }
   const primarySkills = skills.filter(skill => skill.primary === true);
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
   return (
     <Grid item>
       <Card className={classes.card}>
@@ -67,16 +69,26 @@ function EmployeeCard(props) {
                 English level: {englishLevel}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                Age: {moment().diff(moment(birthday, "DD/MM/YYYY").format(DateFormats), "years")}
+                Age:{" "}
+                {moment(new Date()).diff(
+                  moment(birthday, "MM/DD/YYYY").format(DateFormats),
+                  "years"
+                )}
               </Typography>
               {onProject ? (
                 <Typography variant="subtitle1" gutterBottom>
                   On project
                 </Typography>
               ) : null}
-              <Typography variant="subtitle1" gutterBottom>
-                Availability date: {availabilityDate}
-              </Typography>
+              {new Date(availabilityDate) < now ? (
+                <Typography variant="subtitle1" gutterBottom>
+                  From now
+                </Typography>
+              ) : availabilityDate ? (
+                <Typography variant="subtitle1" gutterBottom>
+                  Availability date: {availabilityDate}
+                </Typography>
+              ) : null}
               {primarySkills.length ? (
                 <Typography variant="subtitle1" gutterBottom>
                   Primary skills:{" "}

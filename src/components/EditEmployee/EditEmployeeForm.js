@@ -12,7 +12,7 @@ import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AlertDialog from "../common/AlertDialog";
 import styles from "./styles";
-import EnglishLevels from "../../utils/EnglishLevels";
+import EnglishLevels from "../../enums/EnglishLevels";
 import { IconButton, InputAdornment, FormControl, InputLabel, Select, MenuItem, OutlinedInput } from "@material-ui/core";
 
 const TechSkillsList = props => {

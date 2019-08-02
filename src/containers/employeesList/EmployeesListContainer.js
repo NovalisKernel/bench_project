@@ -4,8 +4,8 @@ import EmployeesList from "../../components/Employees/EmployeesList";
 
 const mapDispatchToProps = dispatch => {
   return {
-    getEmployees: () => {
-      dispatch(getEmployees());
+    getEmployees: (query) => {
+      dispatch(getEmployees(query));
     }
   };
 };

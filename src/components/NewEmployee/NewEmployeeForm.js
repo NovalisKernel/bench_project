@@ -10,7 +10,7 @@ import { FieldArray, Field } from "formik";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import EnglishLevels from "../../utils/EnglishLevels";
+import EnglishLevels from "../../enums/EnglishLevels";
 import {
   IconButton,
   InputAdornment,

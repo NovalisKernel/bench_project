@@ -45,6 +45,14 @@ const styles = theme => ({
   a: {
     textDecoration: "none",
     color: "inherit"
+  },
+  formControl: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(1),
+    minWidth: 180
+  },
+  filterButton: {
+    marginTop: theme.spacing(5)
   }
 });
 

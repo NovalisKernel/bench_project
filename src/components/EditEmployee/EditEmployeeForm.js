@@ -6,12 +6,14 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { FieldArray } from "formik";
+import { FieldArray, Field } from "formik";
+import FormikDatePicker from "../../components/common/DatePicker";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AlertDialog from "../common/AlertDialog";
 import styles from "./styles";
-import { IconButton, InputAdornment } from "@material-ui/core";
+import EnglishLevels from "../../enums/EnglishLevels";
+import { IconButton, InputAdornment, FormControl, InputLabel, Select, MenuItem, OutlinedInput } from "@material-ui/core";
 
 const TechSkillsList = props => {
   const { values, handleBlur, handleChange, touched, errors, classes } = props;
@@ -37,22 +39,22 @@ const TechSkillsList = props => {
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                name={`techSkills[${index}].name`}
+                name={`techSkills[${index}].title`}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={skill.name}
-                error={isError(index, "name")}
+                value={skill.title}
+                error={isError(index, "title")}
                 helperText={
-                  isError(index, "name") ? errors.techSkills[index].name : null
+                  isError(index, "title") ? errors.techSkills[index].title : null
                 }
                 label="Tech skill name"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <Checkbox
-                        name={`techSkills[${index}].isPrimary`}
-                        value={`techSkills[${index}].isPrimary`}
-                        checked={skill.isPrimary}
+                        name={`techSkills[${index}].primary`}
+                        value={`techSkills[${index}].primary`}
+                        checked={skill.primary}
                         onChange={handleChange}
                       />
                     </InputAdornment>
@@ -88,6 +90,11 @@ const TechSkillsList = props => {
 };
 
 function EditEmployeeForm(props) {
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
   const {
     classes,
     errors,
@@ -109,7 +116,7 @@ function EditEmployeeForm(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          New employee
+          Edit employee
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
@@ -124,7 +131,7 @@ function EditEmployeeForm(props) {
             onBlur={handleBlur}
             error={touched.firstName && Boolean(errors.firstName)}
             helperText={touched.firstName ? errors.firstName : ""}
-            label="Firstname"
+            label="First name"
             autoFocus
           />
           <TextField
@@ -139,7 +146,7 @@ function EditEmployeeForm(props) {
             onBlur={handleBlur}
             error={touched.lastName && Boolean(errors.lastName)}
             helperText={touched.lastName ? errors.lastName : ""}
-            label="Lastname"
+            label="Last name"
           />
           <TextField
             variant="outlined"
@@ -170,6 +177,19 @@ function EditEmployeeForm(props) {
             helperText={touched.education ? errors.education : ""}
             label="Education"
           />
+          <FormControl variant="outlined" fullWidth className={classes.formControl}>
+            <InputLabel ref={inputLabel}>English level</InputLabel>
+            <Select
+              onChange={handleChange}
+              value={values.level}
+              input={<OutlinedInput labelWidth={labelWidth} name="level" id="level"/>}>
+                {EnglishLevels.map(item => (
+                  <MenuItem key={item._id} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+          </FormControl>
           <TextField
             variant="outlined"
             margin="normal"
@@ -184,21 +204,23 @@ function EditEmployeeForm(props) {
             helperText={touched.group ? errors.group : ""}
             label="Group"
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="age"
-            name="age"
-            autoComplete="age"
-            value={values.age}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.age && Boolean(errors.age)}
-            helperText={touched.age ? errors.age : ""}
-            label="Age"
-          />
-          <TextField
+          <FormControl className={classes.formControl} fullWidth>
+            <Field
+              component={FormikDatePicker}
+              name="age"
+              value={values.age}
+              label="Birthday date"
+            />
+          </FormControl>
+          <FormControl className={classes.formControl} fullWidth>
+            <Field
+              component={FormikDatePicker}
+              name="availabilityDate"
+              value={values.availabilityDate}
+              label="Availability date"
+            />
+          </FormControl>
+          {/* <TextField
             variant="outlined"
             margin="normal"
             type="date"
@@ -233,7 +255,7 @@ function EditEmployeeForm(props) {
             error={touched.availabilityDate && Boolean(errors.availabilityDate)}
             helperText={touched.availabilityDate ? errors.availabilityDate : ""}
             label="Availability date"
-          />
+          /> */}
           <FormControlLabel
             value="start"
             control={

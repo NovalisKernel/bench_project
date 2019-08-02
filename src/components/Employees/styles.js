@@ -4,8 +4,20 @@ const styles = theme => ({
   },
   card: {
     minWidth: 275,
+    maxWidth: 275,
     marginTop: theme.spacing(8),
-    minHeight: 300
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  loader: {
+    position: "fixed",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    margin: "auto",
+    zIndex: 9999
   },
   media: {
     height: 300
@@ -33,6 +45,14 @@ const styles = theme => ({
   a: {
     textDecoration: "none",
     color: "inherit"
+  },
+  formControl: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(1),
+    minWidth: 180
+  },
+  filterButton: {
+    marginTop: theme.spacing(5)
   }
 });
 

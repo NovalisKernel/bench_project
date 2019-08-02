@@ -5,6 +5,8 @@ import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
+import moment from "moment";
+import DateFormats from "../../helpers/DateFormats";
 // import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 // import List from "@material-ui/core/List";
@@ -24,50 +26,73 @@ import {
 function EmployeeCard(props) {
   const {
     classes,
-    image,
-    firstname,
-    lastname,
+    photoUrl,
+    firstName,
+    lastName,
     skills,
     group,
-    id,
-    age,
-    onproject,
-    availabilitydate
+    employerId,
+    birthday,
+    englishLevel,
+    onProject,
+    availabilityDate
   } = props;
   // const [expanded, setExpanded] = React.useState(false);
 
   // function handleExpandClick() {
   //   setExpanded(!expanded);
   // }
-  const primarySkills = skills.filter(skill => skill.isPrimary === true);
+  const primarySkills = skills.filter(skill => skill.primary === true);
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
   return (
     <Grid item>
       <Card className={classes.card}>
         <CardActionArea>
-          <Link className={classes.a} to={`/edit/${id}`}>
-            <CardMedia className={classes.media} image={image} title="Avatar" />
+          <Link className={classes.a} to={`/edit/${employerId}`}>
+            <CardMedia
+              className={classes.media}
+              image={photoUrl}
+              title="Avatar"
+            />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                {firstname + " " + lastname}
+                {firstName + " " + lastName}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                {group}
+                {group.name}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                Age: {age}
+                Manager: {group.manager.firstName} {group.manager.lastName}
               </Typography>
-              {onproject ? (
+              <Typography variant="subtitle1" gutterBottom>
+                English level: {englishLevel}
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                Age:{" "}
+                {moment(new Date()).diff(
+                  moment(birthday, "MM/DD/YYYY").format(DateFormats),
+                  "years"
+                )}
+              </Typography>
+              {onProject ? (
                 <Typography variant="subtitle1" gutterBottom>
                   On project
                 </Typography>
               ) : null}
-              <Typography variant="subtitle1" gutterBottom>
-                Availability date: {availabilitydate}
-              </Typography>
+              {new Date(availabilityDate) < now ? (
+                <Typography variant="subtitle1" gutterBottom>
+                  From now
+                </Typography>
+              ) : availabilityDate ? (
+                <Typography variant="subtitle1" gutterBottom>
+                  Availability date: {availabilityDate}
+                </Typography>
+              ) : null}
               {primarySkills.length ? (
                 <Typography variant="subtitle1" gutterBottom>
                   Primary skills:{" "}
-                  {primarySkills.map(skill => skill["name"]).join(", ")}
+                  {primarySkills.map(skill => skill["title"]).join(", ")}
                 </Typography>
               ) : null}
               {/* {primarySkills.length ? (

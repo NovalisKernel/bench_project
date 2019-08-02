@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 
@@ -52,15 +52,15 @@ function LoginForm(props) {
             label="Password"
             type="password"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
         </form>
       </div>
     </Container>

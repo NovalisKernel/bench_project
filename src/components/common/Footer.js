@@ -25,7 +25,7 @@ export default function StickyFooter() {
   return (
     <footer className={classes.footer}>
       <Container maxWidth="sm">
-        <Typography variant="h6">iTechart</Typography>
+        <Typography variant="h6">iTechArt</Typography>
       </Container>
     </footer>
   );

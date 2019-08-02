@@ -10,7 +10,11 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const mapStateToProps = state => ({
+  isLoading: state.authentification.isLoading
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(LoginComponent);

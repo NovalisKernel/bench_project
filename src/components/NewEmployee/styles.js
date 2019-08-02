@@ -53,8 +53,8 @@ const styles = theme => ({
     flexDirection: "column"
   },
   formControl: {
-    width: "180px",
-    marginRight: "20px"
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1)
   },
   formTitle: {
     marginBottom: 0,

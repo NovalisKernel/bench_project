@@ -28,6 +28,7 @@ export const loginUser = (username, password) => async dispatch => {
       console.log(user);
       localStorage.setItem("user", JSON.stringify(user));
       dispatch(success(user));
+      dispatch(alertActions.clear());
       dispatch(push("/"));
     } catch (error) {
       dispatch(failure(error));

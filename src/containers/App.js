@@ -2,21 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { withLayout } from "../hoc/WithLayout";
-import { history } from "../redux/store";
-import { alertActions } from "../actions/alertActions";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import LoginComponent from "../containers/login/LoginContainer";
 import EmployeesList from "../containers/employeesList/EmployeesListContainer";
 import NewEmployeeComponent from "../components/NewEmployee/NewEmployeeComponent";
 import EditEmployeeComponent from "../containers/employeesList/EditEmployeeContainer";
+import ErrorSnackbar from "../components/common/ErrorSnackbar";
 
 function App(props) {
-  const { dispatch } = props;
-  history.listen((location, action) => {
-    dispatch(alertActions.clear());
-  });
   return (
     <React.Fragment>
+      <ErrorSnackbar error={props.alert} />
       <Switch>
         <PrivateRoute
           exact
@@ -36,7 +32,8 @@ function App(props) {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticate: state.authentification.isAuthenticate
+  isAuthenticate: state.authentification.isAuthenticate,
+  alert: state.alert
 });
 
 export default connect(mapStateToProps)(App);

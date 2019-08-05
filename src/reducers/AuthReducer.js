@@ -18,7 +18,7 @@ export default function authentication(state = initialState, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
-        isAuthenticate: true,
+        isAuthenticate: false,
         user: action.user,
         isLoading: true
       };

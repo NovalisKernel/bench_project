@@ -14,7 +14,7 @@ import Ages from "../../enums/Ages";
 import Groups from "../../enums/Groups";
 
 function Filters(props) {
-  const { classes, values, handleChange, handleFilter } = props;
+  const { classes, values, handleChange, handleFilter, handleClear } = props;
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   React.useEffect(() => {
@@ -107,6 +107,11 @@ function Filters(props) {
       <Grid item>
         <Button size="large" variant="contained" color="primary" className={classes.filterButton} onClick={handleFilter}>
             Filter
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button size="large" variant="contained" color="primary" className={classes.filterButton} onClick={handleClear}>
+            Clear all
         </Button>
       </Grid>
     </Grid>

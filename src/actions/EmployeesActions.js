@@ -12,6 +12,7 @@ import {
 import customAxios from "../helpers/AxiosRefreshToken";
 import { tokenHelper } from "../helpers/TokenHelper";
 import setAuthHeader from "../helpers/AuthHeader";
+import { push } from "connected-react-router";
 import { alertActions } from "./alertActions";
 
 export const getEmployees = (query) => async dispatch => {
@@ -68,6 +69,8 @@ export const deleteEmployee = id => async dispatch => {
     setAuthHeader(customAxios, token);
     const response = await customAxios.delete(`/employees/${id}`);
     dispatch(success());
+    dispatch(push("/"))
+    dispatch(alertActions.success());
   } catch(error) {
     dispatch(failure(error));
     dispatch(alertActions.error(error));

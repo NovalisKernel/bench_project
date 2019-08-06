@@ -12,12 +12,19 @@ import styles from "./styles";
 function EmployeesList(props) {
   const { getEmployees, employees, isLoading, location, history } = props;
   const parsed = parse(location.search);
-  const [values, setValues] = React.useState({
+  const initialState = {
     age: parsed.age || "",
     group: parsed.group || "",
     sort: parsed.sort || "",
     available: parsed.available || ""
-  });
+  };
+  const clearState = {
+    age: "",
+    group: "",
+    sort: "",
+    available: ""
+  }
+  const [values, setValues] = React.useState(initialState);
   function handleChange(event) {
     setValues(oldValues => ({
       ...oldValues,
@@ -38,6 +45,11 @@ function EmployeesList(props) {
     const queryStringified = queryCreator(query);
     history.push(`${path}?${queryStringified}`);
   }
+  function handleClear() {
+    const path = location.pathname;
+    history.push(`${path}`);
+    setValues({ ...clearState });
+  }
   useEffect(() => {
     getEmployees(location.search);
   }, [getEmployees, location]);
@@ -49,6 +61,7 @@ function EmployeesList(props) {
         values={values}
         handleChange={handleChange}
         handleFilter={handleFilter}
+        handleClear={handleClear}
       />
       <Grid
         container

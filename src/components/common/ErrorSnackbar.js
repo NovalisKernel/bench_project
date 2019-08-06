@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import Button from "@material-ui/core/Button";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ErrorIcon from "@material-ui/icons/Error";
 import InfoIcon from "@material-ui/icons/Info";
@@ -84,8 +83,9 @@ MySnackbarContentWrapper.propTypes = {
 };
 
 export default function CustomizedSnackbars(props) {
-  const { error } = props;
-  const isError = error.message ? true : false;
+  const { alert, clearAlert } = props;
+  const isError = alert.message ? true : false;
+  const variant = alert.type;
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -96,7 +96,7 @@ export default function CustomizedSnackbars(props) {
     if (reason === "clickaway") {
       return;
     }
-
+    clearAlert();
     setOpen(false);
   }
 
@@ -105,17 +105,25 @@ export default function CustomizedSnackbars(props) {
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left"
+          horizontal: "right"
         }}
         open={open}
-        // autoHideDuration={6000}
+        autoHideDuration={5000}
         onClose={handleClose}
       >
-        <MySnackbarContentWrapper
-          onClose={handleClose}
-          variant="error"
-          message={error.message}
-        />
+        {variant === "alert-success" ? (
+          <MySnackbarContentWrapper
+            onClose={handleClose}
+            variant="success"
+            message={alert.message}
+          />
+        ) : variant === "alert-danger" ? (
+          <MySnackbarContentWrapper
+            onClose={handleClose}
+            variant="error"
+            message={alert.message}
+          />
+        ) : null}
       </Snackbar>
     </div>
   );

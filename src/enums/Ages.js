@@ -5,11 +5,11 @@ const Ages = [
   },
   {
     _id: "1",
-    name: "<20"
+    name: "<21"
   },
   {
     _id: "2",
-    name: ">20"
+    name: ">21"
   },
   {
     _id: "3",

@@ -7,12 +7,12 @@ import LoginComponent from "../containers/login/LoginContainer";
 import EmployeesList from "../containers/employeesList/EmployeesListContainer";
 import NewEmployeeComponent from "../components/NewEmployee/NewEmployeeComponent";
 import EditEmployeeComponent from "../containers/employeesList/EditEmployeeContainer";
-import ErrorSnackbar from "../components/common/ErrorSnackbar";
+import ErrorSnackbar from "../containers/alerts/AlertContainer";
 
 function App(props) {
   return (
     <React.Fragment>
-      <ErrorSnackbar error={props.alert} />
+      <ErrorSnackbar />
       <Switch>
         <PrivateRoute
           exact
@@ -32,8 +32,10 @@ function App(props) {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticate: state.authentification.isAuthenticate,
-  alert: state.alert
+  isAuthenticate: state.authentification.isAuthenticate
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(
+  mapStateToProps,
+  null
+)(App);

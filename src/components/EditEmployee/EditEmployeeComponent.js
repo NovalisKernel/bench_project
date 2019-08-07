@@ -9,25 +9,34 @@ import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 
 function EditEmployeeComponent(props) {
-  const { editUser, match, employee, isLoading, classes } = props;
-  let initialValues = { techSkills: [], level: "" };
+  const {
+    getEmployeeDetails,
+    editEmployee,
+    match,
+    employee,
+    isLoading,
+    classes
+  } = props;
+  let initialValues = { skills: [], englishLevel: "", group: { name: "" } };
   initialValues =
     Object.keys(employee).length === 0
       ? initialValues
       : (initialValues = {
           firstName: employee.firstName,
           lastName: employee.lastName,
-          group: employee.group.name,
-          age: employee.birthday,
-          level: employee.englishLevel,
+          summary: employee.summary,
+          education: employee.education,
+          englishLevel: employee.englishLevel,
+          group: employee.group,
+          birthday: employee.birthday,
           availabilityDate: employee.availabilityDate,
           onProject: employee.onProject,
           fromNow: true,
-          techSkills: employee.skills
+          skills: employee.skills
         });
   useEffect(() => {
-    editUser(match.params.id);
-  }, [editUser, match]);
+    getEmployeeDetails(match.params.id);
+  }, [getEmployeeDetails, match]);
   return isLoading ? (
     <div>
       <CircularProgress className={classes.loader} />
@@ -37,7 +46,9 @@ function EditEmployeeComponent(props) {
       <Formik
         initialValues={initialValues}
         validationSchema={EditEmployeeValidationSchema}
-        onSubmit={values => console.log(values)}
+        onSubmit={values => {
+          editEmployee(match.params.id, values);
+        }}
         render={formProps => <EditEmployeeForm {...formProps} {...props} />}
       />
     </MuiPickersUtilsProvider>

@@ -4,18 +4,21 @@ const EditEmployeeValidationSchema = object().shape({
   firstName: string().required("Enter first name"),
   lastName: string().required("Enter last name"),
   summary: string().required("Enter summary information"),
-  group: string().required("Add group"),
+  group: object()
+    .shape({
+      name: string()
+    })
+    .required("Add group"),
   availabilityDate: date(),
-  level: string().required("Enter english level"),
-  age: date().required("Enter age"),
-  fromNow: boolean(),
-  onProject: boolean(),
+  fromNow: boolean().required("Enter age"),
+  englishLevel: string().required("Enter english level"),
+  birthday: date().required("Enter birthday"),
   education: string().required("Enter education"),
-  techSkills: array()
+  skills: array()
     .of(
       object().shape({
-        name: string().required("Enter name of tech skill"),
-        isPrimary: boolean()
+        title: string().required("Enter name of tech skill"),
+        primary: boolean()
       })
     )
     .min(1)

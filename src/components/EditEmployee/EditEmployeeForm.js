@@ -13,47 +13,56 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AlertDialog from "../common/AlertDialog";
 import styles from "./styles";
 import EnglishLevels from "../../enums/EnglishLevels";
-import { IconButton, InputAdornment, FormControl, InputLabel, Select, MenuItem, OutlinedInput } from "@material-ui/core";
+import Groups from "../../enums/Groups";
+import {
+  IconButton,
+  InputAdornment,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  OutlinedInput
+} from "@material-ui/core";
 
 const TechSkillsList = props => {
   const { values, handleBlur, handleChange, touched, errors, classes } = props;
-  const { techSkills } = values;
+  const { skills } = values;
   const isError = (index, value) => {
     return (
-      Boolean(errors.techSkills) &&
-      Boolean(errors.techSkills[index]) &&
-      Boolean(errors.techSkills[index][value]) &&
-      touched.techSkills &&
-      touched.techSkills[index] &&
-      touched.techSkills[index][value]
+      Boolean(errors.skills) &&
+      Boolean(errors.skills[index]) &&
+      Boolean(errors.skills[index][value]) &&
+      touched.skills &&
+      touched.skills[index] &&
+      touched.skills[index][value]
     );
   };
   return (
     <FieldArray
-      name="techSkills"
+      name="skills"
       render={arrayHelpers => (
         <div className={classes.techSkillsList}>
-          {techSkills.map((skill, index) => (
+          {skills.map((skill, index) => (
             <div key={index} className={classes.techSkills}>
               <TextField
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                name={`techSkills[${index}].title`}
+                name={`skills[${index}].title`}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={skill.title}
                 error={isError(index, "title")}
                 helperText={
-                  isError(index, "title") ? errors.techSkills[index].title : null
+                  isError(index, "title") ? errors.skills[index].title : null
                 }
                 label="Tech skill name"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <Checkbox
-                        name={`techSkills[${index}].primary`}
-                        value={`techSkills[${index}].primary`}
+                        name={`skills[${index}].primary`}
+                        value={`skills[${index}].primary`}
                         checked={skill.primary}
                         onChange={handleChange}
                       />
@@ -63,7 +72,7 @@ const TechSkillsList = props => {
                     <InputAdornment position="end">
                       <IconButton
                         onClick={() =>
-                          techSkills.length !== 1
+                          skills.length !== 1
                             ? arrayHelpers.remove(index)
                             : null
                         }
@@ -106,6 +115,7 @@ function EditEmployeeForm(props) {
     deleteEmployee,
     match
   } = props;
+  console.log("VALUES", values);
   const [open, setOpen] = React.useState(false);
   const openAlert = () => {
     setOpen(true);
@@ -179,38 +189,59 @@ function EditEmployeeForm(props) {
             helperText={touched.education ? errors.education : ""}
             label="Education"
           />
-          <FormControl variant="outlined" fullWidth className={classes.formControl}>
+          <FormControl
+            variant="outlined"
+            fullWidth
+            className={classes.formControl}
+          >
             <InputLabel ref={inputLabel}>English level</InputLabel>
             <Select
               onChange={handleChange}
-              value={values.level}
-              input={<OutlinedInput labelWidth={labelWidth} name="level" id="level"/>}>
-                {EnglishLevels.map(item => (
-                  <MenuItem key={item._id} value={item.name}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
+              value={values.englishLevel}
+              input={
+                <OutlinedInput
+                  labelWidth={labelWidth}
+                  name="englishLevel"
+                  id="englishLevel"
+                />
+              }
+            >
+              {EnglishLevels.map(item => (
+                <MenuItem key={item._id} value={item.name}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
           </FormControl>
-          <TextField
+          <FormControl
             variant="outlined"
-            margin="normal"
             fullWidth
-            id="group"
-            name="group"
-            autoComplete="group"
-            value={values.group}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.group && Boolean(errors.group)}
-            helperText={touched.group ? errors.group : ""}
-            label="Group"
-          />
+            className={classes.formControl}
+          >
+            <InputLabel ref={inputLabel}>Group</InputLabel>
+            <Select
+              onChange={handleChange}
+              value={values.group.name}
+              input={
+                <OutlinedInput
+                  labelWidth={labelWidth}
+                  name="group.name"
+                  id="group.name"
+                />
+              }
+            >
+              {Groups.map(item => (
+                <MenuItem key={item._id} value={item.name}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <FormControl className={classes.formControl} fullWidth>
             <Field
               component={FormikDatePicker}
-              name="age"
-              value={values.age}
+              name="birthday"
+              value={values.birthday}
               label="Birthday date"
             />
           </FormControl>
@@ -222,42 +253,6 @@ function EditEmployeeForm(props) {
               label="Availability date"
             />
           </FormControl>
-          {/* <TextField
-            variant="outlined"
-            margin="normal"
-            type="date"
-            fullWidth
-            id="availabilityDate"
-            name="availabilityDate"
-            defaultValue={values.availabilityDate}
-            autoComplete="availabilityDate"
-            InputLabelProps={{
-              shrink: true
-            }}
-            InputProps={{
-              disabled: values.fromNow,
-              endAdornment: (
-                <FormControlLabel
-                  value="start"
-                  control={
-                    <Checkbox
-                      name="fromNow"
-                      value="fromNow"
-                      onChange={handleChange}
-                      color="primary"
-                    />
-                  }
-                  label="From now"
-                  labelPlacement="start"
-                />
-              )
-            }}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.availabilityDate && Boolean(errors.availabilityDate)}
-            helperText={touched.availabilityDate ? errors.availabilityDate : ""}
-            label="Availability date"
-          /> */}
           <FormControlLabel
             value="start"
             control={
@@ -282,7 +277,13 @@ function EditEmployeeForm(props) {
           >
             Delete
           </Button>
-          <AlertDialog open={open} closeAlert={closeAlert} values={values} deleteEmployee={deleteEmployee} id={match.params.id} />
+          <AlertDialog
+            open={open}
+            closeAlert={closeAlert}
+            values={values}
+            deleteEmployee={deleteEmployee}
+            id={match.params.id}
+          />
           <Button
             className={classes.submit}
             variant="contained"

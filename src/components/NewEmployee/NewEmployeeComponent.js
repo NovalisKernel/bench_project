@@ -2,7 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import moment from "moment";
 import dateFormat from "../../helpers/DateFormats";
-import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import NewEmployeeForm from "./NewEmployeeForm";
 import NewEmployeeValidationSchema from "./NewEmployeeValidationSchema";
@@ -14,21 +14,26 @@ function NewEmployeeComponent(props) {
         initialValues={{
           firstName: "",
           lastName: "",
-          group: "",
-          level: "",
-          age: moment(Date.now()).format(dateFormat),
+          summary: "",
+          education: "",
+          englishLevel: "",
+          group: {
+            name: ""
+          },
+          birthday: moment(Date.now()).format(dateFormat),
           availabilityDate: moment(Date.now()).format(dateFormat),
           fromNow: false,
-          techSkills: [
+          skills: [
             {
-              name: "",
-              isPrimary: false
+              title: "",
+              primary: false
             }
-          ]
+          ],
+          file: ""
         }}
         validationSchema={NewEmployeeValidationSchema}
         onSubmit={values => {
-          console.log(values);
+          props.addEmployee(values);
         }}
         render={formProps => <NewEmployeeForm {...formProps} {...props} />}
       />

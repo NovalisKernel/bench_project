@@ -1,13 +1,15 @@
 import React from "react";
 import { DatePicker } from "@material-ui/pickers";
+import moment from "moment";
+import dateFormat from "../../helpers/DateFormats";
 
 const FormikDatePicker = ({
-    name,
     form: { setFieldValue },
-    field: { value },
+    field: { value, name },
     label,
     ...rest
   }) => {
+    console.log(name);
     return (
       <DatePicker
         name={name}
@@ -19,7 +21,7 @@ const FormikDatePicker = ({
         format="MM/dd/yyyy"
         placeholder="10/10/2018"
         onChange={value => {
-          setFieldValue("name", value);
+          setFieldValue(name, moment(value).format(dateFormat));
         }}
         value={value}
         animateYearScrolling={false}

@@ -7,7 +7,13 @@ import {
   EMPLOYEE_DETAILS_FAILURE,
   EMPLOYEE_DELETE_REQUEST,
   EMPLOYEE_DELETE_SUCCESS,
-  EMPLOYEE_DELETE_FAILURE
+  EMPLOYEE_DELETE_FAILURE,
+  EMPLOYEE_ADD_REQUEST,
+  EMPLOYEE_ADD_SUCCESS,
+  EMPLOYEE_ADD_FAILURE,
+  EMPLOYEE_EDIT_REQUEST,
+  EMPLOYEE_EDIT_SUCCESS,
+  EMPLOYEE_EDIT_FAILURE
 } from "./constants";
 import customAxios from "../helpers/AxiosRefreshToken";
 import { tokenHelper } from "../helpers/TokenHelper";
@@ -15,7 +21,7 @@ import setAuthHeader from "../helpers/AuthHeader";
 import { push } from "connected-react-router";
 import { alertActions } from "./alertActions";
 
-export const getEmployees = (query) => async dispatch => {
+export const getEmployees = query => async dispatch => {
   dispatch(request());
   try {
     const token = tokenHelper.getAuthToken();
@@ -24,6 +30,9 @@ export const getEmployees = (query) => async dispatch => {
     const { content: employees } = response.data;
     dispatch(success(employees));
   } catch (error) {
+    if (error.message === "Request failed with status code 403") {
+      error.message = "You are not permitted for this";
+    }
     dispatch(failure(error));
     dispatch(alertActions.error(error));
   }
@@ -48,6 +57,9 @@ export const getEmployeeDetails = id => async dispatch => {
     const employeeDetails = response.data;
     dispatch(success(employeeDetails));
   } catch (error) {
+    if (error.message === "Request failed with status code 403") {
+      error.message = "You are not permitted for this";
+    }
     dispatch(failure(error));
     dispatch(alertActions.error(error));
   }
@@ -69,19 +81,73 @@ export const deleteEmployee = id => async dispatch => {
     setAuthHeader(customAxios, token);
     const response = await customAxios.delete(`/employees/${id}`);
     dispatch(success());
-    dispatch(push("/"))
+    dispatch(push("/"));
     dispatch(alertActions.success());
-  } catch(error) {
+  } catch (error) {
+    if (error.message === "Request failed with status code 403") {
+      error.message = "You are not permitted for this";
+    }
     dispatch(failure(error));
     dispatch(alertActions.error(error));
   }
   function request() {
     return { type: EMPLOYEE_DELETE_REQUEST };
-  };
+  }
   function success() {
     return { type: EMPLOYEE_DELETE_SUCCESS };
-  };
+  }
   function failure(error) {
     return { type: EMPLOYEE_DELETE_FAILURE };
   }
-}
+};
+
+export const addEmployee = values => async dispatch => {
+  dispatch(request());
+  try {
+    const token = tokenHelper.getAuthToken();
+    setAuthHeader(customAxios, token);
+    const response = await customAxios.post("/employees", values);
+    dispatch(success());
+    dispatch(push("/"));
+    dispatch(alertActions.success());
+  } catch (error) {
+    dispatch(failure(error));
+    dispatch(alertActions.error(error));
+  }
+  function request() {
+    return { type: EMPLOYEE_ADD_REQUEST };
+  }
+  function success() {
+    return { type: EMPLOYEE_ADD_SUCCESS };
+  }
+  function failure(error) {
+    return { type: EMPLOYEE_ADD_FAILURE };
+  }
+};
+
+export const editEmployee = (id, values) => async dispatch => {
+  dispatch(request());
+  try {
+    const token = tokenHelper.getAuthToken();
+    setAuthHeader(customAxios, token);
+    const response = await customAxios.put(`/employees/${id}`, values);
+    dispatch(success());
+    dispatch(push("/"));
+    dispatch(alertActions.success());
+  } catch (error) {
+    if (error.message === "Request failed with status code 403") {
+      error.message = "You are not permitted for this";
+    }
+    dispatch(failure(error));
+    dispatch(alertActions.error(error));
+  }
+  function request() {
+    return { type: EMPLOYEE_EDIT_REQUEST };
+  }
+  function success() {
+    return { type: EMPLOYEE_EDIT_SUCCESS };
+  }
+  function failure(error) {
+    return { type: EMPLOYEE_EDIT_FAILURE };
+  }
+};

@@ -10,7 +10,9 @@ import { FieldArray, Field } from "formik";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
+import UploadFile from "../common/FileUpload";
 import EnglishLevels from "../../enums/EnglishLevels";
+import Groups from "../../enums/Groups";
 import {
   IconButton,
   InputAdornment,
@@ -23,42 +25,42 @@ import {
 
 const TechSkillsList = props => {
   const { values, handleBlur, handleChange, touched, errors, classes } = props;
-  const { techSkills } = values;
+  const { skills } = values;
   const isError = (index, value) => {
     return (
-      Boolean(errors.techSkills) &&
-      Boolean(errors.techSkills[index]) &&
-      Boolean(errors.techSkills[index][value]) &&
-      touched.techSkills &&
-      touched.techSkills[index] &&
-      touched.techSkills[index][value]
+      Boolean(errors.skills) &&
+      Boolean(errors.skills[index]) &&
+      Boolean(errors.skills[index][value]) &&
+      touched.skills &&
+      touched.skills[index] &&
+      touched.skills[index][value]
     );
   };
   return (
     <FieldArray
-      name="techSkills"
+      name="skills"
       render={arrayHelpers => (
         <div className={classes.techSkillsList}>
-          {techSkills.map((skill, index) => (
+          {skills.map((skill, index) => (
             <div key={index} className={classes.techSkills}>
               <TextField
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                name={`techSkills[${index}].name`}
+                name={`skills[${index}].title`}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={isError(index, "name")}
+                error={isError(index, "title")}
                 helperText={
-                  isError(index, "name") ? errors.techSkills[index].name : null
+                  isError(index, "title") ? errors.skills[index].title : null
                 }
                 label="Tech skill name"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <Checkbox
-                        name={`techSkills[${index}].isPrimary`}
-                        value={`techSkills[${index}].isPrimary`}
+                        name={`skills[${index}].primary`}
+                        value={`skills[${index}].primary`}
                         onChange={handleChange}
                       />
                     </InputAdornment>
@@ -67,7 +69,7 @@ const TechSkillsList = props => {
                     <InputAdornment position="end">
                       <IconButton
                         onClick={() =>
-                          techSkills.length !== 1
+                          skills.length !== 1
                             ? arrayHelpers.remove(index)
                             : null
                         }
@@ -106,8 +108,10 @@ function NewEmployeeForm(props) {
     handleChange,
     handleBlur,
     handleSubmit,
-    values
+    values,
+    setFieldValue
   } = props;
+  console.log("PROPS:", props);
   return (
     <Container component="main" className={classes.newEmployee} maxWidth="xs">
       <CssBaseline />
@@ -178,12 +182,12 @@ function NewEmployeeForm(props) {
             <InputLabel ref={inputLabel}>English level</InputLabel>
             <Select
               onChange={handleChange}
-              value={values.level}
+              value={values.englishLevel}
               input={
                 <OutlinedInput
                   labelWidth={labelWidth}
-                  name="level"
-                  id="level"
+                  name="englishLevel"
+                  id="englishLevel"
                 />
               }
             >
@@ -194,24 +198,35 @@ function NewEmployeeForm(props) {
               ))}
             </Select>
           </FormControl>
-          <TextField
+          <FormControl
             variant="outlined"
-            margin="normal"
             fullWidth
-            id="group"
-            name="group"
-            autoComplete="group"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.group && Boolean(errors.group)}
-            helperText={touched.group ? errors.group : ""}
-            label="Group"
-          />
+            className={classes.formControl}
+          >
+            <InputLabel ref={inputLabel}>Group</InputLabel>
+            <Select
+              onChange={handleChange}
+              value={values.group.name}
+              input={
+                <OutlinedInput
+                  labelWidth={labelWidth}
+                  name="group.name"
+                  id="group.name"
+                />
+              }
+            >
+              {Groups.map(item => (
+                <MenuItem key={item._id} value={item.name}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <FormControl className={classes.formControl} fullWidth>
             <Field
               component={FormikDatePicker}
-              name="age"
-              value={values.age}
+              name="birthday"
+              value={values.birthday}
               label="Birthday date"
             />
           </FormControl>
@@ -223,24 +238,15 @@ function NewEmployeeForm(props) {
               label="Availability date"
             />
           </FormControl>
-          <input
-            accept="image/*"
-            className={classes.input}
-            id="contained-button-file"
-            multiple
-            type="file"
-          />
-          <label htmlFor="contained-button-file">
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              component="span"
-              className={classes.button}
-            >
-              Upload
-            </Button>
-          </label>
+          <FormControl className={classes.formControl} fullWidth>
+            <UploadFile
+              onChange={(id, data) => setFieldValue(id, data)}
+              classes={classes}
+              id="file"
+              name="file"
+              value={values.file}
+            />
+          </FormControl>
           <TechSkillsList {...props} />
           <Button
             className={classes.submit}

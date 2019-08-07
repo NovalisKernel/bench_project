@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import {
   getEmployeeDetails,
-  deleteEmployee
+  deleteEmployee,
+  editEmployee
 } from "../../actions/EmployeesActions";
 import EditEmployeeComponent from "../../components/EditEmployee/EditEmployeeComponent";
 
@@ -12,11 +13,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    editUser: id => {
+    getEmployeeDetails: id => {
       dispatch(getEmployeeDetails(id));
     },
     deleteEmployee: id => {
       dispatch(deleteEmployee(id));
+    },
+    editEmployee: (id, values) => {
+      dispatch(editEmployee(id, values))
     }
   };
 };

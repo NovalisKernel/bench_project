@@ -7,6 +7,7 @@ import LoginComponent from "../containers/login/LoginContainer";
 import EmployeesList from "../containers/employeesList/EmployeesListContainer";
 import NewEmployeeComponent from "../containers/employeesList/NewEmployeeContainer";
 import EditEmployeeComponent from "../containers/employeesList/EditEmployeeContainer";
+import NotFound from "../components/common/NotFound";
 import ErrorSnackbar from "../containers/alerts/AlertContainer";
 
 function App(props) {
@@ -27,6 +28,7 @@ function App(props) {
           isAuthenticate={props.isAuthenticate}
         />
         <Route path="/edit/:id" component={withLayout(EditEmployeeComponent)} />
+        <Route component={withLayout(NotFound)} />
       </Switch>
     </React.Fragment>
   );

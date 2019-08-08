@@ -25,7 +25,6 @@ export const loginUser = (username, password) => async dispatch => {
     try {
       const userResponse = await customAxios.get("auth/profile");
       const user = userResponse.data;
-      console.log(user);
       localStorage.setItem("user", JSON.stringify(user));
       dispatch(success(user));
       dispatch(alertActions.clear());

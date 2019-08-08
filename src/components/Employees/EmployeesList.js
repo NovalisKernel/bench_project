@@ -23,7 +23,7 @@ function EmployeesList(props) {
     group: "",
     sort: "",
     available: ""
-  }
+  };
   const [values, setValues] = React.useState(initialState);
   function handleChange(event) {
     setValues(oldValues => ({
@@ -63,21 +63,20 @@ function EmployeesList(props) {
         handleFilter={handleFilter}
         handleClear={handleClear}
       />
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="stretch"
-        spacing={6}
-      >
-        {isLoading ? (
-          <CircularProgress className={classes.loader} />
-        ) : (
-          employees.map(employee => (
-            <EmployeeCard key={employee.employerId} {...employee} />
-          ))
-        )}
-      </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          spacing={6}
+        >
+          {isLoading ? (
+            <CircularProgress className={classes.loader} />
+          ) : (
+            employees.map(employee => (
+              <EmployeeCard key={employee.employerId} {...employee} />
+            ))
+          )}
+        </Grid>
     </Container>
   );
 }

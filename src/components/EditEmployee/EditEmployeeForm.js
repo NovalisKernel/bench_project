@@ -115,7 +115,6 @@ function EditEmployeeForm(props) {
     deleteEmployee,
     match
   } = props;
-  console.log("VALUES", values);
   const [open, setOpen] = React.useState(false);
   const openAlert = () => {
     setOpen(true);

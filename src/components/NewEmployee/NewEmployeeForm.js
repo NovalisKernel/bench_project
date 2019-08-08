@@ -111,7 +111,6 @@ function NewEmployeeForm(props) {
     values,
     setFieldValue
   } = props;
-  console.log("PROPS:", props);
   return (
     <Container component="main" className={classes.newEmployee} maxWidth="xs">
       <CssBaseline />

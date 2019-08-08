@@ -9,7 +9,6 @@ const FormikDatePicker = ({
     label,
     ...rest
   }) => {
-    console.log(name);
     return (
       <DatePicker
         name={name}

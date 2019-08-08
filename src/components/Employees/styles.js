@@ -53,6 +53,10 @@ const styles = theme => ({
   },
   filterButton: {
     marginTop: theme.spacing(5)
+  },
+  list : {
+    display: "flex",
+    justifyContent: "center"
   }
 });
 

@@ -10,7 +10,11 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const mapStateToProps = state => ({
+  role: state.authentification.role
+})
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(NewEmployeeComponent);

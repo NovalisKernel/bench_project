@@ -7,6 +7,7 @@ const FormikDatePicker = ({
     form: { setFieldValue },
     field: { value, name },
     label,
+    disabled,
     ...rest
   }) => {
     return (
@@ -16,6 +17,7 @@ const FormikDatePicker = ({
         clearable
         autoOk
         label={label}
+        disabled={disabled}
         inputVariant="outlined"
         format="MM/dd/yyyy"
         placeholder="10/10/2018"

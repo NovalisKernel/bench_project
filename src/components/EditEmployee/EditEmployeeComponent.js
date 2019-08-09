@@ -30,7 +30,7 @@ function EditEmployeeComponent(props) {
           group: employee.group,
           birthday: employee.birthday,
           availabilityDate: employee.availabilityDate,
-          onProject: employee.onProject,
+          status: employee.status,
           fromNow: true,
           skills: employee.skills
         });

@@ -12,7 +12,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => ({
   employees: state.employeesList.employees,
-  isLoading: state.employeesList.isLoading
+  isLoading: state.employeesList.isLoading,
+  skills: state.skills.skills
 });
 
 export default connect(

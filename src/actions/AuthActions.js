@@ -37,6 +37,9 @@ export const loginUser = (username, password) => async dispatch => {
     if (error.message === "Request failed with status code 403") {
       error.message = "You are not permitted for this";
     }
+    else if (error.message === "Request failed with status code 400") {
+      error.message = "This username or password are incorrect"
+    }
     dispatch(failure(error));
     dispatch(alertActions.error(error));
   }

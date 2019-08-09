@@ -8,7 +8,8 @@ const styles = theme => ({
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    height: 650
   },
   loader: {
     position: "fixed",

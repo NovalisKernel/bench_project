@@ -8,7 +8,8 @@ import EditEmployeeComponent from "../../components/EditEmployee/EditEmployeeCom
 
 const mapStateToProps = state => ({
   employee: state.employee.employee,
-  isLoading: state.employee.isLoading
+  isLoading: state.employee.isLoading,
+  role: state.authentification.role
 });
 
 const mapDispatchToProps = dispatch => {

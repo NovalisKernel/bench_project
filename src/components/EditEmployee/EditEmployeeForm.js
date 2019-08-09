@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { FieldArray, Field } from "formik";
 import FormikDatePicker from "../../components/common/DatePicker";
 import { Delete, AddCircle } from "@material-ui/icons";
@@ -14,6 +13,7 @@ import AlertDialog from "../common/AlertDialog";
 import styles from "./styles";
 import EnglishLevels from "../../enums/EnglishLevels";
 import Groups from "../../enums/Groups";
+import EmployeeStatuses from "../../enums/EmployeeStatuses";
 import {
   IconButton,
   InputAdornment,
@@ -25,7 +25,15 @@ import {
 } from "@material-ui/core";
 
 const TechSkillsList = props => {
-  const { values, handleBlur, handleChange, touched, errors, classes } = props;
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    touched,
+    errors,
+    classes,
+    disabled
+  } = props;
   const { skills } = values;
   const isError = (index, value) => {
     return (
@@ -45,6 +53,7 @@ const TechSkillsList = props => {
           {skills.map((skill, index) => (
             <div key={index} className={classes.techSkills}>
               <TextField
+                disabled={disabled}
                 variant="outlined"
                 margin="normal"
                 fullWidth
@@ -64,6 +73,7 @@ const TechSkillsList = props => {
                         name={`skills[${index}].primary`}
                         value={`skills[${index}].primary`}
                         checked={skill.primary}
+                        disabled={disabled}
                         onChange={handleChange}
                       />
                     </InputAdornment>
@@ -76,6 +86,7 @@ const TechSkillsList = props => {
                             ? arrayHelpers.remove(index)
                             : null
                         }
+                        disabled={disabled}
                       >
                         <Delete />
                       </IconButton>
@@ -85,13 +96,15 @@ const TechSkillsList = props => {
               />
             </div>
           ))}
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => arrayHelpers.push({ name: "", isPrimary: false })}
-          >
-            <AddCircle />
-          </Button>
+          {!disabled ? (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => arrayHelpers.push({ name: "", isPrimary: false })}
+            >
+              <AddCircle />
+            </Button>
+          ) : null}
         </div>
       )}
     />
@@ -113,8 +126,10 @@ function EditEmployeeForm(props) {
     handleSubmit,
     values,
     deleteEmployee,
-    match
+    match,
+    role
   } = props;
+  const disabled = role === "Sale" ? true : false;
   const [open, setOpen] = React.useState(false);
   const openAlert = () => {
     setOpen(true);
@@ -131,6 +146,7 @@ function EditEmployeeForm(props) {
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
+            disabled={disabled}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -146,6 +162,7 @@ function EditEmployeeForm(props) {
             autoFocus
           />
           <TextField
+            disabled={disabled}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -160,6 +177,7 @@ function EditEmployeeForm(props) {
             label="Last name"
           />
           <TextField
+            disabled={disabled}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -175,6 +193,7 @@ function EditEmployeeForm(props) {
             label="Summary"
           />
           <TextField
+            disabled={disabled}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -189,6 +208,7 @@ function EditEmployeeForm(props) {
             label="Education"
           />
           <FormControl
+            disabled={disabled}
             variant="outlined"
             fullWidth
             className={classes.formControl}
@@ -199,7 +219,7 @@ function EditEmployeeForm(props) {
               value={values.englishLevel}
               input={
                 <OutlinedInput
-                  labelWidth={labelWidth}
+                  labelWidth={90}
                   name="englishLevel"
                   id="englishLevel"
                 />
@@ -213,6 +233,7 @@ function EditEmployeeForm(props) {
             </Select>
           </FormControl>
           <FormControl
+            disabled={disabled}
             variant="outlined"
             fullWidth
             className={classes.formControl}
@@ -223,7 +244,7 @@ function EditEmployeeForm(props) {
               value={values.group.name}
               input={
                 <OutlinedInput
-                  labelWidth={labelWidth}
+                  labelWidth={46}
                   name="group.name"
                   id="group.name"
                 />
@@ -236,8 +257,34 @@ function EditEmployeeForm(props) {
               ))}
             </Select>
           </FormControl>
+          <FormControl
+            disabled={disabled}
+            variant="outlined"
+            fullWidth
+            className={classes.formControl}
+          >
+            <InputLabel ref={inputLabel}>Employee status</InputLabel>
+            <Select
+              onChange={handleChange}
+              value={values.status}
+              input={
+                <OutlinedInput
+                  labelWidth={labelWidth}
+                  name="status"
+                  id="status"
+                />
+              }
+            >
+              {EmployeeStatuses.map(item => (
+                <MenuItem key={item._id} value={item.name}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <FormControl className={classes.formControl} fullWidth>
             <Field
+              disabled={disabled}
               component={FormikDatePicker}
               name="birthday"
               value={values.birthday}
@@ -246,52 +293,43 @@ function EditEmployeeForm(props) {
           </FormControl>
           <FormControl className={classes.formControl} fullWidth>
             <Field
+              disabled={disabled}
               component={FormikDatePicker}
               name="availabilityDate"
               value={values.availabilityDate}
               label="Availability date"
             />
           </FormControl>
-          <FormControlLabel
-            value="start"
-            control={
-              <Checkbox
-                name="onProject"
-                value="onProject"
-                checked={values.onProject}
-                onChange={handleChange}
+          <TechSkillsList {...props} disabled={disabled} />
+          {!disabled ? (
+            <React.Fragment>
+              <Button
+                className={classes.button}
+                onClick={openAlert}
+                variant="contained"
                 color="primary"
+                fullWidth
+              >
+                Delete
+              </Button>
+              <AlertDialog
+                open={open}
+                closeAlert={closeAlert}
+                values={values}
+                deleteEmployee={deleteEmployee}
+                id={match.params.id}
               />
-            }
-            label="On project"
-            labelPlacement="start"
-          />
-          <TechSkillsList {...props} />
-          <Button
-            className={classes.button}
-            onClick={openAlert}
-            variant="contained"
-            color="primary"
-            fullWidth
-          >
-            Delete
-          </Button>
-          <AlertDialog
-            open={open}
-            closeAlert={closeAlert}
-            values={values}
-            deleteEmployee={deleteEmployee}
-            id={match.params.id}
-          />
-          <Button
-            className={classes.submit}
-            variant="contained"
-            color="primary"
-            type="submit"
-            fullWidth
-          >
-            Submit
-          </Button>
+              <Button
+                className={classes.submit}
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth
+              >
+                Submit
+              </Button>
+            </React.Fragment>
+          ) : null}
         </form>
       </div>
     </Container>

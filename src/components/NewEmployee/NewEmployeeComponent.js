@@ -6,9 +6,11 @@ import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import NewEmployeeForm from "./NewEmployeeForm";
 import NewEmployeeValidationSchema from "./NewEmployeeValidationSchema";
+import { Redirect } from "react-router-dom";
 
 function NewEmployeeComponent(props) {
-  return (
+  const { role } = props;
+  return role !== "Sale" ? (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Formik
         initialValues={{
@@ -20,6 +22,7 @@ function NewEmployeeComponent(props) {
           group: {
             name: ""
           },
+          status: "",
           birthday: moment(Date.now()).format(dateFormat),
           availabilityDate: moment(Date.now()).format(dateFormat),
           fromNow: false,
@@ -38,6 +41,8 @@ function NewEmployeeComponent(props) {
         render={formProps => <NewEmployeeForm {...formProps} {...props} />}
       />
     </MuiPickersUtilsProvider>
+  ) : (
+    <Redirect to="/" />
   );
 }
 

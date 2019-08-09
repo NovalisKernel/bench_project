@@ -13,6 +13,7 @@ import styles from "./styles";
 import UploadFile from "../common/FileUpload";
 import EnglishLevels from "../../enums/EnglishLevels";
 import Groups from "../../enums/Groups";
+import EmployeeStatuses from "../../enums/EmployeeStatuses";
 import {
   IconButton,
   InputAdornment,
@@ -184,7 +185,7 @@ function NewEmployeeForm(props) {
               value={values.englishLevel}
               input={
                 <OutlinedInput
-                  labelWidth={labelWidth}
+                  labelWidth={90}
                   name="englishLevel"
                   id="englishLevel"
                 />
@@ -208,13 +209,37 @@ function NewEmployeeForm(props) {
               value={values.group.name}
               input={
                 <OutlinedInput
-                  labelWidth={labelWidth}
+                  labelWidth={46}
                   name="group.name"
                   id="group.name"
                 />
               }
             >
               {Groups.map(item => (
+                <MenuItem key={item._id} value={item.name}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl
+            variant="outlined"
+            fullWidth
+            className={classes.formControl}
+          >
+            <InputLabel ref={inputLabel}>Employee status</InputLabel>
+            <Select
+              onChange={handleChange}
+              value={values.status}
+              input={
+                <OutlinedInput
+                  labelWidth={labelWidth}
+                  name="status"
+                  id="status"
+                />
+              }
+            >
+              {EmployeeStatuses.map(item => (
                 <MenuItem key={item._id} value={item.name}>
                   {item.name}
                 </MenuItem>

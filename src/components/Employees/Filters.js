@@ -8,13 +8,22 @@ import {
   OutlinedInput,
   Button
 } from "@material-ui/core";
+import Autocomplete from "../common/Autocomplete";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import Ages from "../../enums/Ages";
 import Groups from "../../enums/Groups";
 
 function Filters(props) {
-  const { classes, values, handleChange, handleFilter, handleClear } = props;
+  const {
+    classes,
+    values,
+    handleChange,
+    handleSkillChange,
+    handleFilter,
+    handleClear,
+    skills
+  } = props;
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   React.useEffect(() => {
@@ -30,12 +39,14 @@ function Filters(props) {
     >
       <Grid item>
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} htmlFor="age">Age</InputLabel>
+          <InputLabel ref={inputLabel} htmlFor="age">
+            Age
+          </InputLabel>
           <Select
             onChange={handleChange}
             value={values.age}
             input={
-              <OutlinedInput labelWidth={labelWidth} name="age" id="age" />
+              <OutlinedInput labelWidth={28} name="age" id="age" />
             }
           >
             {Ages.map(item => (
@@ -48,12 +59,14 @@ function Filters(props) {
       </Grid>
       <Grid item>
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} htmlFor="group">Group</InputLabel>
+          <InputLabel ref={inputLabel} htmlFor="group">
+            Group
+          </InputLabel>
           <Select
             onChange={handleChange}
             value={values.group}
             input={
-              <OutlinedInput labelWidth={labelWidth} name="group" id="group" />
+              <OutlinedInput labelWidth={46} name="group" id="group" />
             }
           >
             {Groups.map(item => (
@@ -66,19 +79,17 @@ function Filters(props) {
       </Grid>
       <Grid item>
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} htmlFor="sort">Date</InputLabel>
+          <InputLabel ref={inputLabel} htmlFor="sort">
+            Date
+          </InputLabel>
           <Select
             onChange={handleChange}
             value={values.sort}
             input={
-              <OutlinedInput
-                labelWidth={labelWidth}
-                name="sort"
-                id="sort"
-              />
+              <OutlinedInput labelWidth={34} name="sort" id="sort" />
             }
           >
-            <MenuItem value=""></MenuItem>  
+            <MenuItem value="" />
             <MenuItem value="availabilityDate,asc">Ascending</MenuItem>
             <MenuItem value="availabilityDate,desc">Descending</MenuItem>
           </Select>
@@ -86,7 +97,9 @@ function Filters(props) {
       </Grid>
       <Grid item>
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} htmlFor="available">Available</InputLabel>
+          <InputLabel ref={inputLabel} htmlFor="available">
+            Available
+          </InputLabel>
           <Select
             onChange={handleChange}
             value={values.available}
@@ -98,20 +111,37 @@ function Filters(props) {
               />
             }
           >
-            <MenuItem value=""></MenuItem>  
+            <MenuItem value="" />
             <MenuItem value="true">Available</MenuItem>
             <MenuItem value="false">Not available</MenuItem>
           </Select>
         </FormControl>
       </Grid>
       <Grid item>
-        <Button size="large" variant="contained" color="primary" className={classes.filterButton} onClick={handleFilter}>
-            Filter
+        <FormControl variant="outlined" className={classes.formControl}>
+          <Autocomplete skills={skills} handleChange={handleSkillChange} values={values}/>
+        </FormControl>
+      </Grid>
+      <Grid item>
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          className={classes.filterButton}
+          onClick={handleFilter}
+        >
+          Filter
         </Button>
       </Grid>
       <Grid item>
-        <Button size="large" variant="contained" color="primary" className={classes.filterButton} onClick={handleClear}>
-            Clear all
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          className={classes.filterButton}
+          onClick={handleClear}
+        >
+          X
         </Button>
       </Grid>
     </Grid>

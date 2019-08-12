@@ -6,6 +6,7 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import EditEmployeeValidationSchema from "./EditEmployeeValidationSchema";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { withStyles } from "@material-ui/core/styles";
+import EditEmployeeForSale from "./EditEmployeeForSale";
 import styles from "./styles";
 
 function EditEmployeeComponent(props) {
@@ -15,8 +16,16 @@ function EditEmployeeComponent(props) {
     match,
     employee,
     isLoading,
-    classes
+    classes,
+    role
   } = props;
+  const EditForm = props => {
+    return role === "Sale" ? (
+      <EditEmployeeForSale {...props} />
+    ) : (
+      <EditEmployeeForm {...props} />
+    );
+  };
   let initialValues = { skills: [], englishLevel: "", group: { name: "" } };
   initialValues =
     Object.keys(employee).length === 0
@@ -32,7 +41,8 @@ function EditEmployeeComponent(props) {
           availabilityDate: employee.availabilityDate,
           status: employee.status,
           fromNow: true,
-          skills: employee.skills
+          skills: employee.skills,
+          photoUrl: employee.photoUrl
         });
   useEffect(() => {
     getEmployeeDetails(match.params.id);
@@ -49,7 +59,7 @@ function EditEmployeeComponent(props) {
         onSubmit={values => {
           editEmployee(match.params.id, values);
         }}
-        render={formProps => <EditEmployeeForm {...formProps} {...props} />}
+        render={formProps => <EditForm {...formProps} {...props} />}
       />
     </MuiPickersUtilsProvider>
   );

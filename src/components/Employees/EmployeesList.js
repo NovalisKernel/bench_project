@@ -112,7 +112,7 @@ function EmployeesList(props) {
           <CircularProgress className={classes.loader} />
         ) : (
           employees.map(employee => (
-            <EmployeeCard key={employee.employerId} {...employee} />
+            <EmployeeCard key={employee.employeeId} {...employee} />
           ))
         )}
       </Grid>

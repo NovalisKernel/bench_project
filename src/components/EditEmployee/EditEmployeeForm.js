@@ -10,6 +10,7 @@ import FormikDatePicker from "../../components/common/DatePicker";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AlertDialog from "../common/AlertDialog";
+import generateXlsx from "../../helpers/ExcelGeneretor";
 import styles from "./styles";
 import EnglishLevels from "../../enums/EnglishLevels";
 import Groups from "../../enums/Groups";
@@ -136,6 +137,9 @@ function EditEmployeeForm(props) {
   };
   const closeAlert = () => {
     setOpen(false);
+  };
+  const handleExcel = e => {
+    generateXlsx(values);
   };
   return (
     <Container component="main" className={classes.newEmployee} maxWidth="xs">
@@ -330,6 +334,15 @@ function EditEmployeeForm(props) {
               </Button>
             </React.Fragment>
           ) : null}
+          <Button
+            className={classes.button}
+            onClick={handleExcel}
+            variant="contained"
+            color="primary"
+            fullWidth
+          >
+            Excel
+          </Button>
         </form>
       </div>
     </Container>

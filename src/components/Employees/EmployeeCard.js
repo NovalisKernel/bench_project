@@ -31,7 +31,7 @@ function EmployeeCard(props) {
     lastName,
     skills,
     group,
-    employerId,
+    employeeId,
     birthday,
     englishLevel,
     onProject,
@@ -49,7 +49,7 @@ function EmployeeCard(props) {
     <Grid item>
       <Card className={classes.card}>
         <CardActionArea>
-          <Link className={classes.a} to={`/edit/${employerId}`}>
+          <Link className={classes.a} to={`/edit/${employeeId}`}>
             <CardMedia
               className={classes.media}
               image={photoUrl}

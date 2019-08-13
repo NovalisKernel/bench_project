@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { alertActions } from "../../actions/alertActions";
 import customAxios from "../../helpers/AxiosRefreshToken";
-import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 function UploadExcel(props) {
@@ -44,7 +43,6 @@ function UploadExcel(props) {
   function handleRemoveImage() {
     props.onChange(props.id, "");
   }
-  function handleOpenExcel() {}
   const { classes } = props;
   return (
     <Fragment>
@@ -62,6 +60,7 @@ function UploadExcel(props) {
                 props.value
               }`}
               target="_blank"
+              rel="noopener noreferrer"
             >
               Open excel
             </a>

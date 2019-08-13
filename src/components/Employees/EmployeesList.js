@@ -9,7 +9,7 @@ import { stringify, parse } from "query-string";
 import { ArrowUpward } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import ScrollToTop from "react-scroll-up";
-import Filters from "./Filters";
+import HeaderWithToolbar from "../common/HeaderWithToolbar";
 import styles from "./styles";
 
 function EmployeesList(props) {
@@ -26,10 +26,13 @@ function EmployeesList(props) {
   const {
     getEmployees,
     employees,
+    user,
     isLoading,
     location,
     history,
-    skills
+    skills,
+    isAuthenticate,
+    logout
   } = props;
   const parsed = parse(location.search);
   const initialState = {
@@ -92,31 +95,36 @@ function EmployeesList(props) {
   }, [getEmployees, location]);
   const { classes } = props;
   return (
-    <Container component="div" className={classes.employeesList}>
-      <ScrollToTop showUnder={160} style={style}>
-        <Avatar>
-          <ArrowUpward />
-        </Avatar>
-      </ScrollToTop>
-      <CssBaseline />
-      <Filters
+    <div className={classes.mainContainer}>
+      <HeaderWithToolbar
         values={values}
         handleChange={handleChange}
         handleSkillChange={handleSkillChange}
         handleFilter={handleFilter}
         handleClear={handleClear}
         skills={skills}
+        isAuthenticate={isAuthenticate}
+        logout={logout}
+        user={user}
       />
-      <Grid container direction="row" justify="space-evenly" spacing={6}>
-        {isLoading ? (
-          <CircularProgress className={classes.loader} />
-        ) : (
-          employees.map(employee => (
-            <EmployeeCard key={employee.employeeId} {...employee} />
-          ))
-        )}
-      </Grid>
-    </Container>
+      <Container component="div" className={classes.employeesList}>
+        <ScrollToTop showUnder={160} style={style}>
+          <Avatar>
+            <ArrowUpward />
+          </Avatar>
+        </ScrollToTop>
+        <CssBaseline />
+        <Grid container direction="row" justify="space-evenly" spacing={6}>
+          {isLoading ? (
+            <CircularProgress className={classes.loader} />
+          ) : (
+            employees.map(employee => (
+              <EmployeeCard key={employee.employeeId} {...employee} />
+            ))
+          )}
+        </Grid>
+      </Container>
+    </div>
   );
 }
 

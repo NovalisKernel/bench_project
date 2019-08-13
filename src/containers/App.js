@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { withLayout } from "../hoc/WithLayout";
+import { withFooter } from "../hoc/WithFooter";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import LoginComponent from "../containers/login/LoginContainer";
 import EmployeesList from "../containers/employeesList/EmployeesListContainer";
@@ -18,7 +19,7 @@ function App(props) {
         <PrivateRoute
           exact
           path="/"
-          component={withLayout(EmployeesList)}
+          component={withFooter(EmployeesList)}
           isAuthenticate={props.isAuthenticate}
         />
         <Route path="/login" component={withLayout(LoginComponent)} />

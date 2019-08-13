@@ -35,7 +35,6 @@ function Filters(props) {
       direction="row"
       justify="center"
       alignItems="stretch"
-      spacing={3}
     >
       <Grid item>
         <FormControl variant="outlined" className={classes.formControl}>

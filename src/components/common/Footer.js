@@ -4,17 +4,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh"
-  },
   main: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2)
   },
   footer: {
     padding: theme.spacing(2),
+    marginTop: "auto",
     backgroundColor: "#3f51b5"
   }
 }));

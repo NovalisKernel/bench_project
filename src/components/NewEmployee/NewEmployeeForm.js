@@ -10,7 +10,8 @@ import { FieldArray, Field } from "formik";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import UploadFile from "../common/FileUpload";
+import { ImageUpload } from "../common/FileUpload";
+import { ExcelUpload } from "../common/ExcelUpload";
 import EnglishLevels from "../../enums/EnglishLevels";
 import Groups from "../../enums/Groups";
 import EmployeeStatuses from "../../enums/EmployeeStatuses";
@@ -263,12 +264,21 @@ function NewEmployeeForm(props) {
             />
           </FormControl>
           <FormControl className={classes.formControl} fullWidth>
-            <UploadFile
+            <ImageUpload
               onChange={(id, data) => setFieldValue(id, data)}
               classes={classes}
               id="file"
               name="file"
               value={values.file}
+            />
+          </FormControl>
+          <FormControl className={classes.formControl} fullWidth>
+            <ExcelUpload
+              onChange={(id, data) => setFieldValue(id, data)}
+              classes={classes}
+              id="cvUrl"
+              name="cvUrl"
+              value={values.cvUrl}
             />
           </FormControl>
           <TechSkillsList {...props} />

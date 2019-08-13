@@ -32,7 +32,8 @@ function NewEmployeeComponent(props) {
               primary: false
             }
           ],
-          file: ""
+          file: "",
+          cvUrl: ""
         }}
         validationSchema={NewEmployeeValidationSchema}
         onSubmit={values => {

@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Header from "../containers/header/HeaderContainer";
 import Footer from "../components/common/Footer";
 
 const useStyles = makeStyles(theme => ({
@@ -16,11 +15,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const withLayout = Component => props => {
+export const withFooter = Component => props => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Header />
       <main className={classes.main}>
         <Component {...props} />
         <Footer />

@@ -2,9 +2,10 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { alertActions } from "../../actions/alertActions";
 import customAxios from "../../helpers/AxiosRefreshToken";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
-function UploadImage(props) {
+function UploadExcel(props) {
   const initialState = {
     file: null,
     error: ""
@@ -26,7 +27,7 @@ function UploadImage(props) {
       ...oldValues,
       error: undefined
     }));
-    customAxios.post("/images", data).then(
+    customAxios.post("/cv", data).then(
       res => {
         setValues(oldValues => ({
           ...oldValues,
@@ -43,34 +44,52 @@ function UploadImage(props) {
   function handleRemoveImage() {
     props.onChange(props.id, "");
   }
+  function handleOpenExcel() {}
   const { classes } = props;
   return (
     <Fragment>
-      {props.value !== "" ? <img src={props.value} alt="Upload" /> : null}
       {props.value ? (
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          component="span"
-          onClick={handleRemoveImage}
-          className={classes.button}
-        >
-          Remove image
-        </Button>
+        <Fragment>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            component="span"
+            className={classes.button}
+          >
+            <a
+              href={`http://view.officeapps.live.com/op/view.aspx?src=${
+                props.value
+              }`}
+              target="_blank"
+            >
+              Open excel
+            </a>
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            component="span"
+            onClick={handleRemoveImage}
+            className={classes.button}
+          >
+            Remove excel
+          </Button>
+        </Fragment>
       ) : null}
       <input
-        accept="image/*"
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         className={classes.input}
-        id="contained-button-file"
+        id="excel-button"
         multiple
         type="file"
         filename={props.value}
         onChange={handleFileChange}
       />
-      <label htmlFor="contained-button-file">
+      <label htmlFor="excel-button">
         <Button variant="contained" color="primary" fullWidth component="span">
-          Upload
+          Upload excel
         </Button>
       </label>
     </Fragment>
@@ -88,5 +107,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export const ImageUpload = connect(null,mapDispatchToProps)(UploadImage);
-
+export const ExcelUpload = connect(
+  null,
+  mapDispatchToProps
+)(UploadExcel);

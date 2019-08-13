@@ -1,6 +1,9 @@
+const drawerWidth = 240;
+
 const styles = theme => ({
   employeesList: {
-    paddingBottom: theme.spacing(8)
+    paddingBottom: theme.spacing(8),
+    marginTop: theme.spacing(8)
   },
   card: {
     minWidth: 275,
@@ -14,6 +17,9 @@ const styles = theme => ({
   loader: {
     position: "fixed",
     left: 0,
+    [theme.breakpoints.up("sm")]: {
+      left: drawerWidth
+    },
     right: 0,
     top: 0,
     bottom: 0,
@@ -53,11 +59,15 @@ const styles = theme => ({
     minWidth: 180
   },
   filterButton: {
-    marginTop: theme.spacing(5)
+    marginTop: theme.spacing(5),
+    margin: theme.spacing(2)
   },
-  list : {
+  list: {
     display: "flex",
     justifyContent: "center"
+  },
+  mainContainer: {
+    display: "flex"
   }
 });
 

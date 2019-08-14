@@ -64,6 +64,9 @@ const styles = theme => ({
   formTitle: {
     marginBottom: 0,
     marginLeft: "40px"
+  },
+  input: {
+    display: "none"
   }
 });
 

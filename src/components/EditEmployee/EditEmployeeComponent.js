@@ -42,7 +42,8 @@ function EditEmployeeComponent(props) {
           status: employee.status,
           fromNow: true,
           skills: employee.skills,
-          photoUrl: employee.photoUrl
+          photoUrl: employee.photoUrl,
+          cvUrl: employee.cvUrl
         });
   useEffect(() => {
     getEmployeeDetails(match.params.id);

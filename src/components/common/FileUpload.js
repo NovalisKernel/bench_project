@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { alertActions } from "../../actions/alertActions";
 import customAxios from "../../helpers/AxiosRefreshToken";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Avatar from "@material-ui/core/Avatar";
+import noAvatar from "../../assets/no-avatar.jpg";
 
 function UploadImage(props) {
   const initialState = {
@@ -46,19 +49,6 @@ function UploadImage(props) {
   const { classes } = props;
   return (
     <Fragment>
-      {props.value !== "" ? <img src={props.value} alt="Upload" /> : null}
-      {props.value ? (
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          component="span"
-          onClick={handleRemoveImage}
-          className={classes.button}
-        >
-          Remove image
-        </Button>
-      ) : null}
       <input
         accept="image/*"
         className={classes.input}
@@ -69,9 +59,16 @@ function UploadImage(props) {
         onChange={handleFileChange}
       />
       <label htmlFor="contained-button-file">
-        <Button variant="contained" color="primary" fullWidth component="span">
-          Upload
-        </Button>
+        <IconButton component="span">
+          <Avatar
+            src={props.value !== "" ? props.value : noAvatar}
+            style={{
+              margin: "10px",
+              width: "100px",
+              height: "100px"
+            }}
+          />
+        </IconButton>
       </label>
     </Fragment>
   );
@@ -88,5 +85,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export const ImageUpload = connect(null,mapDispatchToProps)(UploadImage);
-
+export const ImageUpload = connect(
+  null,
+  mapDispatchToProps
+)(UploadImage);

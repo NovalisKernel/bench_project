@@ -4,6 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import generateXlsx from "../../helpers/ExcelGeneretor";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
+import { ExcelUpload } from "../common/ExcelUpload";
 import { Typography, Container, Button } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -22,17 +23,14 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     marginTop: theme.spacing(2),
-    width: 120
+    marginBottom: theme.spacing(3),
+    width: 200
   }
 }));
 
 export default function EditEmployeeForSale(props) {
-  const { values } = props;
+  const { values, role, employee } = props;
   const classes = useStyles();
-  const handleExcel = e => {
-    generateXlsx(values);
-  };
-  console.log(values);
   return (
     <Container component="div" maxWidth="md">
       <Grid className={classes.employeeInfo} container spacing={3}>
@@ -98,20 +96,15 @@ export default function EditEmployeeForSale(props) {
           <Typography variant="subtitle1" gutterBottom>
             Technicall skills:
           </Typography>
-          {values.skills.map(skill => (
-            <Typography key={skill.id} variant="subtitle1" gutterBottom>
+          {values.skills.map((skill, index) => (
+            <Typography key={index} variant="subtitle1" gutterBottom>
               {skill.title}
             </Typography>
           ))}
         </Grid>
-        <Button
-          className={classes.button}
-          onClick={handleExcel}
-          variant="contained"
-          color="primary"
-        >
-          Excel
-        </Button>
+        <Grid item>
+          <ExcelUpload classes={classes} role={role} employee={employee} />
+        </Grid>
       </Grid>
     </Container>
   );

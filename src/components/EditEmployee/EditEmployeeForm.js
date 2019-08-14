@@ -10,6 +10,8 @@ import FormikDatePicker from "../../components/common/DatePicker";
 import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AlertDialog from "../common/AlertDialog";
+import { ExcelUpload } from "../common/ExcelUpload";
+import { ImageUpload } from "../common/FileUpload";
 import generateXlsx from "../../helpers/ExcelGeneretor";
 import styles from "./styles";
 import EnglishLevels from "../../enums/EnglishLevels";
@@ -22,7 +24,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  OutlinedInput
+  OutlinedInput,
+  Grid
 } from "@material-ui/core";
 
 const TechSkillsList = props => {
@@ -128,7 +131,8 @@ function EditEmployeeForm(props) {
     values,
     deleteEmployee,
     match,
-    role
+    role,
+    setFieldValue
   } = props;
   const disabled = role === "Sale" ? true : false;
   const [open, setOpen] = React.useState(false);
@@ -138,9 +142,6 @@ function EditEmployeeForm(props) {
   const closeAlert = () => {
     setOpen(false);
   };
-  const handleExcel = e => {
-    generateXlsx(values);
-  };
   return (
     <Container component="main" className={classes.newEmployee} maxWidth="xs">
       <CssBaseline />
@@ -148,202 +149,220 @@ function EditEmployeeForm(props) {
         <Typography component="h1" variant="h5">
           Edit employee
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField
-            disabled={disabled}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="firstName"
-            name="firstName"
-            autoComplete="firstName"
-            value={values.firstName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.firstName && Boolean(errors.firstName)}
-            helperText={touched.firstName ? errors.firstName : ""}
-            label="First name"
-            autoFocus
-          />
-          <TextField
-            disabled={disabled}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="lastName"
-            name="lastName"
-            value={values.lastName}
-            autoComplete="lastName"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.lastName && Boolean(errors.lastName)}
-            helperText={touched.lastName ? errors.lastName : ""}
-            label="Last name"
-          />
-          <TextField
-            disabled={disabled}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            multiline
-            id="summary"
-            name="summary"
-            autoComplete="summary"
-            value={values.summary}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.summary && Boolean(errors.summary)}
-            helperText={touched.summary ? errors.summary : ""}
-            label="Summary"
-          />
-          <TextField
-            disabled={disabled}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="education"
-            name="education"
-            autoComplete="education"
-            value={values.education}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.education && Boolean(errors.education)}
-            helperText={touched.education ? errors.education : ""}
-            label="Education"
-          />
-          <FormControl
-            disabled={disabled}
-            variant="outlined"
-            fullWidth
-            className={classes.formControl}
-          >
-            <InputLabel ref={inputLabel}>English level</InputLabel>
-            <Select
-              onChange={handleChange}
-              value={values.englishLevel}
-              input={
-                <OutlinedInput
-                  labelWidth={90}
-                  name="englishLevel"
-                  id="englishLevel"
-                />
-              }
-            >
-              {EnglishLevels.map(item => (
-                <MenuItem key={item._id} value={item.name}>
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl
-            disabled={disabled}
-            variant="outlined"
-            fullWidth
-            className={classes.formControl}
-          >
-            <InputLabel ref={inputLabel}>Group</InputLabel>
-            <Select
-              onChange={handleChange}
-              value={values.group.name}
-              input={
-                <OutlinedInput
-                  labelWidth={46}
-                  name="group.name"
-                  id="group.name"
-                />
-              }
-            >
-              {Groups.map(item => (
-                <MenuItem key={item._id} value={item.name}>
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl
-            disabled={disabled}
-            variant="outlined"
-            fullWidth
-            className={classes.formControl}
-          >
-            <InputLabel ref={inputLabel}>Employee status</InputLabel>
-            <Select
-              onChange={handleChange}
-              value={values.status}
-              input={
-                <OutlinedInput
-                  labelWidth={labelWidth}
-                  name="status"
-                  id="status"
-                />
-              }
-            >
-              {EmployeeStatuses.map(item => (
-                <MenuItem key={item._id} value={item.name}>
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl} fullWidth>
-            <Field
-              disabled={disabled}
-              component={FormikDatePicker}
-              name="birthday"
-              value={values.birthday}
-              label="Birthday date"
-            />
-          </FormControl>
-          <FormControl className={classes.formControl} fullWidth>
-            <Field
-              disabled={disabled}
-              component={FormikDatePicker}
-              name="availabilityDate"
-              value={values.availabilityDate}
-              label="Availability date"
-            />
-          </FormControl>
-          <TechSkillsList {...props} disabled={disabled} />
-          {!disabled ? (
-            <React.Fragment>
-              <Button
-                className={classes.button}
-                onClick={openAlert}
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Delete
-              </Button>
-              <AlertDialog
-                open={open}
-                closeAlert={closeAlert}
-                values={values}
-                deleteEmployee={deleteEmployee}
-                id={match.params.id}
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          component="form"
+          className={classes.form}
+          onSubmit={handleSubmit}
+        >
+          <Grid item>
+            <FormControl className={classes.formControl} fullWidth>
+              <ImageUpload
+                onChange={(id, data) => setFieldValue(id, data)}
+                classes={classes}
+                id="photoUrl"
+                name="photoUrl"
+                value={values.photoUrl}
               />
-              <Button
-                className={classes.submit}
-                variant="contained"
-                color="primary"
-                type="submit"
-                fullWidth
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <TextField
+              disabled={disabled}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="firstName"
+              name="firstName"
+              autoComplete="firstName"
+              value={values.firstName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.firstName && Boolean(errors.firstName)}
+              helperText={touched.firstName ? errors.firstName : ""}
+              label="First name"
+              autoFocus
+            />
+            <TextField
+              disabled={disabled}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="lastName"
+              name="lastName"
+              value={values.lastName}
+              autoComplete="lastName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.lastName && Boolean(errors.lastName)}
+              helperText={touched.lastName ? errors.lastName : ""}
+              label="Last name"
+            />
+            <TextField
+              disabled={disabled}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              multiline
+              id="summary"
+              name="summary"
+              autoComplete="summary"
+              value={values.summary}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.summary && Boolean(errors.summary)}
+              helperText={touched.summary ? errors.summary : ""}
+              label="Summary"
+            />
+            <TextField
+              disabled={disabled}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="education"
+              name="education"
+              autoComplete="education"
+              value={values.education}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.education && Boolean(errors.education)}
+              helperText={touched.education ? errors.education : ""}
+              label="Education"
+            />
+            <FormControl
+              disabled={disabled}
+              variant="outlined"
+              fullWidth
+              className={classes.formControl}
+            >
+              <InputLabel ref={inputLabel}>English level</InputLabel>
+              <Select
+                onChange={handleChange}
+                value={values.englishLevel}
+                input={
+                  <OutlinedInput
+                    labelWidth={90}
+                    name="englishLevel"
+                    id="englishLevel"
+                  />
+                }
               >
-                Submit
-              </Button>
-            </React.Fragment>
-          ) : null}
-          <Button
-            className={classes.button}
-            onClick={handleExcel}
-            variant="contained"
-            color="primary"
-            fullWidth
-          >
-            Excel
-          </Button>
-        </form>
+                {EnglishLevels.map(item => (
+                  <MenuItem key={item._id} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl
+              disabled={disabled}
+              variant="outlined"
+              fullWidth
+              className={classes.formControl}
+            >
+              <InputLabel ref={inputLabel}>Group</InputLabel>
+              <Select
+                onChange={handleChange}
+                value={values.group.name}
+                input={
+                  <OutlinedInput
+                    labelWidth={46}
+                    name="group.name"
+                    id="group.name"
+                  />
+                }
+              >
+                {Groups.map(item => (
+                  <MenuItem key={item._id} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl
+              disabled={disabled}
+              variant="outlined"
+              fullWidth
+              className={classes.formControl}
+            >
+              <InputLabel ref={inputLabel}>Employee status</InputLabel>
+              <Select
+                onChange={handleChange}
+                value={values.status}
+                input={
+                  <OutlinedInput
+                    labelWidth={labelWidth}
+                    name="status"
+                    id="status"
+                  />
+                }
+              >
+                {EmployeeStatuses.map(item => (
+                  <MenuItem key={item._id} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl} fullWidth>
+              <Field
+                disabled={disabled}
+                component={FormikDatePicker}
+                name="birthday"
+                value={values.birthday}
+                label="Birthday date"
+              />
+            </FormControl>
+            <FormControl className={classes.formControl} fullWidth>
+              <Field
+                disabled={disabled}
+                component={FormikDatePicker}
+                name="availabilityDate"
+                value={values.availabilityDate}
+                label="Availability date"
+              />
+            </FormControl>
+            <TechSkillsList {...props} disabled={disabled} />
+            {!disabled ? (
+              <React.Fragment>
+                <ExcelUpload
+                  onChange={(id, data) => setFieldValue(id, data)}
+                  classes={classes}
+                  id="cvUrl"
+                  name="cvUrl"
+                  value={values.cvUrl}
+                />
+                <Button
+                  className={classes.button}
+                  onClick={openAlert}
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                >
+                  Delete
+                </Button>
+                <AlertDialog
+                  open={open}
+                  closeAlert={closeAlert}
+                  values={values}
+                  deleteEmployee={deleteEmployee}
+                  id={match.params.id}
+                />
+                <Button
+                  className={classes.submit}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  fullWidth
+                >
+                  Submit
+                </Button>
+              </React.Fragment>
+            ) : null}
+          </Grid>
+        </Grid>
       </div>
     </Container>
   );

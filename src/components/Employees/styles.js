@@ -56,11 +56,11 @@ const styles = theme => ({
   formControl: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(1),
-    minWidth: 180
+    width: 180
   },
   filterButton: {
     marginTop: theme.spacing(5),
-    margin: theme.spacing(2)
+    margin: theme.spacing(1)
   },
   list: {
     display: "flex",
@@ -68,6 +68,13 @@ const styles = theme => ({
   },
   mainContainer: {
     display: "flex"
+  },
+  group: {
+    margin: theme.spacing(1, 0, 0, 2)
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular
   }
 });
 

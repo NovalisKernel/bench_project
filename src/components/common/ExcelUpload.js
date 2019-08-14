@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { alertActions } from "../../actions/alertActions";
 import customAxios from "../../helpers/AxiosRefreshToken";
 import Button from "@material-ui/core/Button";
+import { tokenHelper } from "../../helpers/TokenHelper";
+import setAuthHeader from "../../helpers/AuthHeader";
+import axios from "axios";
 
 function UploadExcel(props) {
   const initialState = {
@@ -43,54 +46,84 @@ function UploadExcel(props) {
   function handleRemoveImage() {
     props.onChange(props.id, "");
   }
-  const { classes } = props;
+  function downloadExcel() {
+    const token = tokenHelper.getAuthToken();
+    axios
+      .get(props.value, {
+        headers: { Authorization: "Bearer " + token },
+        responseType: "arraybuffer"
+      })
+      .then(
+        response => {
+          props.alertSuccess();
+          var file = new Blob([response.data]);
+          if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            // If IE, you must uses a different method.
+            window.navigator.msSaveOrOpenBlob(file, "out.xlsx");
+          } else {
+            var url = window.URL.createObjectURL(file);
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.href = url;
+            a.target = "_blank";
+            a.download = "CV.xlsx";
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+          }
+        },
+        error => {
+          props.alertError(error);
+        }
+      );
+  }
+  const { classes, role, employee } = props;
   return (
     <Fragment>
       {props.value ? (
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={downloadExcel}
+          className={classes.button}
+        >
+          Download excel
+        </Button>
+      ) : employee && employee.cvUrl ? (
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={downloadExcel}
+          className={classes.button}
+        >
+          Download excel
+        </Button>
+      ) : null}
+      {role !== "Sale" ? (
         <Fragment>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            component="span"
-            className={classes.button}
-          >
-            <a
-              href={`http://view.officeapps.live.com/op/view.aspx?src=${
-                props.value
-              }`}
-              target="_blank"
-              rel="noopener noreferrer"
+          <input
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            className={classes.input}
+            id="excel-button"
+            multiple
+            type="file"
+            onChange={handleFileChange}
+          />
+          <label htmlFor="excel-button">
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              component="span"
+              className={classes.button}
             >
-              Open excel
-            </a>
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            component="span"
-            onClick={handleRemoveImage}
-            className={classes.button}
-          >
-            Remove excel
-          </Button>
+              Upload excel
+            </Button>
+          </label>
         </Fragment>
       ) : null}
-      <input
-        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        className={classes.input}
-        id="excel-button"
-        multiple
-        type="file"
-        filename={props.value}
-        onChange={handleFileChange}
-      />
-      <label htmlFor="excel-button">
-        <Button variant="contained" color="primary" fullWidth component="span">
-          Upload excel
-        </Button>
-      </label>
     </Fragment>
   );
 }

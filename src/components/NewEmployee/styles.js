@@ -33,14 +33,13 @@ const styles = theme => ({
     width: "100%"
   },
   submit: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(2)
   },
   input: {
     display: "none"
   },
   button: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1)
+    marginTop: theme.spacing(2)
   },
   techSkills: {
     display: "flex",
@@ -51,6 +50,11 @@ const styles = theme => ({
   techSkillsList: {
     display: "flex",
     flexDirection: "column"
+  },
+  avatar: {
+    margin: 10,
+    width: 150,
+    height: 150
   },
   formControl: {
     marginTop: theme.spacing(2),

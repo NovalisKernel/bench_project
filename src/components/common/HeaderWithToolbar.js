@@ -8,6 +8,7 @@ import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Filters from "../Employees/Filters";
+import Divider from "@material-ui/core/Divider";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
@@ -46,7 +47,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Header(props) {
-  console.log(props);
   const {
     isAuthenticate,
     user,
@@ -73,6 +73,7 @@ export default function Header(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
+      <Divider/>
       <Filters
         values={values}
         handleChange={handleChange}

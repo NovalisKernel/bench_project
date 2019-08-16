@@ -28,7 +28,7 @@ function App(props) {
           component={withLayout(NewEmployeeComponent)}
           isAuthenticate={props.isAuthenticate}
         />
-        <Route path="/edit/:id" component={withLayout(EditEmployeeComponent)} />
+        <PrivateRoute path="/edit/:id" component={withLayout(EditEmployeeComponent)} />
         <Route component={withLayout(NotFound)} />
       </Switch>
     </React.Fragment>

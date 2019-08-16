@@ -98,7 +98,7 @@ export const deleteEmployee = id => async dispatch => {
     const response = await customAxios.delete(`/employees/${id}`);
     dispatch(success());
     dispatch(push("/"));
-    dispatch(alertActions.success());
+    dispatch(alertActions.success("User successfully deleted"));
   } catch (error) {
     if (error.message === "Request failed with status code 403") {
       error.message = "You are not permitted for this";
@@ -125,7 +125,7 @@ export const addEmployee = values => async dispatch => {
     const response = await customAxios.post("/employees", values);
     dispatch(success());
     dispatch(push("/"));
-    dispatch(alertActions.success());
+    dispatch(alertActions.success("User added"));
   } catch (error) {
     dispatch(failure(error));
     dispatch(alertActions.error(error));
@@ -149,7 +149,7 @@ export const editEmployee = (id, values) => async dispatch => {
     const response = await customAxios.put(`/employees/${id}`, values);
     dispatch(success());
     dispatch(push("/"));
-    dispatch(alertActions.success());
+    dispatch(alertActions.success("User successfully edited"));
   } catch (error) {
     if (error.message === "Request failed with status code 403") {
       error.message = "You are not permitted for this";

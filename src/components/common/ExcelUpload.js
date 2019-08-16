@@ -1,9 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 import { connect } from "react-redux";
 import { alertActions } from "../../actions/alertActions";
 import customAxios from "../../helpers/AxiosRefreshToken";
 import Button from "@material-ui/core/Button";
 import { tokenHelper } from "../../helpers/TokenHelper";
+import { useDropzone } from "react-dropzone";
 import setAuthHeader from "../../helpers/AuthHeader";
 import axios from "axios";
 
@@ -78,6 +79,48 @@ function UploadExcel(props) {
       );
   }
   const { classes, role, employee } = props;
+  const onDropAccepted = useCallback(
+    acceptedFiles => {
+      if (!acceptedFiles) {
+        return;
+      }
+      let file = acceptedFiles[0];
+      setValues(oldValues => ({
+        ...oldValues,
+        file: file
+      }));
+      let data = new FormData();
+      data.append("file", file);
+      setValues(oldValues => ({
+        ...oldValues,
+        error: undefined
+      }));
+      customAxios.post("/cv", data).then(
+        res => {
+          setValues(oldValues => ({
+            ...oldValues,
+            error: undefined
+          }));
+          props.onChange(props.id, res.data);
+          props.alertSuccess();
+        },
+        err => {
+          console.log(err);
+          props.alertError(err);
+        }
+      );
+    },
+    [props]
+  );
+  const onDropRejected = useCallback(rejectedFiles=>{
+    const error = new Error("This type of file is rejected")
+    props.alertError(error);
+  })
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDropAccepted,
+    accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    onDropRejected
+  });
   return (
     <Fragment>
       {props.value ? (
@@ -102,27 +145,24 @@ function UploadExcel(props) {
         </Button>
       ) : null}
       {role !== "Sale" ? (
-        <Fragment>
+        <div
+          {...getRootProps({
+            className: classes.dropzone
+          })}
+        >
           <input
+            {...getInputProps({
+              accept:
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            })}
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             className={classes.input}
             id="excel-button"
             multiple
             type="file"
-            onChange={handleFileChange}
           />
-          <label htmlFor="excel-button">
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              component="span"
-              className={classes.button}
-            >
-              Upload excel
-            </Button>
-          </label>
-        </Fragment>
+          <p>Upload excel</p>
+        </div>
       ) : null}
     </Fragment>
   );
@@ -131,7 +171,7 @@ function UploadExcel(props) {
 const mapDispatchToProps = dispatch => {
   return {
     alertSuccess: () => {
-      dispatch(alertActions.success());
+      dispatch(alertActions.success("Excel uploaded"));
     },
     alertError: err => {
       dispatch(alertActions.error(err));

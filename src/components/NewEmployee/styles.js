@@ -63,6 +63,23 @@ const styles = theme => ({
   formTitle: {
     marginBottom: 0,
     marginLeft: "40px"
+  },
+  dropzone: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: "#eeeeee",
+    borderStyle: "dashed",
+    backgroundColor: "#fafafa",
+    color: "#bdbdbd",
+    outline: "none",
+    transition: "border .24s ease-in-out",
+    marginTop: theme.spacing(2),
+    justifyContent: "center",
+    height: 36
   }
 });
 

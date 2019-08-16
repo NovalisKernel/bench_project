@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 import { connect } from "react-redux";
 import { alertActions } from "../../actions/alertActions";
 import customAxios from "../../helpers/AxiosRefreshToken";
@@ -13,50 +14,57 @@ function UploadImage(props) {
     error: ""
   };
   const [values, setValues] = React.useState(initialState);
-  function handleFileChange(event) {
-    if (!event.target.files) {
-      return;
-    }
-    let file = event.target.files[0];
-    event.target.value = "";
-    setValues(oldValues => ({
-      ...oldValues,
-      file: file
-    }));
-    let data = new FormData();
-    data.append("file", file);
-    setValues(oldValues => ({
-      ...oldValues,
-      error: undefined
-    }));
-    customAxios.post("/images", data).then(
-      res => {
-        setValues(oldValues => ({
-          ...oldValues,
-          error: undefined
-        }));
-        props.onChange(props.id, res.data);
-        props.alertSuccess();
-      },
-      err => {
-        props.alertError(err);
-      }
-    );
-  }
-  function handleRemoveImage() {
-    props.onChange(props.id, "");
-  }
   const { classes } = props;
+  const onDropAccepted = useCallback(
+    acceptedFiles => {
+      if (!acceptedFiles) {
+        return;
+      }
+      let file = acceptedFiles[0];
+      setValues(oldValues => ({
+        ...oldValues,
+        file: file
+      }));
+      let data = new FormData();
+      data.append("file", file);
+      setValues(oldValues => ({
+        ...oldValues,
+        error: undefined
+      }));
+      customAxios.post("/images", data).then(
+        res => {
+          setValues(oldValues => ({
+            ...oldValues,
+            error: undefined
+          }));
+          props.onChange(props.id, res.data);
+          props.alertSuccess();
+        },
+        err => {
+          props.alertError(err);
+        }
+      );
+    },
+    [props]
+  );
+  const onDropRejected = useCallback(rejectedFiles => {
+    const error = new Error("This type of file is rejected");
+    props.alertError(error);
+  });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDropAccepted,
+    accept: "image/*",
+    onDropRejected
+  });
   return (
-    <Fragment>
+    <div {...getRootProps({ onClick: event => event.stopPropagation() })}>
       <input
+        {...getInputProps()}
         accept="image/*"
         className={classes.input}
         id="contained-button-file"
         multiple
         type="file"
-        filename={props.value}
-        onChange={handleFileChange}
       />
       <label htmlFor="contained-button-file">
         <IconButton component="span">
@@ -70,14 +78,14 @@ function UploadImage(props) {
           />
         </IconButton>
       </label>
-    </Fragment>
+    </div>
   );
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     alertSuccess: () => {
-      dispatch(alertActions.success());
+      dispatch(alertActions.success("Image uploaded"));
     },
     alertError: err => {
       dispatch(alertActions.error(err));

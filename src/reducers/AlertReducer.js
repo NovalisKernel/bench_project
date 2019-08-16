@@ -7,7 +7,7 @@ export default function alert(state = initialState, action) {
     case ALERT_SUCCESS:
       return {
         type: "alert-success",
-        message: "Success"
+        message: action.message
       };
     case ALERT_ERROR:
       return {

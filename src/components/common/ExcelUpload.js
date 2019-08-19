@@ -5,7 +5,6 @@ import customAxios from "../../helpers/AxiosRefreshToken";
 import Button from "@material-ui/core/Button";
 import { tokenHelper } from "../../helpers/TokenHelper";
 import { useDropzone } from "react-dropzone";
-import setAuthHeader from "../../helpers/AuthHeader";
 import axios from "axios";
 
 function UploadExcel(props) {
@@ -14,39 +13,6 @@ function UploadExcel(props) {
     error: ""
   };
   const [values, setValues] = React.useState(initialState);
-  function handleFileChange(event) {
-    if (!event.target.files) {
-      return;
-    }
-    let file = event.target.files[0];
-    event.target.value = "";
-    setValues(oldValues => ({
-      ...oldValues,
-      file: file
-    }));
-    let data = new FormData();
-    data.append("file", file);
-    setValues(oldValues => ({
-      ...oldValues,
-      error: undefined
-    }));
-    customAxios.post("/cv", data).then(
-      res => {
-        setValues(oldValues => ({
-          ...oldValues,
-          error: undefined
-        }));
-        props.onChange(props.id, res.data);
-        props.alertSuccess();
-      },
-      err => {
-        props.alertError(err);
-      }
-    );
-  }
-  function handleRemoveImage() {
-    props.onChange(props.id, "");
-  }
   function downloadExcel() {
     const token = tokenHelper.getAuthToken();
     axios
@@ -112,11 +78,11 @@ function UploadExcel(props) {
     },
     [props]
   );
-  const onDropRejected = useCallback(rejectedFiles=>{
-    const error = new Error("This type of file is rejected")
+  const onDropRejected = useCallback(() => {
+    const error = new Error("This type of file is rejected");
     props.alertError(error);
-  })
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  }, [props]);
+  const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted,
     accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     onDropRejected

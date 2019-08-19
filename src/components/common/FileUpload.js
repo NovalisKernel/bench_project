@@ -1,9 +1,8 @@
-import React, { Fragment, useCallback } from "react";
+import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { connect } from "react-redux";
 import { alertActions } from "../../actions/alertActions";
 import customAxios from "../../helpers/AxiosRefreshToken";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import noAvatar from "../../assets/no-avatar.jpg";
@@ -47,11 +46,11 @@ function UploadImage(props) {
     },
     [props]
   );
-  const onDropRejected = useCallback(rejectedFiles => {
+  const onDropRejected = useCallback(() => {
     const error = new Error("This type of file is rejected");
     props.alertError(error);
-  });
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  }, [props]);
+  const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted,
     accept: "image/*",
     onDropRejected

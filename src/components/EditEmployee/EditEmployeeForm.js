@@ -12,7 +12,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AlertDialog from "../common/AlertDialog";
 import { ExcelUpload } from "../common/ExcelUpload";
 import { ImageUpload } from "../common/FileUpload";
-import generateXlsx from "../../helpers/ExcelGeneretor";
 import styles from "./styles";
 import EnglishLevels from "../../enums/EnglishLevels";
 import Groups from "../../enums/Groups";

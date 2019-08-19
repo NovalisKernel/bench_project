@@ -1,11 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import generateXlsx from "../../helpers/ExcelGeneretor";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import { ExcelUpload } from "../common/ExcelUpload";
-import { Typography, Container, Button } from "@material-ui/core";
+import { Typography, Container } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   employeeInfo: {

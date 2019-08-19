@@ -78,10 +78,6 @@ const styles = theme => ({
   },
   group: {
     margin: theme.spacing(1, 0, 0, 2)
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular
   }
 });
 

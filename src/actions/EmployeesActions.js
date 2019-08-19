@@ -59,9 +59,6 @@ export const getEmployees = query => async dispatch => {
   function skillSuccess(skills) {
     return {type: SKILLS_SUCCESS, skills};
   }
-  function skillFailure(error) {
-    return {type: SKILLS_FAILURE, error};
-  }
 };
 
 export const getEmployeeDetails = id => async dispatch => {

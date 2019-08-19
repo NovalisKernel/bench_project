@@ -8,7 +8,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormikDatePicker from "../../components/common/DatePicker";
 import { FieldArray, Field } from "formik";
 import { Delete, AddCircle } from "@material-ui/icons";
-import Avatar from "@material-ui/core/Avatar";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import { ImageUpload } from "../common/FileUpload";

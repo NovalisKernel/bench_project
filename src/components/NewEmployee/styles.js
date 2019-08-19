@@ -21,7 +21,10 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
+    margin: 10,
+    width: 150,
+    height: 150
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -50,11 +53,6 @@ const styles = theme => ({
   techSkillsList: {
     display: "flex",
     flexDirection: "column"
-  },
-  avatar: {
-    margin: 10,
-    width: 150,
-    height: 150
   },
   formControl: {
     marginTop: theme.spacing(2),

@@ -14,6 +14,13 @@ const styles = theme => ({
     justifyContent: "space-between",
     height: 650
   },
+  cardAction: {
+    height: 650,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+    justifyContent: "start"
+  },
   loader: {
     position: "fixed",
     left: 0,

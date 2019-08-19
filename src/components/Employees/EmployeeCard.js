@@ -48,7 +48,7 @@ function EmployeeCard(props) {
   return (
     <Grid item>
       <Card className={classes.card}>
-        <CardActionArea>
+        <CardActionArea className={classes.cardAction}>
           <Link className={classes.a} to={`/edit/${employeeId}`}>
             <CardMedia
               className={classes.media}

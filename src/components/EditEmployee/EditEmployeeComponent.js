@@ -49,6 +49,9 @@ function EditEmployeeComponent(props) {
   useEffect(() => {
     getEmployeeDetails(match.params.id);
   }, [getEmployeeDetails, match]);
+  function handlerCopy(values) {
+    copyEmployee(values);
+  }
   return isLoading ? (
     <div>
       <CircularProgress className={classes.loader} />
@@ -61,7 +64,7 @@ function EditEmployeeComponent(props) {
         onSubmit={values => {
           editEmployee(match.params.id, values);
         }}
-        render={formProps => <EditForm {...formProps} {...props} />}
+        render={formProps => <EditForm {...formProps} {...props} handlerCopy={handlerCopy} />}
       />
     </MuiPickersUtilsProvider>
   );

@@ -132,7 +132,8 @@ function EditEmployeeForm(props) {
     match,
     role,
     setFieldValue,
-    copyEmployee
+    copyEmployee,
+    handlerCopy
   } = props;
   const disabled = role === "Sale" ? true : false;
   const [open, setOpen] = React.useState(false);
@@ -354,8 +355,10 @@ function EditEmployeeForm(props) {
                   className={classes.button}
                   variant="contained"
                   color="primary"
-                  onClick={()=>{copyEmployee(values)}}
-                  fullWidth 
+                  onClick={() => {
+                    handlerCopy(values);
+                  }}
+                  fullWidth
                 >
                   Copy
                 </Button>

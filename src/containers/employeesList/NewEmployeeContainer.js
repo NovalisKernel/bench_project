@@ -11,7 +11,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => ({
-  role: state.authentification.role
+  role: state.authentification.role,
+  copy: state.copy
 })
 
 export default connect(

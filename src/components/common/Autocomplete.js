@@ -202,6 +202,7 @@ export default function IntegrationReactSelect(props) {
               shrink: true
             }
           }}
+          isClearable
           placeholder="Skills"
           options={options}
           components={components}

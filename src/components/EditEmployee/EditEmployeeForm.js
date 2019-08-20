@@ -131,7 +131,8 @@ function EditEmployeeForm(props) {
     deleteEmployee,
     match,
     role,
-    setFieldValue
+    setFieldValue,
+    copyEmployee
   } = props;
   const disabled = role === "Sale" ? true : false;
   const [open, setOpen] = React.useState(false);
@@ -349,6 +350,15 @@ function EditEmployeeForm(props) {
                   deleteEmployee={deleteEmployee}
                   id={match.params.id}
                 />
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  onClick={()=>{copyEmployee(values)}}
+                  fullWidth 
+                >
+                  Copy
+                </Button>
                 <Button
                   className={classes.submit}
                   variant="contained"

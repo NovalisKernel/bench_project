@@ -9,32 +9,49 @@ import NewEmployeeValidationSchema from "./NewEmployeeValidationSchema";
 import { Redirect } from "react-router-dom";
 
 function NewEmployeeComponent(props) {
-  const { role } = props;
+  const { role, copy } = props;
+  const initialValues = copy.isCopy
+    ? {
+        firstName: "",
+        lastName: "",
+        summary: copy.employee.summary,
+        education: copy.employee.education,
+        englishLevel: copy.employee.englishLevel,
+        group: copy.employee.group,
+        status: copy.employee.status,
+        birthday: moment(Date.now()).format(dateFormat),
+        availabilityDate: copy.employee.availabilityDate,
+        fromNow: copy.employee.fromNow,
+        skills: copy.employee.skills,
+        file: copy.employee.photoUrl,
+        cvUrl: copy.employee.cvUrl
+      }
+    : {
+        firstName: "",
+        lastName: "",
+        summary: "",
+        education: "",
+        englishLevel: "",
+        group: {
+          name: ""
+        },
+        status: "",
+        birthday: moment(Date.now()).format(dateFormat),
+        availabilityDate: moment(Date.now()).format(dateFormat),
+        fromNow: false,
+        skills: [
+          {
+            title: "",
+            primary: false
+          }
+        ],
+        file: "",
+        cvUrl: ""
+      };
   return role !== "Sale" ? (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          summary: "",
-          education: "",
-          englishLevel: "",
-          group: {
-            name: ""
-          },
-          status: "",
-          birthday: moment(Date.now()).format(dateFormat),
-          availabilityDate: moment(Date.now()).format(dateFormat),
-          fromNow: false,
-          skills: [
-            {
-              title: "",
-              primary: false
-            }
-          ],
-          file: "",
-          cvUrl: ""
-        }}
+        initialValues={initialValues}
         validationSchema={NewEmployeeValidationSchema}
         onSubmit={values => {
           props.addEmployee(values);

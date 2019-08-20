@@ -16,7 +16,8 @@ import {
   EMPLOYEE_EDIT_FAILURE,
   SKILLS_REQUEST,
   SKILLS_SUCCESS,
-  SKILLS_FAILURE
+  COPY_EMPLOYEE,
+  CLEAR_COPY_EMPLOYEE
 } from "./constants";
 import customAxios from "../helpers/AxiosRefreshToken";
 import { tokenHelper } from "../helpers/TokenHelper";
@@ -54,10 +55,10 @@ export const getEmployees = query => async dispatch => {
     return { type: EMPLOYEES_FAILURE, error };
   }
   function skillRequest() {
-    return {type: SKILLS_REQUEST};
+    return { type: SKILLS_REQUEST };
   }
   function skillSuccess(skills) {
-    return {type: SKILLS_SUCCESS, skills};
+    return { type: SKILLS_SUCCESS, skills };
   }
 };
 
@@ -162,5 +163,17 @@ export const editEmployee = (id, values) => async dispatch => {
   }
   function failure(error) {
     return { type: EMPLOYEE_EDIT_FAILURE };
+  }
+};
+
+export const copyEmployee = values => async dispatch => {
+  dispatch(copy(values));
+  await dispatch(push("/new-employee"));
+  dispatch(clear());
+  function copy(values) {
+    return { type: COPY_EMPLOYEE, values };
+  }
+  function clear() {
+    return { type: CLEAR_COPY_EMPLOYEE };
   }
 };

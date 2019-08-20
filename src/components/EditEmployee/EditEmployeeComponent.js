@@ -17,7 +17,8 @@ function EditEmployeeComponent(props) {
     employee,
     isLoading,
     classes,
-    role
+    role,
+    copyEmployee
   } = props;
   const EditForm = props => {
     return role === "Sale" ? (
@@ -26,7 +27,7 @@ function EditEmployeeComponent(props) {
       <EditEmployeeForm {...props} />
     );
   };
-  let initialValues = { skills: [], englishLevel: "", group: { name: "" } };
+  let initialValues = { skills: [], englishLevel: "", group: { name: "" }, status: "" };
   initialValues =
     Object.keys(employee).length === 0
       ? initialValues

@@ -2,8 +2,24 @@ const drawerWidth = 240;
 
 const styles = theme => ({
   employeesList: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
     paddingBottom: theme.spacing(8),
-    marginTop: theme.spacing(8)
+    marginTop: theme.spacing(8),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    marginLeft: -drawerWidth
+  },
+  contentShift: {
+    paddingBottom: theme.spacing(8),
+    marginTop: theme.spacing(8),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen
+    }),
+    marginLeft: 0
   },
   card: {
     minWidth: 275,

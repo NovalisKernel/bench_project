@@ -54,6 +54,7 @@ const TechSkillsList = props => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={isError(index, "title")}
+                value={skill.title}
                 helperText={
                   isError(index, "title") ? errors.skills[index].title : null
                 }
@@ -64,6 +65,7 @@ const TechSkillsList = props => {
                       <Checkbox
                         name={`skills[${index}].primary`}
                         value={`skills[${index}].primary`}
+                        checked={skill.primary}
                         onChange={handleChange}
                       />
                     </InputAdornment>
@@ -148,6 +150,7 @@ function NewEmployeeForm(props) {
               id="firstName"
               name="firstName"
               autoComplete="firstName"
+              value={values.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.firstName && Boolean(errors.firstName)}
@@ -162,6 +165,7 @@ function NewEmployeeForm(props) {
               id="lastName"
               name="lastName"
               autoComplete="lastName"
+              value={values.lastName}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.lastName && Boolean(errors.lastName)}
@@ -176,6 +180,7 @@ function NewEmployeeForm(props) {
               id="summary"
               name="summary"
               autoComplete="summary"
+              value={values.summary}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.summary && Boolean(errors.summary)}
@@ -189,6 +194,7 @@ function NewEmployeeForm(props) {
               id="education"
               name="education"
               autoComplete="education"
+              value={values.education}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.education && Boolean(errors.education)}

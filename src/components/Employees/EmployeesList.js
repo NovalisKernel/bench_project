@@ -9,7 +9,9 @@ import { stringify, parse } from "query-string";
 import { ArrowUpward } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import ScrollToTop from "react-scroll-up";
+import clsx from "clsx";
 import HeaderWithToolbar from "../common/HeaderWithToolbar";
+import HeaderWithPersistentDrawer from "../common/HeaderWithPersistentDrawer";
 import styles from "./styles";
 
 function EmployeesList(props) {
@@ -65,11 +67,20 @@ function EmployeesList(props) {
     }));
   }
   function handleSkillChange(value) {
-    setValues(oldValues => ({
-      ...oldValues,
-      skills: value.value,
-      skillsObj: value
-    }));
+    console.log(value);
+    if (value === null) {
+      setValues(oldValues => ({
+        ...oldValues,
+        skills: "",
+        skillsObj: { value: "", label: "" }
+      }));
+    } else {
+      setValues(oldValues => ({
+        ...oldValues,
+        skills: value.value,
+        skillsObj: value
+      }));
+    }
   }
   function queryCreator(filters) {
     for (let key in filters) {
@@ -93,10 +104,34 @@ function EmployeesList(props) {
   useEffect(() => {
     getEmployees(location.search);
   }, [getEmployees, location]);
+  const [open, setOpen] = React.useState(false);
+
+  function handleDrawerOpen() {
+    setOpen(true);
+  }
+
+  function handleDrawerClose() {
+    setOpen(false);
+  }
+
   const { classes } = props;
   return (
     <div className={classes.mainContainer}>
-      <HeaderWithToolbar
+      {/* <HeaderWithToolbar
+        values={values}
+        handleChange={handleChange}
+        handleSkillChange={handleSkillChange}
+        handleFilter={handleFilter}
+        handleClear={handleClear}
+        skills={skills}
+        isAuthenticate={isAuthenticate}
+        logout={logout}
+        user={user}
+      /> */}
+      <HeaderWithPersistentDrawer
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+        handleDrawerClose={handleDrawerClose}
         values={values}
         handleChange={handleChange}
         handleSkillChange={handleSkillChange}
@@ -107,7 +142,13 @@ function EmployeesList(props) {
         logout={logout}
         user={user}
       />
-      <Container component="div" className={classes.employeesList}>
+      <Container
+        component="div"
+        className={clsx(classes.employeesList, {
+          [classes.contentShift]: open
+        })}
+        maxWidth="xl"
+      >
         <ScrollToTop showUnder={160} style={style}>
           <Avatar>
             <ArrowUpward />

@@ -6,6 +6,7 @@ import employeesReducer from "./EmployeesReducer";
 import employeeDetailsReducer from "./EmployeeDetailsReducer";
 import deleteEmployeeReducer from "./DeleteEmployeeReducer";
 import skillsReducer from "./SkillsReducer";
+import copyEmployeeReducer from "./CopyEmployeeReducer";
 
 export default history =>
   combineReducers({
@@ -15,5 +16,6 @@ export default history =>
     delete: deleteEmployeeReducer,
     router: connectRouter(history),
     alert: alertReducer,
-    skills: skillsReducer
+    skills: skillsReducer,
+    copy: copyEmployeeReducer
   });

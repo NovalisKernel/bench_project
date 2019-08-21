@@ -40,9 +40,15 @@ const styles = theme => ({
   loader: {
     position: "fixed",
     left: 0,
-    [theme.breakpoints.up("sm")]: {
-      left: drawerWidth
-    },
+    right: 0,
+    top: 0,
+    bottom: 0,
+    margin: "auto",
+    zIndex: 9999
+  },
+  loaderShift: {
+    position: "fixed",
+    left: drawerWidth,
     right: 0,
     top: 0,
     bottom: 0,

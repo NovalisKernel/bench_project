@@ -157,7 +157,9 @@ function EmployeesList(props) {
         <CssBaseline />
         <Grid container direction="row" justify="space-evenly" spacing={6}>
           {isLoading ? (
-            <CircularProgress className={classes.loader} />
+            <CircularProgress
+              className={clsx(classes.loader, { [classes.loaderShift]: open })}
+            />
           ) : (
             employees.map(employee => (
               <EmployeeCard key={employee.employeeId} {...employee} />

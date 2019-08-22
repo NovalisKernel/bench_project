@@ -9,10 +9,7 @@ import { FieldArray, Field } from "formik";
 import FormikDatePicker from "../../components/common/DatePicker";
 import {
   Delete,
-  AddCircle,
-  DeleteForever,
-  CheckCircle,
-  FileCopy
+  AddCircle
 } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AlertDialog from "../common/AlertDialog";
@@ -32,7 +29,7 @@ import {
   OutlinedInput,
   Grid,
   AppBar,
-  Fab,
+  FormHelperText,
   Toolbar
 } from "@material-ui/core";
 
@@ -126,6 +123,9 @@ const TechSkillsList = props => {
 function EditEmployeeForm(props) {
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
+  const isGroupError = () => {
+    return Boolean(errors.group) && Boolean(errors.group.name);
+  };
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
@@ -284,6 +284,7 @@ function EditEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
+                  error={isGroupError()}
                 >
                   <InputLabel ref={inputLabel}>Group</InputLabel>
                   <Select
@@ -303,6 +304,11 @@ function EditEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
+                  {isGroupError() ? (
+                  <FormHelperText id="group-helper" error variant="filled">
+                    {errors.group.name}
+                  </FormHelperText>
+                ) : null}
                 </FormControl>
               </Grid>
             </Grid>

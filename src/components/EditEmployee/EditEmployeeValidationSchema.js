@@ -6,7 +6,7 @@ const EditEmployeeValidationSchema = object().shape({
   summary: string().required("Enter summary information"),
   group: object()
     .shape({
-      name: string()
+      name: string().required("Add group")
     })
     .required("Add group"),
   status: string().required("Enter status"),

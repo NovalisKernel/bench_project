@@ -88,7 +88,6 @@ const styles = theme => ({
     width: 180
   },
   filterButton: {
-    marginTop: theme.spacing(5),
     margin: theme.spacing(1)
   },
   list: {
@@ -100,6 +99,15 @@ const styles = theme => ({
   },
   group: {
     margin: theme.spacing(1, 0, 0, 2)
+  },
+  filtersButton: {
+    position: "fixed",
+    bottom: 0,
+    width: 240,
+    backgroundColor: "lightgray"
+  },
+  lastFilter: {
+    paddingBottom: theme.spacing(9)
   }
 });
 

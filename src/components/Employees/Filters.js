@@ -105,7 +105,7 @@ function Filters(props) {
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item>
+        <Grid item className={classes.lastFilter}>
           <FormControl variant="outlined" className={classes.formControl}>
             <FormLabel component="legend">Available</FormLabel>
             <RadioGroup
@@ -130,7 +130,7 @@ function Filters(props) {
           </FormControl>
         </Grid>
       </Grid>
-      <Grid item container justify="center">
+      <Grid item container justify="center" className={classes.filtersButton}>
         <Grid item>
           <IconButton
             className={classes.filterButton}

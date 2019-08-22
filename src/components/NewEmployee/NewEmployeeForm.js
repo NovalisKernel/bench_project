@@ -7,7 +7,7 @@ import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormikDatePicker from "../../components/common/DatePicker";
 import { FieldArray, Field } from "formik";
-import { Delete, AddCircle } from "@material-ui/icons";
+import { Delete, AddCircle, CheckCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import { ImageUpload } from "../common/FileUpload";
@@ -23,7 +23,10 @@ import {
   Select,
   MenuItem,
   OutlinedInput,
-  Grid
+  Grid,
+  AppBar,
+  Fab,
+  Toolbar
 } from "@material-ui/core";
 
 const TechSkillsList = props => {
@@ -117,7 +120,7 @@ function NewEmployeeForm(props) {
     setFieldValue
   } = props;
   return (
-    <Container component="div" className={classes.newEmployee} maxWidth="xs">
+    <Container component="div" className={classes.newEmployee} maxWidth="md">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
@@ -125,14 +128,12 @@ function NewEmployeeForm(props) {
         </Typography>
         <Grid
           container
-          direction="column"
-          alignItems="center"
           component="form"
           className={classes.form}
           onSubmit={handleSubmit}
         >
-          <Grid item>
-            <FormControl className={classes.formControl} fullWidth>
+          <Grid item xs={12} sm={2}>
+            <FormControl className={classes.imageFormControl} fullWidth>
               <ImageUpload
                 onChange={(id, data) => setFieldValue(id, data)}
                 classes={classes}
@@ -142,171 +143,205 @@ function NewEmployeeForm(props) {
               />
             </FormControl>
           </Grid>
-          <Grid item>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              id="firstName"
-              name="firstName"
-              autoComplete="firstName"
-              value={values.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.firstName && Boolean(errors.firstName)}
-              helperText={touched.firstName ? errors.firstName : ""}
-              label="First name"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              id="lastName"
-              name="lastName"
-              autoComplete="lastName"
-              value={values.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.lastName && Boolean(errors.lastName)}
-              helperText={touched.lastName ? errors.lastName : ""}
-              label="Last name"
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              multiline
-              id="summary"
-              name="summary"
-              autoComplete="summary"
-              value={values.summary}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.summary && Boolean(errors.summary)}
-              helperText={touched.summary ? errors.summary : ""}
-              label="Summary"
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              id="education"
-              name="education"
-              autoComplete="education"
-              value={values.education}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.education && Boolean(errors.education)}
-              helperText={touched.education ? errors.education : ""}
-              label="Education"
-            />
-            <FormControl
-              variant="outlined"
-              fullWidth
-              className={classes.formControl}
-            >
-              <InputLabel ref={inputLabel}>English level</InputLabel>
-              <Select
-                onChange={handleChange}
-                value={values.englishLevel}
-                input={
-                  <OutlinedInput
-                    labelWidth={90}
-                    name="englishLevel"
-                    id="englishLevel"
+          <Grid container item direction="column" xs={12} sm={8}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="firstName"
+                  name="firstName"
+                  autoComplete="firstName"
+                  value={values.firstName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.firstName && Boolean(errors.firstName)}
+                  helperText={touched.firstName ? errors.firstName : ""}
+                  label="First name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="lastName"
+                  name="lastName"
+                  autoComplete="lastName"
+                  value={values.lastName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.lastName && Boolean(errors.lastName)}
+                  helperText={touched.lastName ? errors.lastName : ""}
+                  label="Last name"
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  multiline
+                  id="summary"
+                  name="summary"
+                  autoComplete="summary"
+                  value={values.summary}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.summary && Boolean(errors.summary)}
+                  helperText={touched.summary ? errors.summary : ""}
+                  label="Summary"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="education"
+                  name="education"
+                  autoComplete="education"
+                  value={values.education}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.education && Boolean(errors.education)}
+                  helperText={touched.education ? errors.education : ""}
+                  label="Education"
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <FormControl
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formControl}
+                >
+                  <InputLabel ref={inputLabel}>English level</InputLabel>
+                  <Select
+                    onChange={handleChange}
+                    value={values.englishLevel}
+                    input={
+                      <OutlinedInput
+                        labelWidth={90}
+                        name="englishLevel"
+                        id="englishLevel"
+                      />
+                    }
+                  >
+                    {EnglishLevels.map(item => (
+                      <MenuItem key={item._id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formControl}
+                >
+                  <InputLabel ref={inputLabel}>Group</InputLabel>
+                  <Select
+                    onChange={handleChange}
+                    value={values.group.name}
+                    input={
+                      <OutlinedInput
+                        labelWidth={46}
+                        name="group.name"
+                        id="group.name"
+                      />
+                    }
+                  >
+                    {Groups.map(item => (
+                      <MenuItem key={item._id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <FormControl
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formControl}
+                >
+                  <InputLabel ref={inputLabel}>Employee status</InputLabel>
+                  <Select
+                    onChange={handleChange}
+                    value={values.status}
+                    input={
+                      <OutlinedInput
+                        labelWidth={labelWidth}
+                        name="status"
+                        id="status"
+                      />
+                    }
+                  >
+                    {EmployeeStatuses.map(item => (
+                      <MenuItem key={item._id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl className={classes.formControl} fullWidth>
+                  <Field
+                    component={FormikDatePicker}
+                    name="birthday"
+                    value={values.birthday}
+                    label="Birthday date"
                   />
-                }
-              >
-                {EnglishLevels.map(item => (
-                  <MenuItem key={item._id} value={item.name}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl
-              variant="outlined"
-              fullWidth
-              className={classes.formControl}
-            >
-              <InputLabel ref={inputLabel}>Group</InputLabel>
-              <Select
-                onChange={handleChange}
-                value={values.group.name}
-                input={
-                  <OutlinedInput
-                    labelWidth={46}
-                    name="group.name"
-                    id="group.name"
+                </FormControl>
+              </Grid>
+            </Grid>
+            <Grid container direction="column" justify="center">
+              <Grid item>
+                <FormControl className={classes.formControl} fullWidth>
+                  <Field
+                    component={FormikDatePicker}
+                    name="availabilityDate"
+                    value={values.availabilityDate}
+                    label="Availability date"
                   />
-                }
-              >
-                {Groups.map(item => (
-                  <MenuItem key={item._id} value={item.name}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl
-              variant="outlined"
-              fullWidth
-              className={classes.formControl}
-            >
-              <InputLabel ref={inputLabel}>Employee status</InputLabel>
-              <Select
-                onChange={handleChange}
-                value={values.status}
-                input={
-                  <OutlinedInput
-                    labelWidth={labelWidth}
-                    name="status"
-                    id="status"
-                  />
-                }
-              >
-                {EmployeeStatuses.map(item => (
-                  <MenuItem key={item._id} value={item.name}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl} fullWidth>
-              <Field
-                component={FormikDatePicker}
-                name="birthday"
-                value={values.birthday}
-                label="Birthday date"
+                </FormControl>
+                <Grid item>
+                  <TechSkillsList {...props} />
+                </Grid>
+              </Grid>
+              <ExcelUpload
+                onChange={(id, data) => setFieldValue(id, data)}
+                classes={classes}
+                id="cvUrl"
+                name="cvUrl"
+                value={values.cvUrl}
               />
-            </FormControl>
-            <FormControl className={classes.formControl} fullWidth>
-              <Field
-                component={FormikDatePicker}
-                name="availabilityDate"
-                value={values.availabilityDate}
-                label="Availability date"
-              />
-            </FormControl>
-            <TechSkillsList {...props} />
-            <ExcelUpload
-              onChange={(id, data) => setFieldValue(id, data)}
-              classes={classes}
-              id="cvUrl"
-              name="cvUrl"
-              value={values.cvUrl}
-            />
-            <Button
-              className={classes.submit}
-              variant="contained"
-              color="primary"
-              type="submit"
-              fullWidth
-            >
-              Submit
-            </Button>
+            </Grid>
           </Grid>
+          <Grid item xs={12} sm={2} />
+          <AppBar position="fixed" color="primary" className={classes.appBar}>
+            <Toolbar>
+              <Fab
+                color="secondary"
+                aria-label="add"
+                className={classes.fabButtonAdd}
+                type="submit"
+              >
+                <CheckCircle />
+              </Fab>
+            </Toolbar>
+          </AppBar>
         </Grid>
       </div>
     </Container>

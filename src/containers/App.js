@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { withLayout } from "../hoc/WithLayout";
 import { withFooter } from "../hoc/WithFooter";
+import { withoutFooter } from "../hoc/WithoutFooter";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import LoginComponent from "../containers/login/LoginContainer";
 import EmployeesList from "../containers/employeesList/EmployeesListContainer";
@@ -25,12 +26,12 @@ function App(props) {
         <Route path="/login" component={withLayout(LoginComponent)} />
         <PrivateRoute
           path="/new-employee"
-          component={withLayout(NewEmployeeComponent)}
+          component={withoutFooter(NewEmployeeComponent)}
           isAuthenticate={props.isAuthenticate}
         />
         <PrivateRoute
           path="/edit/:id"
-          component={withLayout(EditEmployeeComponent)}
+          component={withoutFooter(EditEmployeeComponent)}
           isAuthenticate={props.isAuthenticate}
         />
         <Route component={withLayout(NotFound)} />

@@ -17,7 +17,8 @@ const styles = theme => ({
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    paddingBottom: 50
   },
   avatar: {
     margin: theme.spacing(1),
@@ -57,6 +58,11 @@ const styles = theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1)
   },
+  imageFormControl: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    alignItems: "center"
+  },
   formTitle: {
     marginBottom: 0,
     marginLeft: "40px"
@@ -77,6 +83,17 @@ const styles = theme => ({
     marginTop: theme.spacing(2),
     justifyContent: "center",
     height: 36
+  },
+  appBar: {
+    top: "auto",
+    bottom: 0
+  },
+  fabButtonAdd: {
+    zIndex: 1,
+    top: -30,
+    left: 0,
+    right: 0,
+    margin: "0 auto"
   }
 });
 

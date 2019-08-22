@@ -384,37 +384,43 @@ function EditEmployeeForm(props) {
           <Grid item xs={12} sm={2} />
           <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
-              <div className={classes.containerButton}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  aria-label="add"
-                  className={classes.fabButtonAdd}
-                  type="submit"
-                >
-                  Submit
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  aria-label="delete"
-                  onClick={openAlert}
-                  className={classes.fabButtonDelete}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  aria-label="copy"
-                  onClick={() => {
-                    handlerCopy(values);
-                  }}
-                  className={classes.fabButtonCopy}
-                >
-                  Copy
-                </Button>
-              </div>
+              <Grid container justify="center" spacing={3}>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    aria-label="add"
+                    className={classes.fabButtonAdd}
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    aria-label="delete"
+                    onClick={openAlert}
+                    className={classes.fabButtonDelete}
+                  >
+                    Delete
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    aria-label="copy"
+                    onClick={() => {
+                      handlerCopy(values);
+                    }}
+                    className={classes.fabButtonCopy}
+                  >
+                    Copy
+                  </Button>
+                </Grid>
+              </Grid>
             </Toolbar>
           </AppBar>
         </Grid>

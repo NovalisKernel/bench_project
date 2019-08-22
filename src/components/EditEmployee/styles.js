@@ -98,12 +98,6 @@ const styles = theme => ({
   },
   fabButtonDelete: {
     zIndex: 1
-  },
-  containerButton: {
-    flex: 1,
-    zIndex: 1,
-    display: "flex",
-    justifyContent: "space-evenly"
   }
 });
 

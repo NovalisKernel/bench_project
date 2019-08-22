@@ -26,7 +26,8 @@ import {
   Grid,
   AppBar,
   Fab,
-  Toolbar
+  Toolbar,
+  FormHelperText
 } from "@material-ui/core";
 
 const TechSkillsList = props => {
@@ -106,6 +107,9 @@ const TechSkillsList = props => {
 function NewEmployeeForm(props) {
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
+  const isGroupError = () => {
+    return Boolean(errors.group) && Boolean(errors.group.name);
+  };
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
@@ -246,6 +250,7 @@ function NewEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
+                  error={isGroupError()}
                 >
                   <InputLabel ref={inputLabel}>Group</InputLabel>
                   <Select
@@ -265,6 +270,11 @@ function NewEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
+                {isGroupError() ? (
+                  <FormHelperText id="group-helper" error variant="filled">
+                    {errors.group.name}
+                  </FormHelperText>
+                ) : null}
                 </FormControl>
               </Grid>
             </Grid>
@@ -332,14 +342,14 @@ function NewEmployeeForm(props) {
           <Grid item xs={12} sm={2} />
           <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
-              <Fab
-                color="secondary"
-                aria-label="add"
+              <Button
                 className={classes.fabButtonAdd}
+                variant="contained"
+                color="secondary"
                 type="submit"
               >
-                <CheckCircle />
-              </Fab>
+                Submit
+              </Button>
             </Toolbar>
           </AppBar>
         </Grid>

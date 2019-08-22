@@ -384,32 +384,37 @@ function EditEmployeeForm(props) {
           <Grid item xs={12} sm={2} />
           <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
-              <Fab
-                color="secondary"
-                aria-label="add"
-                className={classes.fabButtonAdd}
-                type="submit"
-              >
-                <CheckCircle />
-              </Fab>
-              <Fab
-                color="secondary"
-                aria-label="delete"
-                onClick={openAlert}
-                className={classes.fabButtonDelete}
-              >
-                <DeleteForever />
-              </Fab>
-              <Fab
-                color="secondary"
-                aria-label="copy"
-                onClick={() => {
-                  handlerCopy(values);
-                }}
-                className={classes.fabButtonCopy}
-              >
-                <FileCopy />
-              </Fab>
+              <div className={classes.containerButton}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  aria-label="add"
+                  className={classes.fabButtonAdd}
+                  type="submit"
+                >
+                  Submit
+                </Button>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  aria-label="delete"
+                  onClick={openAlert}
+                  className={classes.fabButtonDelete}
+                >
+                  Delete
+                </Button>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  aria-label="copy"
+                  onClick={() => {
+                    handlerCopy(values);
+                  }}
+                  className={classes.fabButtonCopy}
+                >
+                  Copy
+                </Button>
+              </div>
             </Toolbar>
           </AppBar>
         </Grid>

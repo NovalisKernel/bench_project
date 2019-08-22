@@ -91,25 +91,19 @@ const styles = theme => ({
     bottom: 0
   },
   fabButtonAdd: {
-    zIndex: 1,
-    top: -30,
-    left: 0,
-    right: 0,
-    margin: "0 auto"
+    zIndex: 1
   },
   fabButtonCopy: {
-    zIndex: 1,
-    top: -30,
-    left: 0,
-    right: 0,
-    margin: "0 auto"
+    zIndex: 1
   },
   fabButtonDelete: {
+    zIndex: 1
+  },
+  containerButton: {
+    flex: 1,
     zIndex: 1,
-    top: -30,
-    left: 0,
-    right: 0,
-    margin: "0 auto"
+    display: "flex",
+    justifyContent: "space-evenly"
   }
 });
 

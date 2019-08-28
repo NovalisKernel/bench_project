@@ -27,6 +27,6 @@ export default function skillReducer(state = initialState, action) {
         isLoading: false
       };
     default:
-      return initialState;
+      return state;
   }
 }

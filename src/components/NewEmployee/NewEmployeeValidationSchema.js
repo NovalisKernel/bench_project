@@ -22,6 +22,14 @@ const NewEmployeeValidationSchema = object().shape({
         primary: boolean()
       })
     )
+    .min(1),
+    softSkills: array()
+    .of(
+      object().shape({
+        title: string().required("Enter name of soft skill"),
+        primary: boolean()
+      })
+    )
     .min(1)
 });
 

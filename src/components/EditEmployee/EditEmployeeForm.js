@@ -7,10 +7,7 @@ import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
 import { FieldArray, Field } from "formik";
 import FormikDatePicker from "../../components/common/DatePicker";
-import {
-  Delete,
-  AddCircle
-} from "@material-ui/icons";
+import { Delete, AddCircle } from "@material-ui/icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AlertDialog from "../common/AlertDialog";
 import { ExcelUpload } from "../common/ExcelUpload";
@@ -19,6 +16,8 @@ import styles from "./styles";
 import EnglishLevels from "../../enums/EnglishLevels";
 import Groups from "../../enums/Groups";
 import EmployeeStatuses from "../../enums/EmployeeStatuses";
+import SeniorityLevels from "../../enums/SeniorityLevels";
+import { MultiplyWithCreatableInput } from "../common/Autocomplete";
 import {
   IconButton,
   InputAdornment,
@@ -30,95 +29,9 @@ import {
   Grid,
   AppBar,
   FormHelperText,
-  Toolbar
+  Toolbar,
+  Divider
 } from "@material-ui/core";
-
-const TechSkillsList = props => {
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    touched,
-    errors,
-    classes,
-    disabled
-  } = props;
-  const { skills } = values;
-  const isError = (index, value) => {
-    return (
-      Boolean(errors.skills) &&
-      Boolean(errors.skills[index]) &&
-      Boolean(errors.skills[index][value]) &&
-      touched.skills &&
-      touched.skills[index] &&
-      touched.skills[index][value]
-    );
-  };
-  return (
-    <FieldArray
-      name="skills"
-      render={arrayHelpers => (
-        <div className={classes.techSkillsList}>
-          {skills.map((skill, index) => (
-            <div key={index} className={classes.techSkills}>
-              <TextField
-                disabled={disabled}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name={`skills[${index}].title`}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={skill.title}
-                error={isError(index, "title")}
-                helperText={
-                  isError(index, "title") ? errors.skills[index].title : null
-                }
-                label="Tech skill name"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Checkbox
-                        name={`skills[${index}].primary`}
-                        value={`skills[${index}].primary`}
-                        checked={skill.primary}
-                        disabled={disabled}
-                        onChange={handleChange}
-                      />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={() =>
-                          skills.length !== 1
-                            ? arrayHelpers.remove(index)
-                            : null
-                        }
-                        disabled={disabled}
-                      >
-                        <Delete />
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </div>
-          ))}
-          {!disabled ? (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => arrayHelpers.push({ name: "", isPrimary: false })}
-            >
-              <AddCircle />
-            </Button>
-          ) : null}
-        </div>
-      )}
-    />
-  );
-};
 
 function EditEmployeeForm(props) {
   const inputLabel = React.useRef(null);
@@ -141,7 +54,8 @@ function EditEmployeeForm(props) {
     match,
     role,
     setFieldValue,
-    handlerCopy
+    handlerCopy,
+    skills
   } = props;
   const disabled = role === "Sale" ? true : false;
   const [open, setOpen] = React.useState(false);
@@ -176,8 +90,14 @@ function EditEmployeeForm(props) {
             </FormControl>
           </Grid>
           <Grid container item direction="column" xs={12} sm={8}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+            <Grid container>
+              <Grid item xs={12} sm={12} className={classes.gridContainer}>
+                <Typography component="span" variant="h5">
+                  Personal info
+                </Typography>
+                <Divider />
+              </Grid>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
                 <TextField
                   disabled={disabled}
                   variant="outlined"
@@ -195,7 +115,7 @@ function EditEmployeeForm(props) {
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
                 <TextField
                   disabled={disabled}
                   variant="outlined"
@@ -213,26 +133,25 @@ function EditEmployeeForm(props) {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+            <Grid container>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
                 <TextField
-                  disabled={disabled}
                   variant="outlined"
                   margin="normal"
                   fullWidth
                   multiline
-                  id="summary"
-                  name="summary"
-                  autoComplete="summary"
-                  value={values.summary}
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.summary && Boolean(errors.summary)}
-                  helperText={touched.summary ? errors.summary : ""}
-                  label="Summary"
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email ? errors.email : ""}
+                  label="Email"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
                 <TextField
                   disabled={disabled}
                   variant="outlined"
@@ -250,72 +169,34 @@ function EditEmployeeForm(props) {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <FormControl
-                  disabled={disabled}
+            <Grid container direction="column" justify="center">
+              <Grid item xs={12} sm={12} className={classes.gridContainer}>
+                <TextField
                   variant="outlined"
+                  margin="normal"
                   fullWidth
-                  className={classes.formControl}
-                >
-                  <InputLabel ref={inputLabel}>English level</InputLabel>
-                  <Select
-                    onChange={handleChange}
-                    value={values.englishLevel}
-                    input={
-                      <OutlinedInput
-                        labelWidth={90}
-                        name="englishLevel"
-                        id="englishLevel"
-                      />
-                    }
-                  >
-                    {EnglishLevels.map(item => (
-                      <MenuItem key={item._id} value={item.name}>
-                        {item.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <FormControl
-                  disabled={disabled}
-                  variant="outlined"
-                  fullWidth
-                  className={classes.formControl}
-                  error={isGroupError()}
-                >
-                  <InputLabel ref={inputLabel}>Group</InputLabel>
-                  <Select
-                    onChange={handleChange}
-                    value={values.group.name}
-                    input={
-                      <OutlinedInput
-                        labelWidth={46}
-                        name="group.name"
-                        id="group.name"
-                      />
-                    }
-                  >
-                    {Groups.map(item => (
-                      <MenuItem key={item._id} value={item.name}>
-                        {item.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  {isGroupError() ? (
-                  <FormHelperText id="group-helper" error variant="filled">
-                    {errors.group.name}
-                  </FormHelperText>
-                ) : null}
-                </FormControl>
+                  multiline
+                  id="summary"
+                  name="summary"
+                  autoComplete="summary"
+                  value={values.summary}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.summary && Boolean(errors.summary)}
+                  helperText={touched.summary ? errors.summary : ""}
+                  label="Summary"
+                />
               </Grid>
             </Grid>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+            <Grid container>
+              <Grid item xs={12} sm={12} className={classes.gridContainer}>
+                <Typography component="span" variant="h5">
+                  Availability
+                </Typography>
+                <Divider />
+              </Grid>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
                 <FormControl
-                  disabled={disabled}
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
@@ -340,54 +221,175 @@ function EditEmployeeForm(props) {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
                 <FormControl className={classes.formControl} fullWidth>
                   <Field
-                    disabled={disabled}
-                    component={FormikDatePicker}
-                    name="birthday"
-                    value={values.birthday}
-                    label="Birthday date"
-                  />
-                </FormControl>
-              </Grid>
-            </Grid>
-            <Grid container direction="column" justify="center">
-              <Grid item>
-                <FormControl className={classes.formControl} fullWidth>
-                  <Field
-                    disabled={disabled}
                     component={FormikDatePicker}
                     name="availabilityDate"
                     value={values.availabilityDate}
                     label="Availability date"
                   />
                 </FormControl>
-                <Grid item>
-                  <TechSkillsList {...props} disabled={disabled} />
-                </Grid>
               </Grid>
-              {!disabled ? (
-                <React.Fragment>
-                  <ExcelUpload
-                    onChange={(id, data) => setFieldValue(id, data)}
-                    classes={classes}
-                    id="cvUrl"
-                    name="cvUrl"
-                    value={values.cvUrl}
-                  />
-                  <AlertDialog
+            </Grid>
+            <Grid container>
+              <Grid item xs={12} sm={12} className={classes.gridContainer}>
+                <Typography component="span" variant="h5">
+                  Other information
+                </Typography>
+                <Divider />
+              </Grid>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
+                <FormControl
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formControl}
+                >
+                  <InputLabel ref={inputLabel}>English level</InputLabel>
+                  <Select
+                    onChange={handleChange}
+                    value={values.englishLevel}
+                    input={
+                      <OutlinedInput
+                        labelWidth={90}
+                        name="englishLevel"
+                        id="englishLevel"
+                      />
+                    }
+                  >
+                    {EnglishLevels.map(item => (
+                      <MenuItem key={item._id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
+                <FormControl
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formControl}
+                  error={isGroupError()}
+                >
+                  <InputLabel ref={inputLabel}>Group</InputLabel>
+                  <Select
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.group.name}
+                    input={
+                      <OutlinedInput
+                        labelWidth={46}
+                        name="group.name"
+                        id="group.name"
+                      />
+                    }
+                  >
+                    {Groups.map(item => (
+                      <MenuItem key={item._id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {isGroupError() ? (
+                    <FormHelperText id="group-helper" error variant="filled">
+                      {errors.group.name}
+                    </FormHelperText>
+                  ) : null}
+                </FormControl>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
+                <FormControl
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formControl}
+                >
+                  <InputLabel ref={inputLabel}>Seniority level</InputLabel>
+                  <Select
+                    onChange={handleChange}
+                    value={values.seniorityLevel}
+                    input={
+                      <OutlinedInput
+                        labelWidth={90}
+                        name="seniorityLevel"
+                        id="seniorityLevel"
+                      />
+                    }
+                  >
+                    {SeniorityLevels.map(item => (
+                      <MenuItem key={item._id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6} className={classes.gridContainer}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  multiline
+                  id="seniority"
+                  name="seniority"
+                  autoComplete="seniority"
+                  value={values.seniority}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.seniority && Boolean(errors.seniority)}
+                  helperText={touched.seniority ? errors.seniority : ""}
+                  label="Seniority"
+                />
+              </Grid>
+            </Grid>
+            <Grid container direction="column" justify="center">
+              <Grid item xs={12} sm={12} className={classes.gridContainer}>
+                <Typography component="span" variant="h5">
+                  Skills
+                </Typography>
+                <Divider />
+              </Grid>
+              <Grid item xs={12} sm={12} className={classes.gridContainer}>
+                <Field
+                  id="techSkills"
+                  name="skills"
+                  label="Technical skills"
+                  component={MultiplyWithCreatableInput}
+                  skills={skills}
+                  values={values.skills}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} className={classes.gridContainer}>
+                <Field
+                  id="softSkills"
+                  name="softSkills"
+                  label="Soft skills"
+                  component={MultiplyWithCreatableInput}
+                  skills={skills}
+                  values={values.softSkills}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} className={classes.gridContainer}>
+                <ExcelUpload
+                  onChange={(id, data) => setFieldValue(id, data)}
+                  classes={classes}
+                  id="cvUrl"
+                  name="cvUrl"
+                  value={values.cvUrl}
+                />
+                <AlertDialog
                     open={open}
                     closeAlert={closeAlert}
                     values={values}
                     deleteEmployee={deleteEmployee}
                     id={match.params.id}
                   />
-                </React.Fragment>
-              ) : null}
+              </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={2} />
+          <Grid item xs={12} sm={2} className={classes.gridContainer} />
           <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
               <Grid container justify="center" spacing={3}>

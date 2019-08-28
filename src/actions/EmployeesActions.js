@@ -17,7 +17,8 @@ import {
   SKILLS_REQUEST,
   SKILLS_SUCCESS,
   COPY_EMPLOYEE,
-  CLEAR_COPY_EMPLOYEE
+  CLEAR_COPY_EMPLOYEE,
+  SKILLS_FAILURE
 } from "./constants";
 import customAxios from "../helpers/AxiosRefreshToken";
 import { tokenHelper } from "../helpers/TokenHelper";
@@ -64,12 +65,16 @@ export const getEmployees = query => async dispatch => {
 
 export const getEmployeeDetails = id => async dispatch => {
   dispatch(request());
+  dispatch(skillRequest());
   try {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
     const response = await customAxios.get(`/employees/${id}`);
+    const responseSkills = await customAxios.get("/skills");
     const employeeDetails = response.data;
+    const skills = responseSkills.data;
     dispatch(success(employeeDetails));
+    dispatch(skillSuccess(skills));
   } catch (error) {
     if (error.message === "Request failed with status code 403") {
       error.message = "You are not permitted for this";
@@ -85,6 +90,12 @@ export const getEmployeeDetails = id => async dispatch => {
   }
   function failure(error) {
     return { type: EMPLOYEE_DETAILS_FAILURE, error };
+  }
+  function skillRequest() {
+    return { type: SKILLS_REQUEST };
+  }
+  function skillSuccess(skills) {
+    return { type: SKILLS_SUCCESS, skills };
   }
 };
 
@@ -175,5 +186,29 @@ export const copyEmployee = values => async dispatch => {
   }
   function clear() {
     return { type: CLEAR_COPY_EMPLOYEE };
+  }
+};
+
+export const getSkills = () => async dispatch => {
+  dispatch(request());
+  try {
+    const token = tokenHelper.getAuthToken();
+    setAuthHeader(customAxios, token);
+    const responseSkills = await customAxios.get("/skills");
+    const skills = responseSkills.data;
+    dispatch(success(skills));
+  } catch(error) {
+    dispatch(failure(error));
+    dispatch(alertActions.error(error))
+  }
+
+  function request() {
+    return { type: SKILLS_REQUEST };
+  }
+  function success(skills) {
+    return { type: SKILLS_SUCCESS, skills };
+  }
+  function failure(error) {
+    return { type: SKILLS_FAILURE };
   }
 };

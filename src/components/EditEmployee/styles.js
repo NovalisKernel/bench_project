@@ -33,6 +33,9 @@ const styles = theme => ({
     justifyContent: "space-evenly",
     width: "100%"
   },
+  gridContainer: {
+    padding: "0 12px 0 12px"
+  },
   submit: {
     marginTop: theme.spacing(2)
   },
@@ -70,13 +73,14 @@ const styles = theme => ({
     display: "none"
   },
   dropzone: {
+    fontSize: "large",
     flex: 1,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    borderWidth: 2,
+    borderWidth: 4,
     borderRadius: 2,
-    borderColor: "#eeeeee",
+    borderColor: "#ef1111",
     borderStyle: "dashed",
     backgroundColor: "#fafafa",
     color: "#bdbdbd",

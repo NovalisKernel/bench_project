@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik } from "formik";
 import moment from "moment";
 import dateFormat from "../../helpers/DateFormats";
@@ -9,7 +9,7 @@ import NewEmployeeValidationSchema from "./NewEmployeeValidationSchema";
 import { Redirect } from "react-router-dom";
 
 function NewEmployeeComponent(props) {
-  const { role, copy } = props;
+  const { role, copy, getSkills } = props;
   const initialValues = copy.isCopy
     ? {
         firstName: "",
@@ -29,12 +29,15 @@ function NewEmployeeComponent(props) {
     : {
         firstName: "",
         lastName: "",
+        email: "",
         summary: "",
         education: "",
         englishLevel: "",
         group: {
           name: ""
         },
+        seniorityLevel: "",
+        seniority: "",
         status: "",
         birthday: moment(Date.now()).format(dateFormat),
         availabilityDate: moment(Date.now()).format(dateFormat),
@@ -45,9 +48,18 @@ function NewEmployeeComponent(props) {
             primary: false
           }
         ],
+        softSkills: [
+          {
+            title: "",
+            primary: false
+          }
+        ],
         file: "",
         cvUrl: ""
       };
+  useEffect(() => {
+    getSkills();
+  }, [getSkills]);
   return role !== "Sale" ? (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Formik

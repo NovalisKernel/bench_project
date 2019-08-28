@@ -27,7 +27,7 @@ function EditEmployeeComponent(props) {
       <EditEmployeeForm {...props} />
     );
   };
-  let initialValues = { skills: [], englishLevel: "", group: { name: "" }, status: "" };
+  let initialValues = { skills: [], softSkills: [], englishLevel: "", group: { name: "" }, status: "", seniorityLevel: "" };
   initialValues =
     Object.keys(employee).length === 0
       ? initialValues
@@ -43,6 +43,8 @@ function EditEmployeeComponent(props) {
           status: employee.status,
           fromNow: true,
           skills: employee.skills,
+          softSkills: employee.skills,
+          seniorityLevel: "",
           photoUrl: employee.photoUrl,
           cvUrl: employee.cvUrl
         });

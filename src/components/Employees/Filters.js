@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import CheckCircleOutline from "@material-ui/icons/CheckCircleOutline";
 import HighlightOff from "@material-ui/icons/HighlightOff";
-import Autocomplete from "../common/Autocomplete";
+import {SingleInput} from "../common/Autocomplete";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import Ages from "../../enums/Ages";
@@ -32,7 +32,7 @@ function Filters(props) {
       <Grid item container direction="row" justify="center" alignItems="stretch">
         <Grid item>
           <FormControl variant="outlined" className={classes.formControl}>
-            <Autocomplete
+            <SingleInput
               skills={skills}
               handleChange={handleSkillChange}
               values={values}

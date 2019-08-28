@@ -17,6 +17,7 @@ export default function AlertDialog(props) {
         open={open}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        onClose={closeAlert}
       >
         <DialogTitle id="alert-dialog-title">
           {"Are you sure to delete this user?"}

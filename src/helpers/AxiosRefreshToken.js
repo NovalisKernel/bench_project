@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const customAxios = axios.create();
-customAxios.defaults.baseURL = "https://morning-brushlands-61529.herokuapp.com";
+customAxios.defaults.baseURL = process.env.REACT_APP_API;
 customAxios.interceptors.response.use(
   function(response) {
     return response;
@@ -45,7 +45,7 @@ async function resetTokenAndReattemptRequest(error) {
       isAlreadyFetchingAccessToken = true;
       const response = await axios({
         method: "post",
-        url: "https://morning-brushlands-61529.herokuapp.com/auth/refresh",
+        url: process.env.REACT_APP_API,
         data: {
           token: resetToken
         }

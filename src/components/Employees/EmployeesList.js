@@ -46,7 +46,8 @@ function EmployeesList(props) {
     skillsObj: {
       value: parsed.skills || "",
       label: parsed.skills || ""
-    }
+    },
+    seniorityLevel: parsed.seniorityLevel || ""
   };
   const clearState = {
     age: "",
@@ -57,7 +58,8 @@ function EmployeesList(props) {
     skillsObj: {
       value: "",
       label: ""
-    }
+    },
+    seniorityLevel: ""
   };
   const [values, setValues] = React.useState(initialState);
   function handleChange(event) {
@@ -67,7 +69,6 @@ function EmployeesList(props) {
     }));
   }
   function handleSkillChange(value) {
-    console.log(value);
     if (value === null) {
       setValues(oldValues => ({
         ...oldValues,

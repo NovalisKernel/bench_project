@@ -25,7 +25,6 @@ function UploadExcel(props) {
           props.alertSuccess();
           var file = new Blob([response.data]);
           if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-            // If IE, you must uses a different method.
             window.navigator.msSaveOrOpenBlob(file, "out.xlsx");
           } else {
             var url = window.URL.createObjectURL(file);
@@ -71,7 +70,6 @@ function UploadExcel(props) {
           props.alertSuccess();
         },
         err => {
-          console.log(err);
           props.alertError(err);
         }
       );
@@ -82,9 +80,8 @@ function UploadExcel(props) {
     const error = new Error("This type of file is rejected");
     props.alertError(error);
   }, [props]);
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps } = useDropzone({
     onDropAccepted,
-    accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     onDropRejected
   });
   return (
@@ -110,18 +107,13 @@ function UploadExcel(props) {
           Download excel
         </Button>
       ) : null}
-      {role !== "Sale" ? (
+      {role !== "Sale " ? (
         <div
           {...getRootProps({
             className: classes.dropzone
           })}
         >
           <input
-            {...getInputProps({
-              accept:
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            })}
-            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             className={classes.input}
             id="excel-button"
             multiple

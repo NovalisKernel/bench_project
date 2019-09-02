@@ -104,7 +104,7 @@ export const deleteEmployee = id => async dispatch => {
   try {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
-    const response = await customAxios.delete(`/employees/${id}`);
+    await customAxios.delete(`/employees/${id}`);
     dispatch(success());
     dispatch(push("/"));
     dispatch(alertActions.success("User successfully deleted"));
@@ -131,7 +131,7 @@ export const addEmployee = values => async dispatch => {
   try {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
-    const response = await customAxios.post("/employees", values);
+    await customAxios.post("/employees", values);
     dispatch(success());
     dispatch(push("/"));
     dispatch(alertActions.success("User added"));
@@ -155,7 +155,7 @@ export const editEmployee = (id, values) => async dispatch => {
   try {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
-    const response = await customAxios.put(`/employees/${id}`, values);
+    await customAxios.put(`/employees/${id}`, values);
     dispatch(success());
     dispatch(push("/"));
     dispatch(alertActions.success("User successfully edited"));
@@ -197,9 +197,9 @@ export const getSkills = () => async dispatch => {
     const responseSkills = await customAxios.get("/skills");
     const skills = responseSkills.data;
     dispatch(success(skills));
-  } catch(error) {
+  } catch (error) {
     dispatch(failure(error));
-    dispatch(alertActions.error(error))
+    dispatch(alertActions.error(error));
   }
 
   function request() {

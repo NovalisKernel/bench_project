@@ -60,7 +60,7 @@ function NewEmployeeComponent(props) {
   useEffect(() => {
     getSkills();
   }, [getSkills]);
-  return role !== "Sale" ? (
+  return role !== "Sale " ? (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Formik
         initialValues={initialValues}

@@ -1,26 +1,26 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Checkbox from "@material-ui/core/Checkbox";
-import { FieldArray, Field } from "formik";
-import FormikDatePicker from "../../components/common/DatePicker";
-import { Delete, AddCircle } from "@material-ui/icons";
+import { Field } from "formik";
 import withStyles from "@material-ui/core/styles/withStyles";
-import AlertDialog from "../common/AlertDialog";
-import { ExcelUpload } from "../common/ExcelUpload";
-import { ImageUpload } from "../common/FileUpload";
-import styles from "./styles";
-import EnglishLevels from "../../enums/EnglishLevels";
-import Groups from "../../enums/Groups";
-import EmployeeStatuses from "../../enums/EmployeeStatuses";
-import SeniorityLevels from "../../enums/SeniorityLevels";
-import { MultiplyWithCreatableInput } from "../common/Autocomplete";
 import {
-  IconButton,
-  InputAdornment,
+  AlertDialog,
+  FormikDatePicker,
+  ExcelUpload,
+  ImageUpload,
+  MultiplyWithCreatableInput
+} from "../common";
+import styles from "./styles";
+import {
+  EnglishLevels,
+  Groups,
+  EmployeeStatuses,
+  SeniorityLevels
+} from "../../enums";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  Typography,
+  Container,
   FormControl,
   InputLabel,
   Select,
@@ -35,13 +35,10 @@ import {
 
 function EditEmployeeForm(props) {
   const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
   const isGroupError = () => {
     return Boolean(errors.group) && Boolean(errors.group.name);
   };
-  React.useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
+  
   const {
     classes,
     errors,
@@ -57,7 +54,7 @@ function EditEmployeeForm(props) {
     handlerCopy,
     skills
   } = props;
-  const disabled = role === "Sale" ? true : false;
+  const disabled = role === "Sale " ? true : false;
   const [open, setOpen] = React.useState(false);
   const openAlert = () => {
     setOpen(true);
@@ -207,7 +204,7 @@ function EditEmployeeForm(props) {
                     value={values.status}
                     input={
                       <OutlinedInput
-                        labelWidth={labelWidth}
+                        labelWidth={120}
                         name="status"
                         id="status"
                       />
@@ -312,7 +309,7 @@ function EditEmployeeForm(props) {
                     value={values.seniorityLevel}
                     input={
                       <OutlinedInput
-                        labelWidth={90}
+                        labelWidth={100}
                         name="seniorityLevel"
                         id="seniorityLevel"
                       />
@@ -380,12 +377,12 @@ function EditEmployeeForm(props) {
                   value={values.cvUrl}
                 />
                 <AlertDialog
-                    open={open}
-                    closeAlert={closeAlert}
-                    values={values}
-                    deleteEmployee={deleteEmployee}
-                    id={match.params.id}
-                  />
+                  open={open}
+                  closeAlert={closeAlert}
+                  values={values}
+                  deleteEmployee={deleteEmployee}
+                  id={match.params.id}
+                />
               </Grid>
             </Grid>
           </Grid>

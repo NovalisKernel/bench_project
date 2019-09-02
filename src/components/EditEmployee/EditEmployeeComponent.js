@@ -21,13 +21,20 @@ function EditEmployeeComponent(props) {
     copyEmployee
   } = props;
   const EditForm = props => {
-    return role === "Sale" ? (
+    return role === "Sale " ? (
       <EditEmployeeForSale {...props} />
     ) : (
       <EditEmployeeForm {...props} />
     );
   };
-  let initialValues = { skills: [], softSkills: [], englishLevel: "", group: { name: "" }, status: "", seniorityLevel: "" };
+  let initialValues = {
+    skills: [],
+    softSkills: [],
+    englishLevel: "",
+    group: { name: "" },
+    status: "",
+    seniorityLevel: ""
+  };
   initialValues =
     Object.keys(employee).length === 0
       ? initialValues
@@ -35,6 +42,7 @@ function EditEmployeeComponent(props) {
           firstName: employee.firstName,
           lastName: employee.lastName,
           summary: employee.summary,
+          email: employee.email,
           education: employee.education,
           englishLevel: employee.englishLevel,
           group: employee.group,
@@ -66,7 +74,9 @@ function EditEmployeeComponent(props) {
         onSubmit={values => {
           editEmployee(match.params.id, values);
         }}
-        render={formProps => <EditForm {...formProps} {...props} handlerCopy={handlerCopy} />}
+        render={formProps => (
+          <EditForm {...formProps} {...props} handlerCopy={handlerCopy} />
+        )}
       />
     </MuiPickersUtilsProvider>
   );

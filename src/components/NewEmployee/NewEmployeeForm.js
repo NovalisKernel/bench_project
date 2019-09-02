@@ -1,21 +1,25 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import FormikDatePicker from "../../components/common/DatePicker";
 import { Field } from "formik";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import { ImageUpload } from "../common/FileUpload";
-import { ExcelUpload } from "../common/ExcelUpload";
-import EnglishLevels from "../../enums/EnglishLevels";
-import Groups from "../../enums/Groups";
-import EmployeeStatuses from "../../enums/EmployeeStatuses";
-import SeniorityLevels from "../../enums/SeniorityLevels";
-import { MultiplyWithCreatableInput } from "../common/Autocomplete";
 import {
+  EnglishLevels,
+  Groups,
+  EmployeeStatuses,
+  SeniorityLevels
+} from "../../enums";
+import {
+  FormikDatePicker,
+  ExcelUpload,
+  ImageUpload,
+  MultiplyWithCreatableInput
+} from "../common";
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  CssBaseline,
   FormControl,
   InputLabel,
   Select,

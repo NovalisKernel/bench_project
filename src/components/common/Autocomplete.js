@@ -241,6 +241,7 @@ export function SingleInput(props) {
 
 export function MultiplyWithCreatableInput(props) {
   const { skills, values, form, field, label } = props;
+  console.log("VALUES ", values);
   const valuesMap = values.map(item => {
     if (item.title) {
       return { value: item.title, label: item.title };

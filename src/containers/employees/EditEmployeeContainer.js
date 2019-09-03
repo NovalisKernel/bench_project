@@ -5,13 +5,15 @@ import {
   editEmployee,
   copyEmployee
 } from "../../actions/EmployeesActions";
+import { getTechSkills, getSoftSkills } from "../../actions/skillsActions";
 import EditEmployeeComponent from "../../components/EditEmployee/EditEmployeeComponent";
 
 const mapStateToProps = state => ({
   employee: state.employee.employee,
   isLoading: state.employee.isLoading,
   role: state.authentification.role,
-  skills: state.skills.skills
+  technicalSkills: state.skills.technicalSkills,
+  softSkills: state.skills.softSkills
 });
 
 const mapDispatchToProps = dispatch => {
@@ -23,10 +25,16 @@ const mapDispatchToProps = dispatch => {
       dispatch(deleteEmployee(id));
     },
     editEmployee: (id, values) => {
-      dispatch(editEmployee(id, values))
+      dispatch(editEmployee(id, values));
     },
-    copyEmployee: (values) => {
-      dispatch(copyEmployee(values))
+    copyEmployee: values => {
+      dispatch(copyEmployee(values));
+    },
+    getTechSkills: () => {
+      dispatch(getTechSkills());
+    },
+    getSoftSkills: () => {
+      dispatch(getSoftSkills());
     }
   };
 };

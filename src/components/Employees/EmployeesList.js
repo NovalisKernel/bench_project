@@ -27,12 +27,14 @@ function EmployeesList(props) {
   };
   const {
     getEmployees,
+    getTechSkills,
+    getSoftSkills,
     employees,
     user,
     isLoading,
     location,
     history,
-    skills,
+    technicalSkills,
     isAuthenticate,
     logout
   } = props;
@@ -104,7 +106,9 @@ function EmployeesList(props) {
   }
   useEffect(() => {
     getEmployees(location.search);
-  }, [getEmployees, location]);
+    getTechSkills();
+    getSoftSkills();
+  }, [getEmployees, location, getTechSkills, getSoftSkills]);
   const [open, setOpen] = React.useState(false);
 
   function handleDrawerOpen() {
@@ -138,7 +142,7 @@ function EmployeesList(props) {
         handleSkillChange={handleSkillChange}
         handleFilter={handleFilter}
         handleClear={handleClear}
-        skills={skills}
+        skills={technicalSkills}
         isAuthenticate={isAuthenticate}
         logout={logout}
         user={user}

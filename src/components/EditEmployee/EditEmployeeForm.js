@@ -52,9 +52,11 @@ function EditEmployeeForm(props) {
     role,
     setFieldValue,
     handlerCopy,
-    skills
+    technicalSkills,
+    softSkills
   } = props;
-  const disabled = role === "Sale " ? true : false;
+  console.log("PROPS: ", props)
+  const disabled = role === "Sale Manager " ? true : false;
   const [open, setOpen] = React.useState(false);
   const openAlert = () => {
     setOpen(true);
@@ -354,8 +356,8 @@ function EditEmployeeForm(props) {
                   name="skills"
                   label="Technical skills"
                   component={MultiplyWithCreatableInput}
-                  skills={skills}
-                  values={values.skills}
+                  skills={technicalSkills}
+                  values={values.technicalSkills}
                 />
               </Grid>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>
@@ -364,7 +366,7 @@ function EditEmployeeForm(props) {
                   name="softSkills"
                   label="Soft skills"
                   component={MultiplyWithCreatableInput}
-                  skills={skills}
+                  skills={softSkills}
                   values={values.softSkills}
                 />
               </Grid>

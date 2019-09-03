@@ -9,7 +9,7 @@ import NewEmployeeValidationSchema from "./NewEmployeeValidationSchema";
 import { Redirect } from "react-router-dom";
 
 function NewEmployeeComponent(props) {
-  const { role, copy, getSkills } = props;
+  const { role, copy, getTechSkills, getSoftSkills } = props;
   const initialValues = copy.isCopy
     ? {
         firstName: "",
@@ -22,7 +22,8 @@ function NewEmployeeComponent(props) {
         birthday: moment(Date.now()).format(dateFormat),
         availabilityDate: copy.employee.availabilityDate,
         fromNow: copy.employee.fromNow,
-        skills: copy.employee.skills,
+        technicalSkills: copy.employee.technicalSkills,
+        softSkills: copy.employee.softSkills,
         file: copy.employee.photoUrl,
         cvUrl: copy.employee.cvUrl
       }
@@ -42,25 +43,16 @@ function NewEmployeeComponent(props) {
         birthday: moment(Date.now()).format(dateFormat),
         availabilityDate: moment(Date.now()).format(dateFormat),
         fromNow: false,
-        skills: [
-          {
-            title: "",
-            primary: false
-          }
-        ],
-        softSkills: [
-          {
-            title: "",
-            primary: false
-          }
-        ],
+        technicalSkills: [],
+        softSkills: [],
         file: "",
         cvUrl: ""
       };
   useEffect(() => {
-    getSkills();
-  }, [getSkills]);
-  return role !== "Sale " ? (
+    getTechSkills();
+    getSoftSkills();
+  }, [getTechSkills, getSoftSkills]);
+  return role !== "Sale Manager " ? (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Formik
         initialValues={initialValues}

@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { addEmployee, getSkills } from "../../actions/EmployeesActions";
+import { addEmployee } from "../../actions/EmployeesActions";
+import { getTechSkills, getSoftSkills } from "../../actions/skillsActions";
 import NewEmployeeComponent from "../../components/NewEmployee/NewEmployeeComponent";
 
 const mapDispatchToProps = dispatch => {
@@ -7,8 +8,11 @@ const mapDispatchToProps = dispatch => {
     addEmployee: values => {
       dispatch(addEmployee(values));
     },
-    getSkills: () => {
-      dispatch(getSkills());
+    getTechSkills: () => {
+      dispatch(getTechSkills());
+    },
+    getSoftSkills: () => {
+      dispatch(getSoftSkills());
     }
   };
 };
@@ -16,8 +20,9 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => ({
   role: state.authentification.role,
   copy: state.copy,
-  skills: state.skills.skills
-})
+  technicalSkills: state.skills.technicalSkills,
+  softSkills: state.skills.softSkills
+});
 
 export default connect(
   mapStateToProps,

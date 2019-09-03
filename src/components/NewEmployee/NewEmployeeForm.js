@@ -54,7 +54,8 @@ function NewEmployeeForm(props) {
     handleSubmit,
     values,
     setFieldValue,
-    skills
+    technicalSkills,
+    softSkills
   } = props;
   return (
     <Container component="div" className={classes.newEmployee} maxWidth="md">
@@ -357,8 +358,8 @@ function NewEmployeeForm(props) {
                   name="skills"
                   label="Technical skills"
                   component={MultiplyWithCreatableInput}
-                  skills={skills}
-                  values={values.skills}
+                  skills={technicalSkills}
+                  values={values.technicalSkills}
                 />
               </Grid>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>
@@ -367,7 +368,7 @@ function NewEmployeeForm(props) {
                   name="softSkills"
                   label="Soft skills"
                   component={MultiplyWithCreatableInput}
-                  skills={skills}
+                  skills={softSkills}
                   values={values.softSkills}
                 />
               </Grid>

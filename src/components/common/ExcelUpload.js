@@ -80,7 +80,7 @@ function UploadExcel(props) {
     const error = new Error("This type of file is rejected");
     props.alertError(error);
   }, [props]);
-  const { getRootProps } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted,
     onDropRejected
   });
@@ -107,13 +107,14 @@ function UploadExcel(props) {
           Download excel
         </Button>
       ) : null}
-      {role !== "Sale " ? (
+      {role !== "Sale Manager " ? (
         <div
           {...getRootProps({
             className: classes.dropzone
           })}
         >
           <input
+            {...getInputProps()}
             className={classes.input}
             id="excel-button"
             multiple

@@ -1,29 +1,50 @@
 import {
-  SKILLS_REQUEST,
-  SKILLS_SUCCESS,
-  SKILLS_FAILURE
+  TECH_SKILLS_REQUEST,
+  TECH_SKILLS_SUCCESS,
+  TECH_SKILLS_FAILURE,
+  SOFT_SKILLS_REQUEST,
+  SOFT_SKILLS_SUCCESS,
+  SOFT_SKILLS_FAILURE
 } from "../actions/constants";
 
 const initialState = {
-  skills: [],
+  technicalSkills: [],
+  softSkills: [],
   isLoading: false
 };
 
 export default function skillReducer(state = initialState, action) {
   switch (action.type) {
-    case SKILLS_REQUEST:
+    case TECH_SKILLS_REQUEST:
       return {
-        skills: [],
+        ...state,
         isLoading: true
       };
-    case SKILLS_SUCCESS:
+    case TECH_SKILLS_SUCCESS:
       return {
-        skills: action.skills,
+        ...state,
+        technicalSkills: action.techSkills,
         isLoading: false
       };
-    case SKILLS_FAILURE:
+    case TECH_SKILLS_FAILURE:
       return {
-        skills: [],
+        ...state,
+        isLoading: false
+      };
+    case SOFT_SKILLS_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case SOFT_SKILLS_SUCCESS:
+      return {
+        ...state,
+        softSkills: action.softSkills,
+        isLoading: false
+      };
+    case SOFT_SKILLS_FAILURE:
+      return {
+        ...state,
         isLoading: false
       };
     default:

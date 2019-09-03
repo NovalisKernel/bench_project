@@ -12,6 +12,8 @@ import styles from "./styles";
 function EditEmployeeComponent(props) {
   const {
     getEmployeeDetails,
+    getSoftSkills,
+    getTechSkills,
     editEmployee,
     match,
     employee,
@@ -21,14 +23,14 @@ function EditEmployeeComponent(props) {
     copyEmployee
   } = props;
   const EditForm = props => {
-    return role === "Sale " ? (
+    return role === "Sale Manager " ? (
       <EditEmployeeForSale {...props} />
     ) : (
       <EditEmployeeForm {...props} />
     );
   };
   let initialValues = {
-    skills: [],
+    technicalSkills: [],
     softSkills: [],
     englishLevel: "",
     group: { name: "" },
@@ -50,15 +52,17 @@ function EditEmployeeComponent(props) {
           availabilityDate: employee.availabilityDate,
           status: employee.status,
           fromNow: true,
-          skills: employee.skills,
-          softSkills: employee.skills,
+          technicalSkills: employee.technicalSkills,
+          softSkills: employee.softSkills,
           seniorityLevel: "",
           photoUrl: employee.photoUrl,
           cvUrl: employee.cvUrl
         });
   useEffect(() => {
     getEmployeeDetails(match.params.id);
-  }, [getEmployeeDetails, match]);
+    getSoftSkills();
+    getTechSkills();
+  }, [getEmployeeDetails, match, getSoftSkills, getTechSkills]);
   function handlerCopy(values) {
     copyEmployee(values);
   }

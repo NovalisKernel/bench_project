@@ -17,7 +17,7 @@ function EmployeeCard(props) {
     photoUrl,
     firstName,
     lastName,
-    skills,
+    technicalSkills,
     group,
     employeeId,
     onProject,
@@ -25,7 +25,7 @@ function EmployeeCard(props) {
     availabilityDate
   } = props;
 
-  const primarySkills = skills.slice(0, 3);
+  const primarySkills = technicalSkills.slice(0, 3);
   const now = new Date();
   now.setHours(0, 0, 0, 0);
   return (

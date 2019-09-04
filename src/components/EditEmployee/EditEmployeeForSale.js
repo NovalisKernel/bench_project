@@ -1,10 +1,15 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
 import { ExcelUpload } from "../common/ExcelUpload";
-import { Typography, Container } from "@material-ui/core";
+import {
+  Typography,
+  Container,
+  AppBar,
+  Toolbar,
+  Divider,
+  Grid,
+  Avatar
+} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   employeeInfo: {
@@ -24,11 +29,16 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3),
     width: 200
+  },
+  appBar: {
+    top: "auto",
+    bottom: 0
   }
 }));
 
 export default function EditEmployeeForSale(props) {
   const { values, role, employee } = props;
+  console.log("VALUES ", values)
   const classes = useStyles();
   return (
     <Container component="div" maxWidth="md">
@@ -95,14 +105,28 @@ export default function EditEmployeeForSale(props) {
           <Typography variant="subtitle1" gutterBottom>
             Technicall skills:
           </Typography>
-          {values.skills.map((skill, index) => (
+          {values.technicalSkills.map((skill, index) => (
             <Typography key={index} variant="subtitle1" gutterBottom>
               {skill.title}
             </Typography>
           ))}
         </Grid>
         <Grid item>
-          <ExcelUpload classes={classes} role={role} employee={employee} />
+          <Typography variant="subtitle1" gutterBottom>
+            Soft skills:
+          </Typography>
+          {values.softSkills.map((skill, index) => (
+            <Typography key={index} variant="subtitle1" gutterBottom>
+              {skill.title}
+            </Typography>
+          ))}
+        </Grid>
+        <Grid item>
+          <AppBar position="fixed" color="primary" className={classes.appBar}>
+            <Toolbar>
+              <ExcelUpload classes={classes} role={role} employee={employee} />
+            </Toolbar>
+          </AppBar>
         </Grid>
       </Grid>
     </Container>

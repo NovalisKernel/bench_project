@@ -27,12 +27,14 @@ function EmployeesList(props) {
   };
   const {
     getEmployees,
+    getTechSkills,
+    getSoftSkills,
     employees,
     user,
     isLoading,
     location,
     history,
-    skills,
+    technicalSkills,
     isAuthenticate,
     logout
   } = props;
@@ -46,7 +48,8 @@ function EmployeesList(props) {
     skillsObj: {
       value: parsed.skills || "",
       label: parsed.skills || ""
-    }
+    },
+    seniorityLevel: parsed.seniorityLevel || ""
   };
   const clearState = {
     age: "",
@@ -57,7 +60,8 @@ function EmployeesList(props) {
     skillsObj: {
       value: "",
       label: ""
-    }
+    },
+    seniorityLevel: ""
   };
   const [values, setValues] = React.useState(initialState);
   function handleChange(event) {
@@ -67,7 +71,6 @@ function EmployeesList(props) {
     }));
   }
   function handleSkillChange(value) {
-    console.log(value);
     if (value === null) {
       setValues(oldValues => ({
         ...oldValues,
@@ -103,7 +106,9 @@ function EmployeesList(props) {
   }
   useEffect(() => {
     getEmployees(location.search);
-  }, [getEmployees, location]);
+    getTechSkills();
+    getSoftSkills();
+  }, [getEmployees, location, getTechSkills, getSoftSkills]);
   const [open, setOpen] = React.useState(false);
 
   function handleDrawerOpen() {
@@ -137,7 +142,7 @@ function EmployeesList(props) {
         handleSkillChange={handleSkillChange}
         handleFilter={handleFilter}
         handleClear={handleClear}
-        skills={skills}
+        skills={technicalSkills}
         isAuthenticate={isAuthenticate}
         logout={logout}
         user={user}

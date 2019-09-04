@@ -45,7 +45,7 @@ async function resetTokenAndReattemptRequest(error) {
       isAlreadyFetchingAccessToken = true;
       const response = await axios({
         method: "post",
-        url: process.env.REACT_APP_API,
+        url: `${process.env.REACT_APP_API}/auth/refresh`,
         data: {
           token: resetToken
         }

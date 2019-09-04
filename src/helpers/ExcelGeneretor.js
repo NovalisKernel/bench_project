@@ -83,7 +83,7 @@ function generateXlsx(values) {
               var a = document.createElement("a");
               document.body.appendChild(a);
               a.href = url;
-              a.target="_blank"
+              a.target = "_blank";
               a.download = "CV.xlsx";
               a.click();
               window.URL.revokeObjectURL(url);
@@ -91,9 +91,7 @@ function generateXlsx(values) {
             }
           });
         },
-        error => {
-          console.log(error);
-        }
+        error => {}
       );
     });
 }

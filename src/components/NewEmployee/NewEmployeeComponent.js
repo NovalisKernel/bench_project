@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik } from "formik";
 import moment from "moment";
 import dateFormat from "../../helpers/DateFormats";
@@ -9,7 +9,7 @@ import NewEmployeeValidationSchema from "./NewEmployeeValidationSchema";
 import { Redirect } from "react-router-dom";
 
 function NewEmployeeComponent(props) {
-  const { role, copy } = props;
+  const { role, copy, getTechSkills, getSoftSkills } = props;
   const initialValues = copy.isCopy
     ? {
         firstName: "",
@@ -22,33 +22,37 @@ function NewEmployeeComponent(props) {
         birthday: moment(Date.now()).format(dateFormat),
         availabilityDate: copy.employee.availabilityDate,
         fromNow: copy.employee.fromNow,
-        skills: copy.employee.skills,
+        technicalSkills: copy.employee.technicalSkills,
+        softSkills: copy.employee.softSkills,
         file: copy.employee.photoUrl,
         cvUrl: copy.employee.cvUrl
       }
     : {
         firstName: "",
         lastName: "",
+        email: "",
         summary: "",
         education: "",
         englishLevel: "",
         group: {
           name: ""
         },
+        seniorityLevel: "",
+        seniority: "",
         status: "",
         birthday: moment(Date.now()).format(dateFormat),
         availabilityDate: moment(Date.now()).format(dateFormat),
         fromNow: false,
-        skills: [
-          {
-            title: "",
-            primary: false
-          }
-        ],
+        technicalSkills: [],
+        softSkills: [],
         file: "",
         cvUrl: ""
       };
-  return role !== "Sale" ? (
+  useEffect(() => {
+    getTechSkills();
+    getSoftSkills();
+  }, [getTechSkills, getSoftSkills]);
+  return role !== "Sale Manager " ? (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Formik
         initialValues={initialValues}

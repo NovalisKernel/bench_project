@@ -14,10 +14,8 @@ import {
   EMPLOYEE_EDIT_REQUEST,
   EMPLOYEE_EDIT_SUCCESS,
   EMPLOYEE_EDIT_FAILURE,
-  SKILLS_REQUEST,
-  SKILLS_SUCCESS,
   COPY_EMPLOYEE,
-  CLEAR_COPY_EMPLOYEE
+  CLEAR_COPY_EMPLOYEE,
 } from "./constants";
 import customAxios from "../helpers/AxiosRefreshToken";
 import { tokenHelper } from "../helpers/TokenHelper";
@@ -27,16 +25,12 @@ import { alertActions } from "./alertActions";
 
 export const getEmployees = query => async dispatch => {
   dispatch(request());
-  dispatch(skillRequest());
   try {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
     const response = await customAxios.get(`/employees${query}`);
-    const responseSkills = await customAxios.get("/skills");
-    const skills = responseSkills.data;
     const { content: employees } = response.data;
     dispatch(success(employees));
-    dispatch(skillSuccess(skills));
   } catch (error) {
     if (error.message === "Request failed with status code 403") {
       error.message = "You are not permitted for this";
@@ -53,12 +47,6 @@ export const getEmployees = query => async dispatch => {
   }
   function failure(error) {
     return { type: EMPLOYEES_FAILURE, error };
-  }
-  function skillRequest() {
-    return { type: SKILLS_REQUEST };
-  }
-  function skillSuccess(skills) {
-    return { type: SKILLS_SUCCESS, skills };
   }
 };
 
@@ -93,7 +81,7 @@ export const deleteEmployee = id => async dispatch => {
   try {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
-    const response = await customAxios.delete(`/employees/${id}`);
+    await customAxios.delete(`/employees/${id}`);
     dispatch(success());
     dispatch(push("/"));
     dispatch(alertActions.success("User successfully deleted"));
@@ -120,7 +108,7 @@ export const addEmployee = values => async dispatch => {
   try {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
-    const response = await customAxios.post("/employees", values);
+    await customAxios.post("/employees", values);
     dispatch(success());
     dispatch(push("/"));
     dispatch(alertActions.success("User added"));
@@ -144,7 +132,7 @@ export const editEmployee = (id, values) => async dispatch => {
   try {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
-    const response = await customAxios.put(`/employees/${id}`, values);
+    await customAxios.put(`/employees/${id}`, values);
     dispatch(success());
     dispatch(push("/"));
     dispatch(alertActions.success("User successfully edited"));

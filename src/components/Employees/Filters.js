@@ -10,11 +10,10 @@ import {
 } from "@material-ui/core";
 import CheckCircleOutline from "@material-ui/icons/CheckCircleOutline";
 import HighlightOff from "@material-ui/icons/HighlightOff";
-import Autocomplete from "../common/Autocomplete";
+import { SingleInput } from "../common/Autocomplete";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import Ages from "../../enums/Ages";
-import Groups from "../../enums/Groups";
+import SeniorityLevels from "../../enums/SeniorityLevels";
 
 function Filters(props) {
   const {
@@ -29,10 +28,16 @@ function Filters(props) {
 
   return (
     <Grid container direction="column">
-      <Grid item container direction="row" justify="center" alignItems="stretch">
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="stretch"
+      >
         <Grid item>
           <FormControl variant="outlined" className={classes.formControl}>
-            <Autocomplete
+            <SingleInput
               skills={skills}
               handleChange={handleSkillChange}
               values={values}
@@ -40,6 +45,27 @@ function Filters(props) {
           </FormControl>
         </Grid>
         <Grid item>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <FormLabel component="legend">Seniority level</FormLabel>
+            <RadioGroup
+              aria-label="seniorityLevel"
+              name="seniorityLevel"
+              value={values.seniorityLevel}
+              className={classes.group}
+              onChange={handleChange}
+            >
+              {SeniorityLevels.map(item => (
+                <FormControlLabel
+                  key={item._id}
+                  value={item.value}
+                  control={<Radio />}
+                  label={item.name}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        {/* <Grid item>
           <FormControl variant="outlined" className={classes.formControl}>
             <FormLabel component="legend">Age</FormLabel>
             <RadioGroup
@@ -59,8 +85,8 @@ function Filters(props) {
               ))}
             </RadioGroup>
           </FormControl>
-        </Grid>
-        <Grid item>
+        </Grid> */}
+        {/* <Grid item>
           <FormControl variant="outlined" className={classes.formControl}>
             <FormLabel component="legend">Group</FormLabel>
             <RadioGroup
@@ -104,7 +130,7 @@ function Filters(props) {
               />
             </RadioGroup>
           </FormControl>
-        </Grid>
+        </Grid> */}
         <Grid item className={classes.lastFilter}>
           <FormControl variant="outlined" className={classes.formControl}>
             <FormLabel component="legend">Available</FormLabel>

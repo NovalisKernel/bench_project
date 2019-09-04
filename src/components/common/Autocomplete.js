@@ -1,11 +1,15 @@
 import React from "react";
 import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import { emphasize, makeStyles, useTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import NoSsr from "@material-ui/core/NoSsr";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
+import clsx from "clsx";
+import Chip from "@material-ui/core/Chip";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,10 +56,15 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1,
     marginTop: theme.spacing(1),
     left: 0,
-    right: 0
+    right: 0,
+    marginBottom: 80
   },
   divider: {
     height: theme.spacing(2)
+  },
+  textField: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1)
   }
 }));
 
@@ -86,6 +95,7 @@ function Control(props) {
   return (
     <TextField
       fullWidth
+      className={classes.textField}
       InputProps={{
         inputComponent,
         inputProps: {
@@ -140,6 +150,20 @@ function SingleValue(props) {
   );
 }
 
+function MultiValue(props) {
+  return (
+    <Chip
+      tabIndex={-1}
+      label={props.children}
+      className={clsx(props.selectProps.classes.chip, {
+        [props.selectProps.classes.chipFocused]: props.isFocused
+      })}
+      onDelete={props.removeProps.onClick}
+      deleteIcon={<CancelIcon {...props.removeProps} />}
+    />
+  );
+}
+
 function ValueContainer(props) {
   return (
     <div className={props.selectProps.classes.valueContainer}>
@@ -167,14 +191,15 @@ const components = {
   Option,
   Placeholder,
   SingleValue,
-  ValueContainer
+  ValueContainer,
+  MultiValue
 };
 
-export default function IntegrationReactSelect(props) {
+export function SingleInput(props) {
   const { skills, handleChange, values } = props;
-  const options = skills.map(item=>{
-    return {value: item, label: item}
-  })
+  const options = skills.map(item => {
+    return { value: item, label: item };
+  });
   const classes = useStyles();
   const theme = useTheme();
 
@@ -208,6 +233,71 @@ export default function IntegrationReactSelect(props) {
           components={components}
           value={values.skillsObj}
           onChange={handleChange}
+        />
+      </NoSsr>
+    </div>
+  );
+}
+
+export function MultiplyWithCreatableInput(props) {
+  const { skills, values, form, field, label } = props;
+  console.log("VALUES ", values);
+  const valuesMap = values.map(item => {
+    if (item.title) {
+      return { value: item.title, label: item.title };
+    } else if (item.title === "") return null;
+    return { value: item, label: item };
+  });
+  console.log("VALUES MAP", valuesMap);
+  const options = skills.map(item => {
+    return { value: item, label: item };
+  });
+  const classes = useStyles();
+  const theme = useTheme();
+  const onChange = option => {
+    let value = [];
+    console.log("OPTION", option);
+    if (option)
+      form.setFieldValue(
+        field.name,
+        option.map(item => ({
+          title: item.value
+        }))
+      );
+    else form.setFieldValue(field.name, value);
+  };
+  const selectStyles = {
+    input: base => ({
+      ...base,
+      color: theme.palette.text.primary,
+      "& input": {
+        font: "inherit"
+      }
+    })
+  };
+
+  return (
+    <div className={classes.root}>
+      <NoSsr>
+        <CreatableSelect
+          classes={classes}
+          styles={selectStyles}
+          inputId="skill-multiply"
+          TextFieldProps={{
+            label: `${label}`,
+            InputLabelProps: {
+              htmlFor: "skill-multiply",
+              shrink: true
+            }
+          }}
+          name={field.name}
+          isClearable
+          placeholder={label}
+          options={options}
+          components={components}
+          value={valuesMap}
+          onChange={onChange}
+          isMulti
         />
       </NoSsr>
     </div>

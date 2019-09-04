@@ -1,14 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import { withLayout } from "../hoc/WithLayout";
-import { withFooter } from "../hoc/WithFooter";
-import { withoutFooter } from "../hoc/WithoutFooter";
+import { withLayout, withFooter, withoutFooter } from "../hoc";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import LoginComponent from "../containers/login/LoginContainer";
-import EmployeesList from "../containers/employeesList/EmployeesListContainer";
-import NewEmployeeComponent from "../containers/employeesList/NewEmployeeContainer";
-import EditEmployeeComponent from "../containers/employeesList/EditEmployeeContainer";
+import EmployeesList from "../containers/employees/EmployeesListContainer";
+import NewEmployeeComponent from "../containers/employees/NewEmployeeContainer";
+import EditEmployeeComponent from "../containers/employees/EditEmployeeContainer";
 import NotFound from "../components/common/NotFound";
 import ErrorSnackbar from "../containers/alerts/AlertContainer";
 

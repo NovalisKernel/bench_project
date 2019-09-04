@@ -6,23 +6,84 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { stringify, parse } from "query-string";
-import Filters from "./Filters";
+import { ArrowUpward } from "@material-ui/icons";
+import Avatar from "@material-ui/core/Avatar";
+import ScrollToTop from "react-scroll-up";
+import clsx from "clsx";
+import HeaderWithToolbar from "../common/HeaderWithToolbar";
+import HeaderWithPersistentDrawer from "../common/HeaderWithPersistentDrawer";
 import styles from "./styles";
 
 function EmployeesList(props) {
-  const { getEmployees, employees, isLoading, location, history } = props;
+  const style = {
+    position: "fixed",
+    bottom: 50,
+    right: 30,
+    cursor: "pointer",
+    transitionDuration: "0.2s",
+    transitionTimingFunction: "linear",
+    transitionDelay: "0s",
+    zIndex: 9999
+  };
+  const {
+    getEmployees,
+    getTechSkills,
+    getSoftSkills,
+    employees,
+    user,
+    isLoading,
+    location,
+    history,
+    technicalSkills,
+    isAuthenticate,
+    logout
+  } = props;
   const parsed = parse(location.search);
-  const [values, setValues] = React.useState({
+  const initialState = {
     age: parsed.age || "",
     group: parsed.group || "",
     sort: parsed.sort || "",
-    available: parsed.available || ""
-  });
+    available: parsed.available || "",
+    skills: parsed.skills || "",
+    skillsObj: {
+      value: parsed.skills || "",
+      label: parsed.skills || ""
+    },
+    seniorityLevel: parsed.seniorityLevel || ""
+  };
+  const clearState = {
+    age: "",
+    group: "",
+    sort: "",
+    available: "",
+    skills: "",
+    skillsObj: {
+      value: "",
+      label: ""
+    },
+    seniorityLevel: ""
+  };
+  const [values, setValues] = React.useState(initialState);
   function handleChange(event) {
     setValues(oldValues => ({
       ...oldValues,
       [event.target.name]: event.target.value
     }));
+  }
+  function handleSkillChange(value) {
+    if (value === null) {
+      setValues(oldValues => ({
+        ...oldValues,
+        skills: "",
+        skillsObj: { value: "", label: "" }
+      }));
+    } else {
+      setValues(oldValues => ({
+        ...oldValues,
+        skills: value.value,
+        skillsObj: value
+      }));
+    }
   }
   function queryCreator(filters) {
     for (let key in filters) {
@@ -34,38 +95,84 @@ function EmployeesList(props) {
   }
   function handleFilter() {
     const path = location.pathname;
-    const query = { ...values };
+    const { skillsObj, ...query } = values;
     const queryStringified = queryCreator(query);
     history.push(`${path}?${queryStringified}`);
   }
+  function handleClear() {
+    const path = location.pathname;
+    history.push(`${path}`);
+    setValues({ ...clearState });
+  }
   useEffect(() => {
     getEmployees(location.search);
-  }, [getEmployees, location]);
+    getTechSkills();
+    getSoftSkills();
+  }, [getEmployees, location, getTechSkills, getSoftSkills]);
+  const [open, setOpen] = React.useState(false);
+
+  function handleDrawerOpen() {
+    setOpen(true);
+  }
+
+  function handleDrawerClose() {
+    setOpen(false);
+  }
+
   const { classes } = props;
   return (
-    <Container component="div" className={classes.employeesList}>
-      <CssBaseline />
-      <Filters
+    <div className={classes.mainContainer}>
+      {/* <HeaderWithToolbar
         values={values}
         handleChange={handleChange}
+        handleSkillChange={handleSkillChange}
         handleFilter={handleFilter}
+        handleClear={handleClear}
+        skills={skills}
+        isAuthenticate={isAuthenticate}
+        logout={logout}
+        user={user}
+      /> */}
+      <HeaderWithPersistentDrawer
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+        handleDrawerClose={handleDrawerClose}
+        values={values}
+        handleChange={handleChange}
+        handleSkillChange={handleSkillChange}
+        handleFilter={handleFilter}
+        handleClear={handleClear}
+        skills={technicalSkills}
+        isAuthenticate={isAuthenticate}
+        logout={logout}
+        user={user}
       />
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="stretch"
-        spacing={6}
+      <Container
+        component="div"
+        className={clsx(classes.employeesList, {
+          [classes.contentShift]: open
+        })}
+        maxWidth="xl"
       >
-        {isLoading ? (
-          <CircularProgress className={classes.loader} />
-        ) : (
-          employees.map(employee => (
-            <EmployeeCard key={employee.employerId} {...employee} />
-          ))
-        )}
-      </Grid>
-    </Container>
+        <ScrollToTop showUnder={160} style={style}>
+          <Avatar>
+            <ArrowUpward />
+          </Avatar>
+        </ScrollToTop>
+        <CssBaseline />
+        <Grid container direction="row" justify="space-evenly" spacing={6}>
+          {isLoading ? (
+            <CircularProgress
+              className={clsx(classes.loader, { [classes.loaderShift]: open })}
+            />
+          ) : (
+            employees.map(employee => (
+              <EmployeeCard key={employee.employeeId} {...employee} />
+            ))
+          )}
+        </Grid>
+      </Container>
+    </div>
   );
 }
 

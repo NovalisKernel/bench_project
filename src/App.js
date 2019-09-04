@@ -1,5 +1,5 @@
 import React from "react";
-import 'reset.css';
+import "reset.css";
 import "typeface-roboto";
 import { Provider } from "react-redux";
 import store, { history } from "./redux/store";
@@ -10,7 +10,7 @@ function App() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <AppContainer/>
+        <AppContainer />
       </ConnectedRouter>
     </Provider>
   );

@@ -6,14 +6,13 @@ import Footer from "../components/common/Footer";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh"
+    minHeight: "100vh",
+    flexDirection: "column"
   },
   main: {
-    flex: "1 0 auto",
+    flexGrow: 1,
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    flexDirection: "column"
   }
 }));
 
@@ -24,8 +23,8 @@ export const withLayout = Component => props => {
       <Header />
       <main className={classes.main}>
         <Component {...props} />
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 };

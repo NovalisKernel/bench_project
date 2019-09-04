@@ -7,13 +7,17 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 export default function AlertDialog(props) {
-  const { open, closeAlert, values } = props;
+  const { open, closeAlert, deleteEmployee, values, id } = props;
+  function handlerClick() {
+    deleteEmployee(id);
+  }
   return (
     <div>
       <Dialog
         open={open}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        onClose={closeAlert}
       >
         <DialogTitle id="alert-dialog-title">
           {"Are you sure to delete this user?"}
@@ -27,7 +31,7 @@ export default function AlertDialog(props) {
           <Button color="primary" onClick={closeAlert}>
             Cancel
           </Button>
-          <Button color="primary" onClick={closeAlert} autoFocus>
+          <Button color="primary" onClick={handlerClick} autoFocus>
             Delete
           </Button>
         </DialogActions>

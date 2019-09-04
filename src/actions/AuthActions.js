@@ -25,15 +25,21 @@ export const loginUser = (username, password) => async dispatch => {
     try {
       const userResponse = await customAxios.get("auth/profile");
       const user = userResponse.data;
-      console.log(user);
       localStorage.setItem("user", JSON.stringify(user));
       dispatch(success(user));
+      dispatch(alertActions.clear());
       dispatch(push("/"));
     } catch (error) {
       dispatch(failure(error));
       dispatch(alertActions.error(error));
     }
   } catch (error) {
+    if (error.message === "Request failed with status code 403") {
+      error.message = "You are not permitted for this";
+    }
+    else if (error.message === "Request failed with status code 400") {
+      error.message = "This username or password are incorrect"
+    }
     dispatch(failure(error));
     dispatch(alertActions.error(error));
   }

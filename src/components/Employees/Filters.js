@@ -2,112 +2,179 @@ import React from "react";
 import {
   Grid,
   FormControl,
-  MenuItem,
-  InputLabel,
-  Select,
-  OutlinedInput,
-  Button
+  Radio,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel,
+  IconButton
 } from "@material-ui/core";
+import CheckCircleOutline from "@material-ui/icons/CheckCircleOutline";
+import HighlightOff from "@material-ui/icons/HighlightOff";
+import { SingleInput } from "../common/Autocomplete";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import Ages from "../../enums/Ages";
-import Groups from "../../enums/Groups";
+import SeniorityLevels from "../../enums/SeniorityLevels";
 
 function Filters(props) {
-  const { classes, values, handleChange, handleFilter } = props;
-  const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
-  React.useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
+  const {
+    classes,
+    values,
+    handleChange,
+    handleSkillChange,
+    handleFilter,
+    handleClear,
+    skills
+  } = props;
+
   return (
-    <Grid
-      container
-      direction="row"
-      justify="center"
-      alignItems="stretch"
-      spacing={3}
-    >
-      <Grid item>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} htmlFor="age">Age</InputLabel>
-          <Select
-            onChange={handleChange}
-            value={values.age}
-            input={
-              <OutlinedInput labelWidth={labelWidth} name="age" id="age" />
-            }
-          >
-            {Ages.map(item => (
-              <MenuItem key={item._id} value={item.name}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} htmlFor="group">Group</InputLabel>
-          <Select
-            onChange={handleChange}
-            value={values.group}
-            input={
-              <OutlinedInput labelWidth={labelWidth} name="group" id="group" />
-            }
-          >
-            {Groups.map(item => (
-              <MenuItem key={item._id} value={item.name}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} htmlFor="sort">Date</InputLabel>
-          <Select
-            onChange={handleChange}
-            value={values.sort}
-            input={
-              <OutlinedInput
-                labelWidth={labelWidth}
-                name="sort"
-                id="sort"
+    <Grid container direction="column">
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="stretch"
+      >
+        <Grid item>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <SingleInput
+              skills={skills}
+              handleChange={handleSkillChange}
+              values={values}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <FormLabel component="legend">Seniority level</FormLabel>
+            <RadioGroup
+              aria-label="seniorityLevel"
+              name="seniorityLevel"
+              value={values.seniorityLevel}
+              className={classes.group}
+              onChange={handleChange}
+            >
+              {SeniorityLevels.map(item => (
+                <FormControlLabel
+                  key={item._id}
+                  value={item.value}
+                  control={<Radio />}
+                  label={item.name}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        {/* <Grid item>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <FormLabel component="legend">Age</FormLabel>
+            <RadioGroup
+              aria-label="age"
+              name="age"
+              value={values.age}
+              className={classes.group}
+              onChange={handleChange}
+            >
+              {Ages.map(item => (
+                <FormControlLabel
+                  key={item._id}
+                  value={item.value}
+                  control={<Radio />}
+                  label={item.name}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </Grid> */}
+        {/* <Grid item>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <FormLabel component="legend">Group</FormLabel>
+            <RadioGroup
+              aria-label="group"
+              name="group"
+              value={values.group}
+              className={classes.group}
+              onChange={handleChange}
+            >
+              {Groups.map(item => (
+                <FormControlLabel
+                  key={item._id}
+                  value={item.value}
+                  control={<Radio />}
+                  label={item.name}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid item>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <FormLabel component="legend">Date</FormLabel>
+            <RadioGroup
+              aria-label="sort"
+              name="sort"
+              value={values.sort}
+              className={classes.group}
+              onChange={handleChange}
+            >
+              <FormControlLabel value="" control={<Radio />} label="None" />
+              <FormControlLabel
+                value="availabilityDate,asc"
+                control={<Radio />}
+                label="Ascending"
               />
-            }
-          >
-            <MenuItem value=""></MenuItem>  
-            <MenuItem value="availabilityDate,asc">Ascending</MenuItem>
-            <MenuItem value="availabilityDate,desc">Descending</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} htmlFor="available">Available</InputLabel>
-          <Select
-            onChange={handleChange}
-            value={values.available}
-            input={
-              <OutlinedInput
-                labelWidth={labelWidth}
-                name="available"
-                id="available"
+              <FormControlLabel
+                value="availabilityDate,desc"
+                control={<Radio />}
+                label="Descending"
               />
-            }
-          >
-            <MenuItem value=""></MenuItem>  
-            <MenuItem value="true">Available</MenuItem>
-            <MenuItem value="false">Not available</MenuItem>
-          </Select>
-        </FormControl>
+            </RadioGroup>
+          </FormControl>
+        </Grid> */}
+        <Grid item className={classes.lastFilter}>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <FormLabel component="legend">Available</FormLabel>
+            <RadioGroup
+              aria-label="available"
+              name="available"
+              value={values.available}
+              className={classes.group}
+              onChange={handleChange}
+            >
+              <FormControlLabel value="" control={<Radio />} label="None" />
+              <FormControlLabel
+                value="true"
+                control={<Radio />}
+                label="Available"
+              />
+              <FormControlLabel
+                value="false"
+                control={<Radio />}
+                label="Not available"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
       </Grid>
-      <Grid item>
-        <Button size="large" variant="contained" color="primary" className={classes.filterButton} onClick={handleFilter}>
-            Filter
-        </Button>
+      <Grid item container justify="center" className={classes.filtersButton}>
+        <Grid item>
+          <IconButton
+            className={classes.filterButton}
+            onClick={handleFilter}
+            color="primary"
+          >
+            <CheckCircleOutline />
+          </IconButton>
+        </Grid>
+        <Grid item>
+          <IconButton
+            className={classes.filterButton}
+            onClick={handleClear}
+            color="secondary"
+          >
+            <HighlightOff />
+          </IconButton>
+        </Grid>
       </Grid>
     </Grid>
   );

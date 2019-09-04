@@ -1,19 +1,23 @@
 const Ages = [
   {
     _id: "0",
-    name: ""
+    name: "None",
+    value: ""
   },
   {
     _id: "1",
-    name: "<20"
+    name: "<21",
+    value: "<21"
   },
   {
     _id: "2",
-    name: ">20"
+    name: ">21",
+    value: ">21"
   },
   {
     _id: "3",
-    name: "<40"
+    name: "<40",
+    value: "<40"
   }
 ];
 

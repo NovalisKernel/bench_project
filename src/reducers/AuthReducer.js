@@ -10,23 +10,26 @@ const initialState = user
   ? {
       user: user,
       isAuthenticate: true,
-      isLoading: false
+      isLoading: false,
+      role: user.position
     }
-  : { user: {}, isAuthenticate: false, isLoading: false };
+  : { user: {}, isAuthenticate: false, isLoading: false, role: "" };
 
 export default function authentication(state = initialState, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
-        isAuthenticate: true,
+        isAuthenticate: false,
         user: action.user,
-        isLoading: true
+        isLoading: true,
+        role: ""
       };
     case LOGIN_SUCCESS:
       return {
         isAuthenticate: true,
         user: action.user,
-        isLoading: false
+        isLoading: false,
+        role: action.user.position
       };
     case LOGIN_FAILURE:
       return {};
@@ -34,7 +37,8 @@ export default function authentication(state = initialState, action) {
       return {
         isAuthenticate: false,
         user: {},
-        isLoading: false
+        isLoading: false,
+        role: ""
       };
     default:
       return state;

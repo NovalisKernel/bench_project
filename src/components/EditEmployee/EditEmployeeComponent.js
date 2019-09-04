@@ -6,28 +6,66 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import EditEmployeeValidationSchema from "./EditEmployeeValidationSchema";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { withStyles } from "@material-ui/core/styles";
+import EditEmployeeForSale from "./EditEmployeeForSale";
 import styles from "./styles";
 
 function EditEmployeeComponent(props) {
-  const { editUser, match, employee, isLoading, classes } = props;
-  let initialValues = { techSkills: [], level: "" };
+  const {
+    getEmployeeDetails,
+    getSoftSkills,
+    getTechSkills,
+    editEmployee,
+    match,
+    employee,
+    isLoading,
+    classes,
+    role,
+    copyEmployee
+  } = props;
+  const EditForm = props => {
+    return role === "Sale Manager " ? (
+      <EditEmployeeForSale {...props} />
+    ) : (
+      <EditEmployeeForm {...props} />
+    );
+  };
+  let initialValues = {
+    technicalSkills: [],
+    softSkills: [],
+    englishLevel: "",
+    group: { name: "" },
+    status: "",
+    seniorityLevel: ""
+  };
   initialValues =
     Object.keys(employee).length === 0
       ? initialValues
       : (initialValues = {
           firstName: employee.firstName,
           lastName: employee.lastName,
-          group: employee.group.name,
-          age: employee.birthday,
-          level: employee.englishLevel,
+          summary: employee.summary,
+          email: employee.email,
+          education: employee.education,
+          englishLevel: employee.englishLevel,
+          group: employee.group,
+          birthday: employee.birthday,
           availabilityDate: employee.availabilityDate,
-          onProject: employee.onProject,
+          status: employee.status,
           fromNow: true,
-          techSkills: employee.skills
+          technicalSkills: employee.technicalSkills,
+          softSkills: employee.softSkills,
+          seniorityLevel: "",
+          photoUrl: employee.photoUrl,
+          cvUrl: employee.cvUrl
         });
   useEffect(() => {
-    editUser(match.params.id);
-  }, [editUser, match]);
+    getEmployeeDetails(match.params.id);
+    getSoftSkills();
+    getTechSkills();
+  }, [getEmployeeDetails, match, getSoftSkills, getTechSkills]);
+  function handlerCopy(values) {
+    copyEmployee(values);
+  }
   return isLoading ? (
     <div>
       <CircularProgress className={classes.loader} />
@@ -37,8 +75,12 @@ function EditEmployeeComponent(props) {
       <Formik
         initialValues={initialValues}
         validationSchema={EditEmployeeValidationSchema}
-        onSubmit={values => console.log(values)}
-        render={formProps => <EditEmployeeForm {...formProps} {...props} />}
+        onSubmit={values => {
+          editEmployee(match.params.id, values);
+        }}
+        render={formProps => (
+          <EditForm {...formProps} {...props} handlerCopy={handlerCopy} />
+        )}
       />
     </MuiPickersUtilsProvider>
   );

@@ -17,11 +17,14 @@ const styles = theme => ({
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    paddingBottom: 50
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
+    width: 150,
+    height: 150
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -32,15 +35,17 @@ const styles = theme => ({
     justifyContent: "space-evenly",
     width: "100%"
   },
+  gridContainer: {
+    padding: "0 12px 0 12px"
+  },
   submit: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(2)
   },
   input: {
     display: "none"
   },
   button: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1)
+    marginTop: theme.spacing(2)
   },
   techSkills: {
     display: "flex",
@@ -56,9 +61,43 @@ const styles = theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1)
   },
+  imageFormControl: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    alignItems: "center"
+  },
   formTitle: {
     marginBottom: 0,
     marginLeft: "40px"
+  },
+  dropzone: {
+    fontSize: "large",
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderWidth: 4,
+    borderRadius: 2,
+    borderColor: "#ef1111",
+    borderStyle: "dashed",
+    backgroundColor: "#fafafa",
+    color: "#bdbdbd",
+    outline: "none",
+    transition: "border .24s ease-in-out",
+    marginTop: theme.spacing(2),
+    justifyContent: "center",
+    height: 36
+  },
+  appBar: {
+    top: "auto",
+    bottom: 0
+  },
+  fabButtonAdd: {
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    right: 0,
+    margin: "0 auto"
   }
 });
 

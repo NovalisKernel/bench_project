@@ -352,8 +352,8 @@ function EditEmployeeForm(props) {
               </Grid>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>
                 <Field
-                  id="techSkills"
-                  name="skills"
+                  id="technicalSkills"
+                  name="technicalSkills"
                   label="Technical skills"
                   component={MultiplyWithCreatableInput}
                   skills={technicalSkills}

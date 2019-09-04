@@ -9,27 +9,23 @@ const EnglishLevels = [
   },
   {
     _id: "3",
-    name: "Low Intermediate"
-  },
-  {
-    _id: "4",
     name: "Intermediate"
   },
   {
-    _id: "5",
+    _id: "4",
     name: "Upper Intermediate"
   },
   {
-    _id: "6",
+    _id: "5",
     name: "Pre-advanced"
   },
   {
-    _id: "7",
+    _id: "6",
     name: "Advanced"
   },
   {
-    _id: "8",
-    name: "Very Advanced"
+    _id: "7",
+    name: "Native"
   }
 ];
 

@@ -248,6 +248,7 @@ export function MultiplyWithCreatableInput(props) {
     } else if (item.title === "") return null;
     return { value: item, label: item };
   });
+  console.log("VALUES MAP", valuesMap);
   const options = skills.map(item => {
     return { value: item, label: item };
   });
@@ -255,7 +256,14 @@ export function MultiplyWithCreatableInput(props) {
   const theme = useTheme();
   const onChange = option => {
     let value = [];
-    if (option) form.setFieldValue(field.name, option.map(item => item.value));
+    console.log("OPTION", option);
+    if (option)
+      form.setFieldValue(
+        field.name,
+        option.map(item => ({
+          title: item.value
+        }))
+      );
     else form.setFieldValue(field.name, value);
   };
   const selectStyles = {

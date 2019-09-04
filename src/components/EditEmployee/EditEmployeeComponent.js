@@ -48,13 +48,11 @@ function EditEmployeeComponent(props) {
           education: employee.education,
           englishLevel: employee.englishLevel,
           group: employee.group,
-          birthday: employee.birthday,
           availabilityDate: employee.availabilityDate,
           status: employee.status,
-          fromNow: true,
           technicalSkills: employee.technicalSkills,
           softSkills: employee.softSkills,
-          seniorityLevel: "",
+          seniorityLevel: employee.seniorityLevel,
           photoUrl: employee.photoUrl,
           cvUrl: employee.cvUrl
         });

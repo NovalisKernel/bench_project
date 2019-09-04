@@ -1,9 +1,8 @@
-import { string, object, array, boolean, date } from "yup";
+import { string, object, array, date } from "yup";
 
 const EditEmployeeValidationSchema = object().shape({
   firstName: string().required("Enter first name"),
   lastName: string().required("Enter last name"),
-  summary: string().required("Enter summary information"),
   email: string().email(),
   education: string(),
   summary: string(),
@@ -12,10 +11,12 @@ const EditEmployeeValidationSchema = object().shape({
   englishLevel: string().required("Enter english level"),
   group: object()
     .shape({
-      name: string().required("Add group")
+      name: string()
+        .required("Add group")
+        .nullable()
     })
     .required("Add group"),
-  seniorityLevel: string(),
+  seniorityLevel: string().nullable(),
   seniority: string(),
   technicalSkills: array()
     .of(
@@ -23,14 +24,14 @@ const EditEmployeeValidationSchema = object().shape({
         title: string().required("Enter name of tech skill")
       })
     )
-    .min(1),
+    .min(1, "Technical skills must have at least one items"),
   softSkills: array()
     .of(
       object().shape({
-        title: string().required("Enter name of tech skill")
+        title: string().required("Enter name of soft skill")
       })
     )
-    .min(1)
+    .min(1, "Soft skills must have at least one items")
 });
 
 export default EditEmployeeValidationSchema;

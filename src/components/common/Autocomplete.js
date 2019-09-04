@@ -91,7 +91,6 @@ function Control(props) {
     innerRef,
     selectProps: { classes, TextFieldProps }
   } = props;
-
   return (
     <TextField
       fullWidth
@@ -240,15 +239,13 @@ export function SingleInput(props) {
 }
 
 export function MultiplyWithCreatableInput(props) {
-  const { skills, values, form, field, label } = props;
-  console.log("VALUES ", values);
+  const { skills, values, form, field, label, error, helperText } = props;
   const valuesMap = values.map(item => {
     if (item.title) {
       return { value: item.title, label: item.title };
     } else if (item.title === "") return null;
     return { value: item, label: item };
   });
-  console.log("VALUES MAP", valuesMap);
   const options = skills.map(item => {
     return { value: item, label: item };
   });
@@ -256,7 +253,6 @@ export function MultiplyWithCreatableInput(props) {
   const theme = useTheme();
   const onChange = option => {
     let value = [];
-    console.log("OPTION", option);
     if (option)
       form.setFieldValue(
         field.name,
@@ -288,7 +284,9 @@ export function MultiplyWithCreatableInput(props) {
             InputLabelProps: {
               htmlFor: "skill-multiply",
               shrink: true
-            }
+            },
+            error: error,
+            helperText: helperText
           }}
           name={field.name}
           isClearable

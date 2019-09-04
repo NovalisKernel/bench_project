@@ -2,7 +2,7 @@ const Groups = [
   {
     _id: "0",
     name: "None",
-    value: ""
+    value: null
   },
   {
     _id: "1",

@@ -35,11 +35,11 @@ import {
 function NewEmployeeForm(props) {
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
-  const isGroupError = () => {
+  const isSelectError = selectItem => {
     return (
-      Boolean(errors.group) &&
-      Boolean(errors.group.name) &&
-      Boolean(touched.group)
+      Boolean(errors[selectItem]) &&
+      Boolean(errors[selectItem].name) &&
+      Boolean(touched[selectItem])
     );
   };
   React.useEffect(() => {
@@ -189,6 +189,7 @@ function NewEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
+                  error={touched.status && Boolean(errors.status)}
                 >
                   <InputLabel ref={inputLabel}>Employee status</InputLabel>
                   <Select
@@ -208,6 +209,11 @@ function NewEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
+                  {/* {touched.status && Boolean(errors.status) ? (
+                    <FormHelperText id="group-helper" error variant="filled">
+                      {errors.status}
+                    </FormHelperText>
+                  ) : null} */}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6} className={classes.gridContainer}>
@@ -259,7 +265,7 @@ function NewEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
-                  error={isGroupError()}
+                  error={isSelectError("group")}
                 >
                   <InputLabel ref={inputLabel}>Group</InputLabel>
                   <Select
@@ -275,12 +281,12 @@ function NewEmployeeForm(props) {
                     }
                   >
                     {Groups.map(item => (
-                      <MenuItem key={item._id} value={item.name}>
+                      <MenuItem key={item._id} value={item.value}>
                         {item.name}
                       </MenuItem>
                     ))}
                   </Select>
-                  {isGroupError() ? (
+                  {isSelectError("group") ? (
                     <FormHelperText id="group-helper" error variant="filled">
                       {errors.group.name}
                     </FormHelperText>
@@ -354,12 +360,18 @@ function NewEmployeeForm(props) {
               </Grid>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>
                 <Field
-                  id="techSkills"
-                  name="skills"
+                  id="technicalSkills"
+                  name="technicalSkills"
                   label="Technical skills"
                   component={MultiplyWithCreatableInput}
                   skills={technicalSkills}
                   values={values.technicalSkills}
+                  error={
+                    touched.technicalSkills && Boolean(errors.technicalSkills)
+                  }
+                  helperText={
+                    touched.technicalSkills ? errors.technicalSkills : ""
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>
@@ -370,6 +382,8 @@ function NewEmployeeForm(props) {
                   component={MultiplyWithCreatableInput}
                   skills={softSkills}
                   values={values.softSkills}
+                  error={touched.softSkills && Boolean(errors.softSkills)}
+                  helperText={touched.softSkills ? errors.softSkills : ""}
                 />
               </Grid>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>

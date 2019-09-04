@@ -35,10 +35,14 @@ import {
 
 function EditEmployeeForm(props) {
   const inputLabel = React.useRef(null);
-  const isGroupError = () => {
-    return Boolean(errors.group) && Boolean(errors.group.name);
+  const isSelectError = selectItem => {
+    return (
+      Boolean(errors[selectItem]) &&
+      Boolean(errors[selectItem].name) &&
+      Boolean(touched[selectItem])
+    );
   };
-  
+
   const {
     classes,
     errors,
@@ -55,7 +59,6 @@ function EditEmployeeForm(props) {
     technicalSkills,
     softSkills
   } = props;
-  console.log("PROPS: ", props)
   const disabled = role === "Sale Manager " ? true : false;
   const [open, setOpen] = React.useState(false);
   const openAlert = () => {
@@ -269,7 +272,7 @@ function EditEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
-                  error={isGroupError()}
+                  error={isSelectError("group")}
                 >
                   <InputLabel ref={inputLabel}>Group</InputLabel>
                   <Select
@@ -285,12 +288,12 @@ function EditEmployeeForm(props) {
                     }
                   >
                     {Groups.map(item => (
-                      <MenuItem key={item._id} value={item.name}>
+                      <MenuItem key={item._id} value={item.value}>
                         {item.name}
                       </MenuItem>
                     ))}
                   </Select>
-                  {isGroupError() ? (
+                  {isSelectError("group") ? (
                     <FormHelperText id="group-helper" error variant="filled">
                       {errors.group.name}
                     </FormHelperText>
@@ -358,6 +361,12 @@ function EditEmployeeForm(props) {
                   component={MultiplyWithCreatableInput}
                   skills={technicalSkills}
                   values={values.technicalSkills}
+                  error={
+                    touched.technicalSkills && Boolean(errors.technicalSkills)
+                  }
+                  helperText={
+                    touched.technicalSkills ? errors.technicalSkills : ""
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>
@@ -368,6 +377,8 @@ function EditEmployeeForm(props) {
                   component={MultiplyWithCreatableInput}
                   skills={softSkills}
                   values={values.softSkills}
+                  error={touched.softSkills && Boolean(errors.softSkills)}
+                  helperText={touched.softSkills ? errors.softSkills : ""}
                 />
               </Grid>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>

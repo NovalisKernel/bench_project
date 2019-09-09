@@ -6,12 +6,16 @@ import Container from "@material-ui/core/Container";
 const useStyles = makeStyles(theme => ({
   main: {
     marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
+    height: theme.spacing(4)
   },
   footer: {
     padding: theme.spacing(2),
     marginTop: "auto",
     backgroundColor: "#3f51b5"
+  },
+  content: {
+    height: theme.spacing(4)
   }
 }));
 
@@ -20,9 +24,7 @@ export default function StickyFooter() {
 
   return (
     <footer className={classes.footer}>
-      <Container maxWidth="sm">
-        <Typography variant="h6">iTechArt</Typography>
-      </Container>
+      <div className={classes.content}></div>
     </footer>
   );
 }

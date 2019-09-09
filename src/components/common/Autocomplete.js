@@ -232,6 +232,7 @@ export function SingleInput(props) {
           components={components}
           value={values.skillsObj}
           onChange={handleChange}
+          isMulti
         />
       </NoSsr>
     </div>

@@ -120,7 +120,7 @@ function UploadExcel(props) {
             multiple
             type="file"
           />
-          <p>Upload excel</p>
+          <p>Upload CV</p>
         </div>
       ) : null}
     </Fragment>

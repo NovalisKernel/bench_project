@@ -417,7 +417,6 @@ function NewEmployeeForm(props) {
               <Button
                 className={classes.fabButtonAdd}
                 variant="contained"
-                color="secondary"
                 type="submit"
               >
                 Submit

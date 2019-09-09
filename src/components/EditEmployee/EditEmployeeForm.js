@@ -430,7 +430,6 @@ function EditEmployeeForm(props) {
                 <Grid item>
                   <Button
                     variant="contained"
-                    color="secondary"
                     aria-label="add"
                     className={classes.fabButtonAdd}
                     type="submit"
@@ -441,7 +440,6 @@ function EditEmployeeForm(props) {
                 <Grid item>
                   <Button
                     variant="contained"
-                    color="secondary"
                     aria-label="delete"
                     onClick={openAlert}
                     className={classes.fabButtonDelete}
@@ -452,7 +450,6 @@ function EditEmployeeForm(props) {
                 <Grid item>
                   <Button
                     variant="contained"
-                    color="secondary"
                     aria-label="copy"
                     onClick={() => {
                       handlerCopy(values);

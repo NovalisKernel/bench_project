@@ -35,12 +35,15 @@ import {
 
 function EditEmployeeForm(props) {
   const inputLabel = React.useRef(null);
-  const isSelectError = selectItem => {
+  const isGroupError = selectItem => {
     return (
       Boolean(errors[selectItem]) &&
       Boolean(errors[selectItem].name) &&
       Boolean(touched[selectItem])
     );
+  };
+  const isSelectError = selectItem => {
+    return Boolean(touched[selectItem]) && Boolean(errors[selectItem]);
   };
 
   const {
@@ -202,11 +205,13 @@ function EditEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
+                  error={isSelectError("status")}
                 >
                   <InputLabel ref={inputLabel}>Employee status</InputLabel>
                   <Select
                     onChange={handleChange}
                     value={values.status}
+                    onBlur={handleBlur}
                     input={
                       <OutlinedInput
                         labelWidth={120}
@@ -221,6 +226,11 @@ function EditEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
+                  {isSelectError("status") ? (
+                    <FormHelperText id="group-helper" error variant="filled">
+                      {errors.status}
+                    </FormHelperText>
+                  ) : null}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6} className={classes.gridContainer}>
@@ -246,11 +256,13 @@ function EditEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
+                  error={isSelectError("englishLevel")}
                 >
                   <InputLabel ref={inputLabel}>English level</InputLabel>
                   <Select
                     onChange={handleChange}
                     value={values.englishLevel}
+                    onBlur={handleBlur}
                     input={
                       <OutlinedInput
                         labelWidth={90}
@@ -265,6 +277,11 @@ function EditEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
+                  {isSelectError("englishLevel") ? (
+                    <FormHelperText id="group-helper" error variant="filled">
+                      {errors.englishLevel}
+                    </FormHelperText>
+                  ) : null}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6} className={classes.gridContainer}>
@@ -272,7 +289,7 @@ function EditEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
-                  error={isSelectError("group")}
+                  error={isGroupError("group")}
                 >
                   <InputLabel ref={inputLabel}>Group</InputLabel>
                   <Select
@@ -293,7 +310,7 @@ function EditEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
-                  {isSelectError("group") ? (
+                  {isGroupError("group") ? (
                     <FormHelperText id="group-helper" error variant="filled">
                       {errors.group.name}
                     </FormHelperText>
@@ -307,11 +324,13 @@ function EditEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
+                  error={isSelectError("seniorityLevel")}
                 >
                   <InputLabel ref={inputLabel}>Seniority level</InputLabel>
                   <Select
                     onChange={handleChange}
                     value={values.seniorityLevel}
+                    onBlur={handleBlur}
                     input={
                       <OutlinedInput
                         labelWidth={100}
@@ -326,6 +345,11 @@ function EditEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
+                  {isSelectError("seniorityLevel") ? (
+                    <FormHelperText id="group-helper" error variant="filled">
+                      {errors.seniorityLevel}
+                    </FormHelperText>
+                  ) : null}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6} className={classes.gridContainer}>

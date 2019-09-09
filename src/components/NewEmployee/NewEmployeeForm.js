@@ -34,17 +34,16 @@ import {
 
 function NewEmployeeForm(props) {
   const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
-  const isSelectError = selectItem => {
+  const isGroupError = selectItem => {
     return (
       Boolean(errors[selectItem]) &&
       Boolean(errors[selectItem].name) &&
       Boolean(touched[selectItem])
     );
   };
-  React.useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
+  const isSelectError = selectItem => {
+    return Boolean(touched[selectItem]) && Boolean(errors[selectItem]);
+  };
   const {
     classes,
     errors,
@@ -189,15 +188,16 @@ function NewEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
-                  error={touched.status && Boolean(errors.status)}
+                  error={isSelectError("status")}
                 >
                   <InputLabel ref={inputLabel}>Employee status</InputLabel>
                   <Select
                     onChange={handleChange}
                     value={values.status}
+                    onBlur={handleBlur}
                     input={
                       <OutlinedInput
-                        labelWidth={labelWidth}
+                        labelWidth={120}
                         name="status"
                         id="status"
                       />
@@ -209,11 +209,11 @@ function NewEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
-                  {/* {touched.status && Boolean(errors.status) ? (
+                  {isSelectError("status") ? (
                     <FormHelperText id="group-helper" error variant="filled">
                       {errors.status}
                     </FormHelperText>
-                  ) : null} */}
+                  ) : null}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6} className={classes.gridContainer}>
@@ -238,12 +238,14 @@ function NewEmployeeForm(props) {
                 <FormControl
                   variant="outlined"
                   fullWidth
+                  error={isSelectError("englishLevel")}
                   className={classes.formControl}
                 >
                   <InputLabel ref={inputLabel}>English level</InputLabel>
                   <Select
                     onChange={handleChange}
                     value={values.englishLevel}
+                    onBlur={handleBlur}
                     input={
                       <OutlinedInput
                         labelWidth={90}
@@ -258,6 +260,11 @@ function NewEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
+                  {isSelectError("englishLevel") ? (
+                    <FormHelperText id="group-helper" error variant="filled">
+                      {errors.englishLevel}
+                    </FormHelperText>
+                  ) : null}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6} className={classes.gridContainer}>
@@ -265,7 +272,7 @@ function NewEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
-                  error={isSelectError("group")}
+                  error={isGroupError("group")}
                 >
                   <InputLabel ref={inputLabel}>Group</InputLabel>
                   <Select
@@ -286,7 +293,7 @@ function NewEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
-                  {isSelectError("group") ? (
+                  {isGroupError("group") ? (
                     <FormHelperText id="group-helper" error variant="filled">
                       {errors.group.name}
                     </FormHelperText>
@@ -300,14 +307,16 @@ function NewEmployeeForm(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.formControl}
+                  error={isSelectError("seniorityLevel")}
                 >
                   <InputLabel ref={inputLabel}>Seniority level</InputLabel>
                   <Select
                     onChange={handleChange}
                     value={values.seniorityLevel}
+                    onBlur={handleBlur}
                     input={
                       <OutlinedInput
-                        labelWidth={90}
+                        labelWidth={100}
                         name="seniorityLevel"
                         id="seniorityLevel"
                       />
@@ -319,6 +328,11 @@ function NewEmployeeForm(props) {
                       </MenuItem>
                     ))}
                   </Select>
+                  {isSelectError("seniorityLevel") ? (
+                    <FormHelperText id="group-helper" error variant="filled">
+                      {errors.seniorityLevel}
+                    </FormHelperText>
+                  ) : null}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6} className={classes.gridContainer}>

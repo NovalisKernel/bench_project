@@ -12,11 +12,11 @@ const EditEmployeeValidationSchema = object().shape({
   group: object()
     .shape({
       name: string()
-        .required("Add group")
+        .required("Enter group")
         .nullable()
     })
-    .required("Add group"),
-  seniorityLevel: string().nullable(),
+    .required("Enter group"),
+  seniorityLevel: string().required("Enter seniority level"),
   seniority: string(),
   technicalSkills: array()
     .of(

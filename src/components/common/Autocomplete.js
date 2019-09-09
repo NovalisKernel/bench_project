@@ -239,7 +239,8 @@ export function SingleInput(props) {
 }
 
 export function MultiplyWithCreatableInput(props) {
-  const { skills, values, form, field, label, error, helperText } = props;
+  const { skills, values, form, field, label, error, helperText, id } = props;
+  const { handleBlur } = form;
   const valuesMap = values.map(item => {
     if (item.title) {
       return { value: item.title, label: item.title };
@@ -278,15 +279,16 @@ export function MultiplyWithCreatableInput(props) {
         <CreatableSelect
           classes={classes}
           styles={selectStyles}
-          inputId="skill-multiply"
+          inputId={id}
           TextFieldProps={{
             label: `${label}`,
             InputLabelProps: {
-              htmlFor: "skill-multiply",
+              htmlFor: `${id}`,
               shrink: true
             },
             error: error,
-            helperText: helperText
+            helperText: helperText,
+            onBlur: handleBlur
           }}
           name={field.name}
           isClearable

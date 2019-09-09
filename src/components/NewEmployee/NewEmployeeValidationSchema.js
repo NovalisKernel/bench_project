@@ -3,18 +3,20 @@ import { string, object, array, date } from "yup";
 const NewEmployeeValidationSchema = object().shape({
   firstName: string().required("Enter first name"),
   lastName: string().required("Enter last name"),
-  email: string().email(),
+  email: string().email("Enter valid email"),
   education: string(),
   summary: string(),
-  status: string().required("Add status"),
+  status: string().required("Enter status"),
   availabilityDate: date(),
   englishLevel: string().required("Enter english level"),
   group: object()
     .shape({
-      name: string().required("Add group").nullable()
+      name: string()
+        .required("Enter group")
+        .nullable()
     })
-    .required("Add group"),
-  seniorityLevel: string(),
+    .required("Enter group"),
+  seniorityLevel: string().required("Enter seniority level"),
   seniority: string(),
   technicalSkills: array()
     .of(

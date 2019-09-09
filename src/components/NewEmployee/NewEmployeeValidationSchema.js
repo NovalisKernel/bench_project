@@ -6,11 +6,7 @@ const NewEmployeeValidationSchema = object().shape({
   email: string().email(),
   education: string(),
   summary: string(),
-  status: object()
-    .shape({
-      name: string().required("Add status")
-    })
-    .required("Add status"),
+  status: string().required("Add status"),
   availabilityDate: date(),
   englishLevel: string().required("Enter english level"),
   group: object()

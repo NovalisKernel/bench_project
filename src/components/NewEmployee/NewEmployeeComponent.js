@@ -25,7 +25,7 @@ function NewEmployeeComponent(props) {
         seniority: copy.employee.seniority,
         technicalSkills: copy.employee.technicalSkills,
         softSkills: copy.employee.softSkills,
-        file: copy.employee.photoUrl,
+        file: "",
         cvUrl: copy.employee.cvUrl
       }
     : {

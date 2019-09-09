@@ -171,7 +171,7 @@ function EditEmployeeForm(props) {
                 />
               </Grid>
             </Grid>
-            <Grid container direction="column" justify="center">
+            <Grid container>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>
                 <TextField
                   variant="outlined"
@@ -346,7 +346,7 @@ function EditEmployeeForm(props) {
                 />
               </Grid>
             </Grid>
-            <Grid container direction="column" justify="center">
+            <Grid container>
               <Grid item xs={12} sm={12} className={classes.gridContainer}>
                 <Typography component="span" variant="h5">
                   Skills

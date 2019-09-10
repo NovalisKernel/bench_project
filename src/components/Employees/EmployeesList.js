@@ -45,18 +45,12 @@ function EmployeesList(props) {
       : [{ value: parsed.technicalSkills, label: parsed.technicalSkills }]
     : [];
   const initialState = {
-    age: parsed.age || "",
-    group: parsed.group || "",
-    sort: parsed.sort || "",
     available: parsed.available || "",
     technicalSkills: parsed.technicalSkills || [],
     skillsObj: parsSkills,
     seniorityLevel: parsed.seniorityLevel || ""
   };
   const clearState = {
-    age: "",
-    group: "",
-    sort: "",
     available: "",
     technicalSkills: [],
     skillsObj: [],
@@ -122,17 +116,6 @@ function EmployeesList(props) {
   const { classes } = props;
   return (
     <div className={classes.mainContainer}>
-      {/* <HeaderWithToolbar
-        values={values}
-        handleChange={handleChange}
-        handleSkillChange={handleSkillChange}
-        handleFilter={handleFilter}
-        handleClear={handleClear}
-        skills={skills}
-        isAuthenticate={isAuthenticate}
-        logout={logout}
-        user={user}
-      /> */}
       <HeaderWithPersistentDrawer
         open={open}
         handleDrawerOpen={handleDrawerOpen}

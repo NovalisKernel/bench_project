@@ -148,10 +148,8 @@ export default function PersistentDrawerLeft(props) {
               iTechArt bench info
             </Link>
           </Typography>
-          {user &&
-          user.position &&
-          (user.position.replace(/\s+/g, "") === "Group Manager" ||
-            user.position.replace(/\s+/g, "") === "Department Manager") ? (
+          {(user && user.position === "Group Manager ") ||
+          user.position === "Department Manager " ? (
             <Typography variant="h6">
               <Link className={classes.a} to="/new-employee">
                 <Button color="inherit">Add new</Button>

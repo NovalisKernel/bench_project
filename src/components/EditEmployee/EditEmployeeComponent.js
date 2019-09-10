@@ -53,6 +53,7 @@ function EditEmployeeComponent(props) {
           technicalSkills: employee.technicalSkills,
           softSkills: employee.softSkills,
           seniorityLevel: employee.seniorityLevel,
+          seniority: employee.seniority,
           photoUrl: employee.photoUrl,
           cvUrl: employee.cvUrl
         });

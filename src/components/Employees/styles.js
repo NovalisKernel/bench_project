@@ -1,4 +1,4 @@
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const styles = theme => ({
   employeesList: {
@@ -85,7 +85,7 @@ const styles = theme => ({
   formControl: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(1),
-    width: 180
+    width: 240
   },
   filterButton: {
     margin: theme.spacing(1)
@@ -103,7 +103,7 @@ const styles = theme => ({
   filtersButton: {
     position: "fixed",
     bottom: 0,
-    width: 240,
+    width: drawerWidth,
     backgroundColor: "lightgray"
   },
   lastFilter: {

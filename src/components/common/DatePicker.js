@@ -4,30 +4,34 @@ import moment from "moment";
 import dateFormat from "../../helpers/DateFormats";
 
 const FormikDatePicker = ({
-    form: { setFieldValue },
-    field: { value, name },
-    label,
-    disabled,
-    ...rest
-  }) => {
-    return (
-      <DatePicker
-        name={name}
-        allowKeyboardControl
-        clearable
-        autoOk
-        label={label}
-        disabled={disabled}
-        inputVariant="outlined"
-        format="MM/dd/yyyy"
-        placeholder="10/10/2018"
-        onChange={value => {
-          setFieldValue(name, moment(value).format(dateFormat));
-        }}
-        value={value}
-        animateYearScrolling={false}
-      />
-    );
-  };
+  form: { setFieldValue },
+  field: { value, name },
+  label,
+  disabled,
+  ...rest
+}) => {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  return (
+    <DatePicker
+      name={name}
+      allowKeyboardControl
+      clearable
+      autoOk
+      label={label}
+      disabled={disabled}
+      inputVariant="outlined"
+      format="MM/dd/yyyy"
+      placeholder="10/10/2018"
+      onChange={value => {
+        value
+          ? setFieldValue(name, moment(value).format(dateFormat))
+          : setFieldValue(name, moment(now).format(dateFormat));
+      }}
+      value={value}
+      animateYearScrolling={false}
+    />
+  );
+};
 
-  export default FormikDatePicker;
+export default FormikDatePicker;

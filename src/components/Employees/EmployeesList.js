@@ -34,21 +34,23 @@ function EmployeesList(props) {
     isLoading,
     location,
     history,
-    technicalSkills,
+    techSkills,
     isAuthenticate,
     logout
   } = props;
-  const parsed = parse(location.search);
+  const parsed = parse(location.search, { arrayFormat: "comma" });
+  const parsSkills = parsed.technicalSkills
+    ? Array.isArray(parsed.technicalSkills)
+      ? parsed.technicalSkills.map(item => ({ value: item, label: item }))
+      : [{ value: parsed.technicalSkills, label: parsed.technicalSkills }]
+    : [];
   const initialState = {
     age: parsed.age || "",
     group: parsed.group || "",
     sort: parsed.sort || "",
     available: parsed.available || "",
-    skills: parsed.skills || "",
-    skillsObj: {
-      value: parsed.skills || "",
-      label: parsed.skills || ""
-    },
+    technicalSkills: parsed.technicalSkills || [],
+    skillsObj: parsSkills,
     seniorityLevel: parsed.seniorityLevel || ""
   };
   const clearState = {
@@ -56,11 +58,8 @@ function EmployeesList(props) {
     group: "",
     sort: "",
     available: "",
-    skills: "",
-    skillsObj: {
-      value: "",
-      label: ""
-    },
+    technicalSkills: [],
+    skillsObj: [],
     seniorityLevel: ""
   };
   const [values, setValues] = React.useState(initialState);
@@ -74,13 +73,14 @@ function EmployeesList(props) {
     if (value === null) {
       setValues(oldValues => ({
         ...oldValues,
-        skills: "",
-        skillsObj: { value: "", label: "" }
+        technicalSkills: [],
+        skillsObj: []
       }));
     } else {
+      const mapValue = value.map(item => item.value);
       setValues(oldValues => ({
         ...oldValues,
-        skills: value.value,
+        technicalSkills: mapValue,
         skillsObj: value
       }));
     }
@@ -91,7 +91,7 @@ function EmployeesList(props) {
         delete filters[key];
       }
     }
-    return stringify(filters);
+    return stringify(filters, { arrayFormat: "comma" });
   }
   function handleFilter() {
     const path = location.pathname;
@@ -142,7 +142,7 @@ function EmployeesList(props) {
         handleSkillChange={handleSkillChange}
         handleFilter={handleFilter}
         handleClear={handleClear}
-        skills={technicalSkills}
+        skills={techSkills}
         isAuthenticate={isAuthenticate}
         logout={logout}
         user={user}

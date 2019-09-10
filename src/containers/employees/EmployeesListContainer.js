@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => ({
   employees: state.employeesList.employees,
   isLoading: state.employeesList.isLoading,
-  technicalSkills: state.skills.technicalSkills,
+  techSkills: state.skills.technicalSkills,
   softSkills: state.skills.softSkills,
   isAuthenticate: state.authentification.isAuthenticate,
   user: state.authentification.user

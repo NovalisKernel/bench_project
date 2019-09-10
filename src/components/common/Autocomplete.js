@@ -209,6 +209,10 @@ export function SingleInput(props) {
       "& input": {
         font: "inherit"
       }
+    }),
+    indicatorsContainer: base => ({
+      ...base, 
+      cursor: "pointer"
     })
   };
 

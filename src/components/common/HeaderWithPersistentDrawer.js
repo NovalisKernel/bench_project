@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Filters from "../Employees/Filters";
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -100,15 +100,6 @@ export default function PersistentDrawerLeft(props) {
   }
   const classes = useStyles();
   const theme = useTheme();
-//   const [open, setOpen] = React.useState(false);
-
-//   function handleDrawerOpen() {
-//     setOpen(true);
-//   }
-
-//   function handleDrawerClose() {
-//     setOpen(false);
-//   }
 
   const drawer = (
     <div>
@@ -157,7 +148,10 @@ export default function PersistentDrawerLeft(props) {
               iTechArt bench info
             </Link>
           </Typography>
-          {user && user.position === "Group Manager " ? (
+          {user &&
+          user.position &&
+          (user.position.replace(/\s+/g, "") === "Group Manager" ||
+            user.position.replace(/\s+/g, "") === "Department Manager") ? (
             <Typography variant="h6">
               <Link className={classes.a} to="/new-employee">
                 <Button color="inherit">Add new</Button>

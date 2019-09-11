@@ -18,6 +18,8 @@ const FormikDatePicker = ({
       allowKeyboardControl
       clearable
       autoOk
+      disablePast
+      maxDate={moment(now).add(5, "years").toDate()}
       label={label}
       disabled={disabled}
       inputVariant="outlined"

@@ -22,7 +22,8 @@ function EmployeeCard(props) {
     employeeId,
     onProject,
     seniorityLevel,
-    availabilityDate
+    availabilityDate,
+    englishLevel
   } = props;
 
   const primarySkills = technicalSkills.slice(0, 3);
@@ -69,6 +70,11 @@ function EmployeeCard(props) {
               {seniorityLevel ? (
                 <Typography variant="subtitle1" gutterBottom>
                   {seniorityLevel}
+                </Typography>
+              ) : null}
+              {englishLevel ? (
+                <Typography variant="subtitle1" gutterBottom>
+                  {englishLevel}
                 </Typography>
               ) : null}
               {primarySkills.length ? (

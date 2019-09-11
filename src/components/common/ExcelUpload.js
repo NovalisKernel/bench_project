@@ -94,7 +94,7 @@ function UploadExcel(props) {
           onClick={downloadExcel}
           className={classes.button}
         >
-          Download excel
+          Download CV
         </Button>
       ) : employee && employee.cvUrl ? (
         <Button
@@ -104,7 +104,7 @@ function UploadExcel(props) {
           onClick={downloadExcel}
           className={classes.button}
         >
-          Download excel
+          Download CV
         </Button>
       ) : null}
       {role !== "Sale Manager " ? (

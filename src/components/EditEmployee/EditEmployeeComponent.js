@@ -14,6 +14,7 @@ function EditEmployeeComponent(props) {
     getEmployeeDetails,
     getSoftSkills,
     getTechSkills,
+    getGroups,
     editEmployee,
     match,
     employee,
@@ -61,7 +62,8 @@ function EditEmployeeComponent(props) {
     getEmployeeDetails(match.params.id);
     getSoftSkills();
     getTechSkills();
-  }, [getEmployeeDetails, match, getSoftSkills, getTechSkills]);
+    getGroups();
+  }, [getEmployeeDetails, match, getSoftSkills, getTechSkills, getGroups]);
   function handlerCopy(values) {
     copyEmployee(values);
   }

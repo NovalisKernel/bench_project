@@ -11,7 +11,6 @@ import {
 import styles from "./styles";
 import {
   EnglishLevels,
-  Groups,
   EmployeeStatuses,
   SeniorityLevels
 } from "../../enums";
@@ -60,7 +59,8 @@ function EditEmployeeForm(props) {
     setFieldValue,
     handlerCopy,
     technicalSkills,
-    softSkills
+    softSkills,
+    groups
   } = props;
   const disabled = role === "Sale Manager " ? true : false;
   const [open, setOpen] = React.useState(false);
@@ -304,8 +304,8 @@ function EditEmployeeForm(props) {
                       />
                     }
                   >
-                    {Groups.map(item => (
-                      <MenuItem key={item._id} value={item.value}>
+                    {groups.map((item, i) => (
+                      <MenuItem key={i} value={item.name}>
                         {item.name}
                       </MenuItem>
                     ))}

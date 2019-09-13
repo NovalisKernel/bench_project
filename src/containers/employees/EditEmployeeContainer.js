@@ -6,6 +6,7 @@ import {
   copyEmployee
 } from "../../actions/EmployeesActions";
 import { getTechSkills, getSoftSkills } from "../../actions/skillsActions";
+import { getGroups } from "../../actions/groupsAction";
 import EditEmployeeComponent from "../../components/EditEmployee/EditEmployeeComponent";
 
 const mapStateToProps = state => ({
@@ -13,7 +14,8 @@ const mapStateToProps = state => ({
   isLoading: state.employee.isLoading,
   role: state.authentification.role,
   technicalSkills: state.skills.technicalSkills,
-  softSkills: state.skills.softSkills
+  softSkills: state.skills.softSkills,
+  groups: state.groups.groups
 });
 
 const mapDispatchToProps = dispatch => {
@@ -35,6 +37,9 @@ const mapDispatchToProps = dispatch => {
     },
     getSoftSkills: () => {
       dispatch(getSoftSkills());
+    },
+    getGroups: () => {
+      dispatch(getGroups());
     }
   };
 };

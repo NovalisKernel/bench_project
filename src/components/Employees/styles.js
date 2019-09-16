@@ -61,6 +61,9 @@ const styles = theme => ({
   title: {
     fontSize: 14
   },
+  titleName: {
+    overflowWrap: "break-word"
+  },
   pos: {
     marginBottom: 12
   },

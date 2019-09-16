@@ -40,7 +40,7 @@ function EmployeeCard(props) {
               title="Avatar"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography className={classes.titleName} gutterBottom variant="h5" component="h2">
                 {firstName + " " + lastName}
               </Typography>
               {group ? (

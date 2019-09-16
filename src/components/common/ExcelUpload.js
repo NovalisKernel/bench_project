@@ -130,7 +130,7 @@ function UploadExcel(props) {
 const mapDispatchToProps = dispatch => {
   return {
     alertSuccess: () => {
-      dispatch(alertActions.success("Excel uploaded"));
+      dispatch(alertActions.success("CV uploaded"));
     },
     alertError: err => {
       dispatch(alertActions.error(err));

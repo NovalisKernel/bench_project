@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import GoBack from "./GoBack";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -57,6 +58,7 @@ export default function Header(props) {
           )}
         </Toolbar>
       </AppBar>
+      <GoBack />
     </div>
   );
 }

@@ -10,56 +10,35 @@ import axios from "axios";
 function UploadExcel(props) {
   const initialState = {
     file: null,
-    error: "",
-    filename: "",
-    contentLink: ""
+    error: ""
   };
   const [values, setValues] = React.useState(initialState);
   function downloadExcel() {
-    console.log(props.value);
     const token = tokenHelper.getAuthToken();
     axios
       .get(props.value, {
-        headers: { Authorization: "Bearer " + token },
-      })
-      .then(
-        response => {
-          props.alertSuccess();
-          console.log(response.data);
-          // setValues({
-          //   contentLink: response.data._links.content.href,
-          //   filename: response.data.filename
-          // });
-
-        },
-        error => {
-          props.alertError(error);
-        }
-      );
-    console.log(values);
-    axios
-      .get(values.contentLink, {
         headers: { Authorization: "Bearer " + token },
         responseType: "arraybuffer"
       })
       .then(
         response => {
-
+          props.alertSuccess();
           var file = new Blob([response.data]);
           if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-            window.navigator.msSaveOrOpenBlob(file, values.filename);
+            window.navigator.msSaveOrOpenBlob(file, "out.xlsx");
           } else {
             var url = window.URL.createObjectURL(file);
             var a = document.createElement("a");
             document.body.appendChild(a);
             a.href = url;
             a.target = "_blank";
-            a.download = values.filename;
+            a.download = "CV.xlsx";
             a.click();
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
           }
-        }, error => {
+        },
+        error => {
           props.alertError(error);
         }
       );

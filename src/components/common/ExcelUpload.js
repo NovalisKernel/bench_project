@@ -18,28 +18,33 @@ function UploadExcel(props) {
     axios
       .get(props.value, {
         headers: { Authorization: "Bearer " + token },
-        responseType: "arraybuffer"
       })
       .then(
-        response => {
-          props.alertSuccess();
-          var file = new Blob([response.data]);
-          if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-            window.navigator.msSaveOrOpenBlob(file, "out.xlsx");
-          } else {
-            var url = window.URL.createObjectURL(file);
-            var a = document.createElement("a");
-            document.body.appendChild(a);
-            a.href = url;
-            a.target = "_blank";
-            a.download = "CV.xlsx";
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-          }
-        },
-        error => {
-          props.alertError(error);
+        response => {          
+          var filename = response.data.filename;          
+          axios.get(response.data._links.content.href, {
+            headers: { Authorization: "Bearer " + token },
+            responseType: "arraybuffer"
+          }).then(response => {
+            props.alertSuccess();
+            var file = new Blob([response.data]);
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+              window.navigator.msSaveOrOpenBlob(file, filename);
+            } else {
+              var url = window.URL.createObjectURL(file);
+              var a = document.createElement("a");
+              document.body.appendChild(a);
+              a.href = url;
+              a.target = "_blank";
+              a.download = filename;
+              a.click();
+              window.URL.revokeObjectURL(url);
+              document.body.removeChild(a);
+            }
+          },
+          error => {
+            props.alertError(error);
+          }); 
         }
       );
   }

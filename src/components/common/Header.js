@@ -58,7 +58,7 @@ export default function Header(props) {
           )}
         </Toolbar>
       </AppBar>
-      <GoBack />
+      {isAuthenticate && <GoBack />}      
     </div>
   );
 }

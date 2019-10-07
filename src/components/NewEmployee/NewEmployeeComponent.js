@@ -51,7 +51,7 @@ function NewEmployeeComponent(props) {
     getTechSkills();
     getSoftSkills();
   }, [getTechSkills, getSoftSkills]);
-  return role !== "Sale Manager " ? (
+  return role.trim() !== "Sale" ? (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Formik
         initialValues={initialValues}

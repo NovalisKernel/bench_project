@@ -36,15 +36,7 @@ export default function Header(props) {
             <Link className={classes.a} to="/">
               iTechArt bench info
             </Link>
-          </Typography>
-          {(user && user.position === "Group Manager ") ||
-          user.position === "Department Manager " ? (
-            <Typography variant="h6">
-              <Link className={classes.a} to="/new-employee">
-                <Button color="inherit">Add new</Button>
-              </Link>
-            </Typography>
-          ) : null}
+          </Typography>          
           {isAuthenticate ? (
             <Button color="inherit" onClick={handlerLogout}>
               Logout

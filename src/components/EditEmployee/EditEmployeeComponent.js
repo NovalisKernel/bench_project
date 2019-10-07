@@ -24,7 +24,7 @@ function EditEmployeeComponent(props) {
     copyEmployee
   } = props;
   const EditForm = props => {
-    return role === "Sale Manager " ? (
+    return role.trim() === "Sale" ? (
       <EditEmployeeForSale {...props} />
     ) : (
       <EditEmployeeForm {...props} />

@@ -102,8 +102,7 @@ export default function Header(props) {
               iTechArt bench info
             </Link>
           </Typography>
-          {console.log}
-          {user && user.position.replace(/\s+/g, "") === "Group Manager" ? (
+          {user && user.position.trim() === "Group Manager" ? (
             <Typography variant="h6">
               <Link className={classes.a} to="/new-employee">
                 <Button color="inherit">Add new</Button>

@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function EditEmployeeForSale(props) {
   const { values, role, employee } = props;
-  console.log("VALUES ", values)
+  // console.log("VALUES ", values)
   const classes = useStyles();
   return (
     <Container component="div" maxWidth="md">
@@ -59,22 +59,22 @@ export default function EditEmployeeForSale(props) {
             </Grid>
             <Grid item>
               <Typography variant="subtitle1" gutterBottom>
-                {`Summary: ${values.summary}`}
+                {`Summary: ${values.summary !== undefined ? values.summary : " — " }`}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="subtitle1" gutterBottom>
-                {`Birhday date: ${values.birthday}`}
+                {`Birhday date: ${values.birthday !== undefined ? values.birthday : " — " }`}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="subtitle1" gutterBottom>
-                {`Group: ${values.group.name}`}
+                {`Group: ${values.group.name !== undefined ? values.group.name : " — " }`}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="subtitle1" gutterBottom>
-                {`Status: ${values.status}`}
+                {`Status: ${values.status !== undefined ? values.status : " — " }`}
               </Typography>
             </Grid>
             <Grid item>
@@ -91,13 +91,13 @@ export default function EditEmployeeForSale(props) {
         <Divider />
         <Grid item>
           <Typography variant="subtitle1" gutterBottom>
-            {`Education: ${values.education}`}
+            {`Education: ${values.education !== undefined ? values.education : " — " }`}
           </Typography>
         </Grid>
         <Divider />
         <Grid item>
           <Typography variant="subtitle1" gutterBottom>
-            {`English level: ${values.englishLevel}`}
+            {`English level: ${values.englishLevel !== undefined ? values.englishLevel : " — " }`}
           </Typography>
         </Grid>
         <Divider />

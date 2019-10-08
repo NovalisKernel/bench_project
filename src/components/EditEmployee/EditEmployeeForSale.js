@@ -38,7 +38,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function EditEmployeeForSale(props) {
   const { values, role, employee } = props;
-  // console.log("VALUES ", values)
   const classes = useStyles();
   return (
     <Container component="div" maxWidth="md">

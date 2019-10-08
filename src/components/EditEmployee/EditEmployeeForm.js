@@ -62,7 +62,7 @@ function EditEmployeeForm(props) {
     softSkills,
     groups
   } = props;
-  const disabled = role.trim() === "Sale" ? true : false;
+  const disabled = role === "Sale" ? true : false;
   const [open, setOpen] = React.useState(false);
   const openAlert = () => {
     setOpen(true);

@@ -112,7 +112,7 @@ function UploadExcel(props) {
           Download CV
         </Button>
       ) : null}
-      {role.trim() !== "Sale" ? (
+      {role !== "Sale" ? (
         <div
           {...getRootProps({
             className: classes.dropzone

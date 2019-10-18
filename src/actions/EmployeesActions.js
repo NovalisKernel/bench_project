@@ -29,8 +29,8 @@ export const getEmployees = query => async dispatch => {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
     const response = await customAxios.get(`/employees${query}`);
-    const { content: employees } = response.data;
-    dispatch(success(employees));
+    const data = response.data;
+    dispatch(success(data));
   } catch (error) {
     if (error.message === "Request failed with status code 403") {
       error.message = "You are not permitted for this";

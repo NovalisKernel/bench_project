@@ -6,7 +6,9 @@ import {
 
 const initialState = {
   isLoading: false,
-  employees: []
+  employees: [],
+  page: 1,
+  pages: 1,
 };
 
 export default function employeesList(state = initialState, action) {
@@ -19,7 +21,8 @@ export default function employeesList(state = initialState, action) {
     case EMPLOYEES_SUCCESS:
       return {
         isLoading: false,
-        employees: action.employees
+        employees: action.employees.content,
+        pages: action.employees.totalPages
       };
     case EMPLOYEES_FAILURE:
       return {

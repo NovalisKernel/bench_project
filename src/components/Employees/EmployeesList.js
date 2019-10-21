@@ -119,6 +119,7 @@ function EmployeesList(props) {
   }
   function handlePageClick(page) {
     console.log("пип"); 
+    console.log(page); 
     const path = location.pathname;
     history.push(`${path}?page=${values.page}&size=${values.size}`);
   }

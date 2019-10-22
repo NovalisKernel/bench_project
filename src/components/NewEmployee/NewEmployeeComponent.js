@@ -9,7 +9,7 @@ import NewEmployeeValidationSchema from "./NewEmployeeValidationSchema";
 import { Redirect } from "react-router-dom";
 
 function NewEmployeeComponent(props) {
-  const { role, copy, getTechSkills, getSoftSkills } = props;
+  const { role, copy, getTechSkills, getSoftSkills, getGroups } = props;
   const initialValues = copy.isCopy
     ? {
         firstName: "",
@@ -50,7 +50,8 @@ function NewEmployeeComponent(props) {
   useEffect(() => {
     getTechSkills();
     getSoftSkills();
-  }, [getTechSkills, getSoftSkills]);
+    getGroups();
+  }, [getTechSkills, getSoftSkills, getGroups]);
   return role !== "Sale" ? (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Formik

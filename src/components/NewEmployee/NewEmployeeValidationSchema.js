@@ -8,7 +8,7 @@ const NewEmployeeValidationSchema = object().shape({
   summary: string().matches(/^[a-zA-Z,.!?:\s]+$/, "Only English letters are allowed"),
   status: string().required("Enter status"),
   availabilityDate: date(),
-  englishLevel: string().required("Enter english level").matches(/^[a-zA-Z0-9,.\s]+$/, "Only English letters and numbers are allowed"),
+  englishLevel: string().required("Enter english level"),
   group: object()
     .shape({
       name: string()

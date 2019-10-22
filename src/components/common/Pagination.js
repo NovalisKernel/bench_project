@@ -83,8 +83,8 @@ function Pagination({ pages, handlePageClick, classes, page }) {
                 breakLabel={<MoreHorizIcon fontSize={"small"} />}
                 breakClassName={classes.pagination_break}
                 breakLinkClassName={classes.pagination_break_link}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
+                marginPagesDisplayed={3}
+                pageRangeDisplayed={2}
                 onPageChange={handlePageClick}
                 containerClassName={classes.pagination_ul}
                 pageClassName={classes.paginate_li}
@@ -95,7 +95,6 @@ function Pagination({ pages, handlePageClick, classes, page }) {
                 pageLinkClassName={classes.paginate_li_a}
                 activeClassName={classes.paginate_li_active}
                 activeLinkClassName={classes.paginate_a_active}
-                // initialPage={page}
                 forcePage={page}
             />
         </div>

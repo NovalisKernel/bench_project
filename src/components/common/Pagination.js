@@ -17,7 +17,7 @@ const styles = theme => ({
         justifyContent: "center",
     },
     pagination_arrow: {        
-        lineHeight: "1.5",
+        lineHeight: "1.5",        
     },
     pagination_arrow_link: {
         padding: "8px 10px",
@@ -27,6 +27,10 @@ const styles = theme => ({
         justifyContent: "center",
         cursor: "pointer",
         outline: "none",
+        opacity: "0.8",
+        "&:hover": {
+            opacity: "1",
+        },
     },
     pagination_break: {
         cursor: "pointer",
@@ -38,24 +42,34 @@ const styles = theme => ({
         justifyContent: "center",
         padding: "8px 10px",
         color: "#3f51b5",
+        opacity: "0.8",
+        "&:hover": {
+            opacity: "1",
+        },
     },
-    paginate_li: {
-        cursor: "pointer",
-        lineHeight: "1.5",
-        padding: "8px 15px",
-        border: "1px solid transparent",
+    paginate_li: {        
+        lineHeight: "1.5",        
     },    
     paginate_li_a: {
+        cursor: "pointer",
         display: "block",
         color: "#3f51b5",
         outline: "none",      
         fontWeight: "500",
         fontFamily: "Roboto, Helvetica, Arial",
-        fontSize: "14px",        
+        fontSize: "14px",      
+        padding: "8px 15px",
+        border: "1px solid transparent",
+        borderRadius: "4px",
+        "&:hover": {
+            background: "#efefef"
+        },  
+    },
+    paginate_a_active: {
+        borderColor: "#cfcfcf",  
     },
     paginate_li_active: {
-        borderColor: "#cfcfcf",
-        borderRadius: "4px",
+             
     },
 });
 
@@ -80,7 +94,8 @@ function Pagination({ pages, handlePageClick, classes, page }) {
                 nextLinkClassName={classes.pagination_arrow_link}
                 pageLinkClassName={classes.paginate_li_a}
                 activeClassName={classes.paginate_li_active}
-                //initialPage={page}
+                activeLinkClassName={classes.paginate_a_active}
+                // initialPage={page}
                 forcePage={page}
             />
         </div>

@@ -7,7 +7,6 @@ import {
 const initialState = {
   isLoading: false,
   employees: [],
-  page: 1,
   pages: 1,
 };
 

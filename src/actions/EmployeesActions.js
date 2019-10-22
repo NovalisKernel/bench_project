@@ -28,6 +28,9 @@ export const getEmployees = query => async dispatch => {
   try {
     const token = tokenHelper.getAuthToken();
     setAuthHeader(customAxios, token);
+    if(query === "") {
+      query = "?page=0&size=15";
+    }
     const response = await customAxios.get(`/employees${query}`);
     const data = response.data;
     dispatch(success(data));

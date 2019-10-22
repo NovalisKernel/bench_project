@@ -40,7 +40,6 @@ function EmployeesList(props) {
     logout,
     pages
   } = props;
-  console.log(employees)
   const parsed = parse(location.search, { arrayFormat: "comma" });
   const parsSkills = parsed.technicalSkills
     ? Array.isArray(parsed.technicalSkills)
@@ -52,7 +51,7 @@ function EmployeesList(props) {
     technicalSkills: parsed.technicalSkills || [],
     skillsObj: parsSkills,
     seniorityLevel: parsed.seniorityLevel || "",
-    page: parsed.page || 1,
+    page: parsed.page || 0,
     size: parsed.size || 15, 
   };
   const clearState = {
@@ -117,11 +116,13 @@ function EmployeesList(props) {
   function handleDrawerClose() {
     setOpen(false);
   }
-  function handlePageClick(page) {
-    console.log("пип"); 
-    console.log(page); 
+  function handlePageClick(page) { 
+    setValues(oldValues => ({
+      ...oldValues,
+      page: page.selected
+    }));
     const path = location.pathname;
-    history.push(`${path}?page=${values.page}&size=${values.size}`);
+    history.push(`${path}?page=${page.selected}&size=${values.size}`);
   }
   const { classes } = props;
   return (
@@ -163,8 +164,11 @@ function EmployeesList(props) {
                 <EmployeeCard key={employee.employeeId} {...employee} />
               ))
             )}
-        </Grid>
-        <Pagination pages={pages} handlePageClick={handlePageClick} page={values.page - 1} />
+        </Grid> 
+        {
+          !isLoading && 
+          <Pagination pages={pages} handlePageClick={handlePageClick} page={values.page} />
+        }
       </Container>
     </div>
   );

@@ -4,7 +4,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import {
   EnglishLevels,
-  Groups,
   EmployeeStatuses,
   SeniorityLevels
 } from "../../enums";
@@ -54,7 +53,8 @@ function NewEmployeeForm(props) {
     values,
     setFieldValue,
     technicalSkills,
-    softSkills
+    softSkills,
+    groups
   } = props;
   return (
     <Container component="div" className={classes.newEmployee} maxWidth="md">
@@ -287,8 +287,8 @@ function NewEmployeeForm(props) {
                       />
                     }
                   >
-                    {Groups.map(item => (
-                      <MenuItem key={item._id} value={item.value}>
+                    {groups.map((item, i) => (
+                      <MenuItem key={i} value={item.name}>
                         {item.name}
                       </MenuItem>
                     ))}

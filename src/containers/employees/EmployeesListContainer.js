@@ -22,6 +22,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => ({
+  pages: state.employeesList.pages,
   employees: state.employeesList.employees,
   isLoading: state.employeesList.isLoading,
   techSkills: state.skills.technicalSkills,

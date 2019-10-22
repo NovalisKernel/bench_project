@@ -13,6 +13,7 @@ import clsx from "clsx";
 import HeaderWithToolbar from "../common/HeaderWithToolbar";
 import HeaderWithPersistentDrawer from "../common/HeaderWithPersistentDrawer";
 import styles from "./styles";
+import Pagination from "../common/Pagination";
 
 function EmployeesList(props) {
   const style = {
@@ -36,7 +37,8 @@ function EmployeesList(props) {
     history,
     techSkills,
     isAuthenticate,
-    logout
+    logout,
+    pages
   } = props;
   const parsed = parse(location.search, { arrayFormat: "comma" });
   const parsSkills = parsed.technicalSkills
@@ -48,7 +50,9 @@ function EmployeesList(props) {
     available: parsed.available || "",
     technicalSkills: parsed.technicalSkills || [],
     skillsObj: parsSkills,
-    seniorityLevel: parsed.seniorityLevel || ""
+    seniorityLevel: parsed.seniorityLevel || "",
+    page: parsed.page || 0,
+    size: parsed.size || 15, 
   };
   const clearState = {
     available: "",
@@ -112,7 +116,14 @@ function EmployeesList(props) {
   function handleDrawerClose() {
     setOpen(false);
   }
-
+  function handlePageClick(page) { 
+    setValues(oldValues => ({
+      ...oldValues,
+      page: page.selected
+    }));
+    const path = location.pathname;
+    history.push(`${path}?page=${page.selected}&size=${values.size}`);
+  }
   const { classes } = props;
   return (
     <div className={classes.mainContainer}>
@@ -149,11 +160,15 @@ function EmployeesList(props) {
               className={clsx(classes.loader, { [classes.loaderShift]: open })}
             />
           ) : (
-            employees.map(employee => (
-              <EmployeeCard key={employee.employeeId} {...employee} />
-            ))
-          )}
-        </Grid>
+              employees.map(employee => (
+                <EmployeeCard key={employee.employeeId} {...employee} />
+              ))
+            )}
+        </Grid> 
+        {
+          !isLoading && 
+          <Pagination pages={pages} handlePageClick={handlePageClick} page={values.page} />
+        }
       </Container>
     </div>
   );

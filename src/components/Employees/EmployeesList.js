@@ -12,6 +12,7 @@ import ScrollToTop from "react-scroll-up";
 import clsx from "clsx";
 import HeaderWithToolbar from "../common/HeaderWithToolbar";
 import HeaderWithPersistentDrawer from "../common/HeaderWithPersistentDrawer";
+import NoContent from "../common/NoContent"
 import styles from "./styles";
 import Pagination from "../common/Pagination";
 
@@ -159,14 +160,15 @@ function EmployeesList(props) {
             <CircularProgress
               className={clsx(classes.loader, { [classes.loaderShift]: open })}
             />
-          ) : (
+          ) : ( 
+            (employees.length > 0) ?
               employees.map(employee => (
                 <EmployeeCard key={employee.employeeId} {...employee} />
-              ))
+              )) : <NoContent />
             )}
         </Grid> 
         {
-          !isLoading && 
+          (!isLoading && employees.length > 0) && 
           <Pagination pages={pages} handlePageClick={handlePageClick} page={values.page} />
         }
       </Container>

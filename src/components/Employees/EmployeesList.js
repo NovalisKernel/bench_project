@@ -10,7 +10,6 @@ import { ArrowUpward } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import ScrollToTop from "react-scroll-up";
 import clsx from "clsx";
-import HeaderWithToolbar from "../common/HeaderWithToolbar";
 import HeaderWithPersistentDrawer from "../common/HeaderWithPersistentDrawer";
 import NoContent from "../common/NoContent"
 import styles from "./styles";
@@ -169,7 +168,7 @@ function EmployeesList(props) {
         </Grid> 
         {
           (!isLoading && employees.length > 0) && 
-          <Pagination pages={pages} handlePageClick={handlePageClick} page={values.page} />
+          <Pagination pages={pages} handlePageClick={handlePageClick} page={parseInt(values.page)} />
         }
       </Container>
     </div>

@@ -73,7 +73,7 @@ export default function Header(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <Divider/>
+      <Divider />
       <Filters
         values={values}
         handleChange={handleChange}
@@ -103,23 +103,28 @@ export default function Header(props) {
             </Link>
           </Typography>
           {user && user.position.trim() === "Group Manager" ? (
+            [<Typography variant="h6">
+              <Link className={classes.a} to="/new-command">
+                <Button color="inherit">Create command</Button>
+              </Link>
+            </Typography>,
             <Typography variant="h6">
               <Link className={classes.a} to="/new-employee">
-                <Button color="inherit">Add new</Button>
+                <Button color="inherit">Add new employee</Button>
               </Link>
-            </Typography>
+            </Typography>]
           ) : null}
           {isAuthenticate ? (
             <Button color="inherit" onClick={handlerLogout}>
               Logout
             </Button>
           ) : (
-            <Typography variant="h6">
-              <Link className={classes.a} to="/login">
-                <Button color="inherit">Login</Button>
-              </Link>
-            </Typography>
-          )}
+              <Typography variant="h6">
+                <Link className={classes.a} to="/login">
+                  <Button color="inherit">Login</Button>
+                </Link>
+              </Typography>
+            )}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

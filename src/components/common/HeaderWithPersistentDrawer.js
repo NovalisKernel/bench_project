@@ -150,11 +150,16 @@ export default function PersistentDrawerLeft(props) {
           </Typography>
           {user && ((user.position.trim() === "Group Manager") ||
           (user.position.trim() === "Department Manager")) ? (
+            [<Typography variant="h6">
+              <Link className={classes.a} to="/new-command">
+                <Button color="inherit">Create command</Button>
+              </Link>
+            </Typography>,
             <Typography variant="h6">
               <Link className={classes.a} to="/new-employee">
-                <Button color="inherit">Add new</Button>
+                <Button color="inherit">Add new employee</Button>
               </Link>
-            </Typography>
+            </Typography>]
           ) : null}
           {isAuthenticate ? (
             <Button color="inherit" onClick={handlerLogout}>

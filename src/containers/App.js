@@ -9,6 +9,7 @@ import NewEmployeeComponent from "../containers/employees/NewEmployeeContainer";
 import EditEmployeeComponent from "../containers/employees/EditEmployeeContainer";
 import NotFound from "../components/common/NotFound";
 import ErrorSnackbar from "../containers/alerts/AlertContainer";
+import NewCommandComponent from "../containers/commands/NewCommandContainer";
 
 function App(props) {
   return (
@@ -22,6 +23,11 @@ function App(props) {
           isAuthenticate={props.isAuthenticate}
         />
         <Route path="/login" component={withLayout(LoginComponent)} />
+        <PrivateRoute
+          path="/new-command"
+          component={withoutFooter(NewCommandComponent)}
+          isAuthenticate={props.isAuthenticate}
+        />
         <PrivateRoute
           path="/new-employee"
           component={withoutFooter(NewEmployeeComponent)}

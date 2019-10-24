@@ -84,7 +84,15 @@ function EmployeesList(props) {
     }
   }
   function queryCreator(filters) {
-    for (let key in filters) {
+    console.log("filters", filters);
+    for (let key in filters) {      
+      if(key == "page") {
+        filters[key] = "0";
+        setValues(oldValues => ({
+          ...oldValues,
+          page: 0
+        }));
+      }
       if (filters[key] === "" || filters[key] === null) {
         delete filters[key];
       }
@@ -121,8 +129,14 @@ function EmployeesList(props) {
       ...oldValues,
       page: page.selected
     }));
-    const path = location.pathname;
-    history.push(`${path}?page=${page.selected}&size=${values.size}`);
+    const path = location.pathname;    
+    const searchParams = new URLSearchParams(location.search);
+    let newQuery  = `page=${page.selected}&size=${values.size}`;
+    if(searchParams != "") {
+      searchParams.set('page', page.selected);
+      newQuery = searchParams.toString();
+    }
+    history.push(`${path}?${newQuery}`); 
   }
   const { classes } = props;
   return (

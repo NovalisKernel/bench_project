@@ -10,8 +10,8 @@ import { ArrowUpward } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import ScrollToTop from "react-scroll-up";
 import clsx from "clsx";
-import HeaderWithToolbar from "../common/HeaderWithToolbar";
 import HeaderWithPersistentDrawer from "../common/HeaderWithPersistentDrawer";
+import NoContent from "../common/NoContent"
 import styles from "./styles";
 import Pagination from "../common/Pagination";
 
@@ -84,7 +84,15 @@ function EmployeesList(props) {
     }
   }
   function queryCreator(filters) {
-    for (let key in filters) {
+    console.log("filters", filters);
+    for (let key in filters) {      
+      if(key == "page") {
+        filters[key] = "0";
+        setValues(oldValues => ({
+          ...oldValues,
+          page: 0
+        }));
+      }
       if (filters[key] === "" || filters[key] === null) {
         delete filters[key];
       }
@@ -121,8 +129,14 @@ function EmployeesList(props) {
       ...oldValues,
       page: page.selected
     }));
-    const path = location.pathname;
-    history.push(`${path}?page=${page.selected}&size=${values.size}`);
+    const path = location.pathname;    
+    const searchParams = new URLSearchParams(location.search);
+    let newQuery  = `page=${page.selected}&size=${values.size}`;
+    if(searchParams != "") {
+      searchParams.set('page', page.selected);
+      newQuery = searchParams.toString();
+    }
+    history.push(`${path}?${newQuery}`); 
   }
   const { classes } = props;
   return (
@@ -159,15 +173,16 @@ function EmployeesList(props) {
             <CircularProgress
               className={clsx(classes.loader, { [classes.loaderShift]: open })}
             />
-          ) : (
+          ) : ( 
+            (employees.length > 0) ?
               employees.map(employee => (
                 <EmployeeCard key={employee.employeeId} {...employee} />
-              ))
+              )) : <NoContent />
             )}
         </Grid> 
         {
-          !isLoading && 
-          <Pagination pages={pages} handlePageClick={handlePageClick} page={values.page} />
+          (!isLoading && employees.length > 0) && 
+          <Pagination pages={pages} handlePageClick={handlePageClick} page={parseInt(values.page)} />
         }
       </Container>
     </div>

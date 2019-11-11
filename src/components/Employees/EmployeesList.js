@@ -58,7 +58,9 @@ function EmployeesList(props) {
     available: "",
     technicalSkills: [],
     skillsObj: [],
-    seniorityLevel: ""
+    seniorityLevel: "",
+    page: parsed.page || 0,
+    size: parsed.size || 15,
   };
   const [values, setValues] = React.useState(initialState);
   function handleChange(event) {
@@ -107,7 +109,8 @@ function EmployeesList(props) {
   }
   function handleClear() {
     const path = location.pathname;
-    history.push(`${path}`);
+    const query  = `page=${values.page}&size=${values.size}`;
+    history.push(`${path}?${query}`);
     setValues({ ...clearState });
   }
   useEffect(() => {

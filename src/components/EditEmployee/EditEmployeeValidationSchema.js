@@ -1,11 +1,11 @@
 import { string, object, array, date } from "yup";
 
 const EditEmployeeValidationSchema = object().shape({
-  firstName: string().required("Enter first name"),
-  lastName: string().required("Enter last name"),
-  email: string().email(),
-  education: string(),
-  summary: string(),
+  firstName: string().trim().required("Enter first name").matches(/^[a-zA-Z\s]+$/, "Only English letters are allowed"),
+  lastName: string().trim().required("Enter last name").matches(/^[a-zA-Z\s]+$/, "Only English letters are allowed"),
+  email: string().email("Enter valid email"),
+  education: string().trim().matches(/^[a-zA-Z,.\s]+$/, "Only English letters are allowed"),
+  summary: string().trim().matches(/^[a-zA-Z,.!?:\s]+$/, "Only English letters are allowed"),
   status: string().required("Enter status"),
   availabilityDate: date(),
   englishLevel: string().required("Enter english level"),
@@ -16,8 +16,8 @@ const EditEmployeeValidationSchema = object().shape({
         .nullable()
     })
     .required("Enter group"),
-  seniorityLevel: string().required("Enter seniority level"),
-  seniority: string(),
+  seniorityLevel: string().trim().required("Enter seniority level"),
+  seniority: string().matches(/^[a-zA-Z0-9,.\s]+$/, "Only English letters and numbers are allowed"),
   technicalSkills: array()
     .of(
       object().shape({

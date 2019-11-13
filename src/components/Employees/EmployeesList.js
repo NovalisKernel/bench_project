@@ -10,9 +10,10 @@ import { ArrowUpward } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import ScrollToTop from "react-scroll-up";
 import clsx from "clsx";
-import HeaderWithToolbar from "../common/HeaderWithToolbar";
 import HeaderWithPersistentDrawer from "../common/HeaderWithPersistentDrawer";
+import NoContent from "../common/NoContent"
 import styles from "./styles";
+import Pagination from "../common/Pagination";
 
 function EmployeesList(props) {
   const style = {
@@ -36,7 +37,8 @@ function EmployeesList(props) {
     history,
     techSkills,
     isAuthenticate,
-    logout
+    logout,
+    pages
   } = props;
   const parsed = parse(location.search, { arrayFormat: "comma" });
   const parsSkills = parsed.technicalSkills
@@ -48,13 +50,17 @@ function EmployeesList(props) {
     available: parsed.available || "",
     technicalSkills: parsed.technicalSkills || [],
     skillsObj: parsSkills,
-    seniorityLevel: parsed.seniorityLevel || ""
+    seniorityLevel: parsed.seniorityLevel || "",
+    page: parsed.page || 0,
+    size: parsed.size || 15, 
   };
   const clearState = {
     available: "",
     technicalSkills: [],
     skillsObj: [],
-    seniorityLevel: ""
+    seniorityLevel: "",
+    page: parsed.page || 0,
+    size: parsed.size || 15,
   };
   const [values, setValues] = React.useState(initialState);
   function handleChange(event) {
@@ -80,7 +86,15 @@ function EmployeesList(props) {
     }
   }
   function queryCreator(filters) {
-    for (let key in filters) {
+    console.log("filters", filters);
+    for (let key in filters) {      
+      if(key == "page") {
+        filters[key] = "0";
+        setValues(oldValues => ({
+          ...oldValues,
+          page: 0
+        }));
+      }
       if (filters[key] === "" || filters[key] === null) {
         delete filters[key];
       }
@@ -95,7 +109,8 @@ function EmployeesList(props) {
   }
   function handleClear() {
     const path = location.pathname;
-    history.push(`${path}`);
+    const query  = `page=${values.page}&size=${values.size}`;
+    history.push(`${path}?${query}`);
     setValues({ ...clearState });
   }
   useEffect(() => {
@@ -112,7 +127,20 @@ function EmployeesList(props) {
   function handleDrawerClose() {
     setOpen(false);
   }
-
+  function handlePageClick(page) { 
+    setValues(oldValues => ({
+      ...oldValues,
+      page: page.selected
+    }));
+    const path = location.pathname;    
+    const searchParams = new URLSearchParams(location.search);
+    let newQuery  = `page=${page.selected}&size=${values.size}`;
+    if(searchParams != "") {
+      searchParams.set('page', page.selected);
+      newQuery = searchParams.toString();
+    }
+    history.push(`${path}?${newQuery}`); 
+  }
   const { classes } = props;
   return (
     <div className={classes.mainContainer}>
@@ -148,12 +176,17 @@ function EmployeesList(props) {
             <CircularProgress
               className={clsx(classes.loader, { [classes.loaderShift]: open })}
             />
-          ) : (
-            employees.map(employee => (
-              <EmployeeCard key={employee.employeeId} {...employee} />
-            ))
-          )}
-        </Grid>
+          ) : ( 
+            (employees.length > 0) ?
+              employees.map(employee => (
+                <EmployeeCard key={employee.employeeId} {...employee} />
+              )) : <NoContent />
+            )}
+        </Grid> 
+        {
+          (!isLoading && employees.length > 0) && 
+          <Pagination pages={pages} handlePageClick={handlePageClick} page={parseInt(values.page)} />
+        }
       </Container>
     </div>
   );
